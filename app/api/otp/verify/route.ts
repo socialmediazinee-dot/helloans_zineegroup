@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { consumeOtp, getSessionId, consumeSessionId, isValidIndianMobile } from '@/lib/otp-store'
+import { getOtpCookie, clearOtpCookie } from '@/lib/verification-cookie'
 
 /** Verify OTP with 2Factor.in API. Returns true if 2Factor says "OTP Matched". */
 async function verifyVia2Factor(sessionId: string, otp: string): Promise<boolean> {
@@ -19,8 +20,8 @@ async function verifyVia2Factor(sessionId: string, otp: string): Promise<boolean
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const mobile = String(body.mobile ?? '').trim()
-    const otp = String(body.otp ?? '').trim()
+    const mobile = String(body.mobile ?? '').replace(/\D/g, '').slice(-10)
+    const otp = String(body.otp ?? '').trim().replace(/\D/g, '')
 
     if (!isValidIndianMobile(mobile)) {
       return NextResponse.json(
@@ -36,13 +37,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 1) If we have a 2Factor session for this mobile, verify with 2Factor API (they check if OTP is correct)
+    // 1) If we have a 2Factor session for this mobile, verify with 2Factor API
     const sessionId = getSessionId(mobile)
     if (sessionId) {
-      const matched = await verifyVia2Factor(sessionId, otp)
+      const otpDigits = otp.replace(/\D/g, '').slice(0, 6)
+      const matched = await verifyVia2Factor(sessionId, otpDigits)
       if (matched) {
         consumeSessionId(mobile)
-        return NextResponse.json({ success: true, message: 'Phone number verified.' })
+        const res = NextResponse.json({ success: true, message: 'Phone number verified.' })
+        res.cookies.set(clearOtpCookie().name, '', { path: '/', maxAge: 0 })
+        return res
       }
       return NextResponse.json(
         { error: 'Invalid or expired OTP. Please request a new one.' },
@@ -50,7 +54,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // 2) Fallback: local OTP store (e.g. dev or other providers)
+    // 2) Cookie (works across serverless: same browser sends cookie on verify)
+    const cookieData = await getOtpCookie()
+    if (cookieData && cookieData.mobile === mobile) {
+      const inputOtp = otp.replace(/\D/g, '').slice(0, 6)
+      if (inputOtp.length === 6 && cookieData.otp === inputOtp) {
+        const res = NextResponse.json({ success: true, message: 'Phone number verified.' })
+        const clear = clearOtpCookie()
+        res.cookies.set(clear.name, clear.value, clear.options as Record<string, string | number | boolean>)
+        return res
+      }
+    }
+
+    // 3) In-memory store (single-instance / dev)
     const valid = consumeOtp(mobile, otp)
     if (!valid) {
       return NextResponse.json(
@@ -59,7 +75,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    return NextResponse.json({ success: true, message: 'Phone number verified.' })
+    const res = NextResponse.json({ success: true, message: 'Phone number verified.' })
+    res.cookies.set(clearOtpCookie().name, '', { path: '/', maxAge: 0 })
+    return res
   } catch (e) {
     console.error('OTP verify error:', e)
     return NextResponse.json(

@@ -15,6 +15,11 @@ export function setEmailCode(email: string, code: string): void {
   store.set(key, { code, expiresAt: Date.now() + TTL_MS })
 }
 
+/** Normalize code to digits only for comparison (handles spaces/dashes when pasting). */
+function normalizeCode(code: string): string {
+  return String(code).replace(/\D/g, '').slice(0, 6)
+}
+
 /** Verify and consume code only on success. Wrong code does not delete so user can retry. */
 export function consumeEmailCode(email: string, code: string): boolean {
   const key = normalizeEmail(email)
@@ -23,7 +28,8 @@ export function consumeEmailCode(email: string, code: string): boolean {
     store.delete(key)
     return false
   }
-  if (entry.code !== String(code).trim()) {
+  const inputCode = normalizeCode(code)
+  if (inputCode.length !== 6 || entry.code !== inputCode) {
     return false
   }
   store.delete(key)

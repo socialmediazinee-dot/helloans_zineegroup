@@ -46,6 +46,12 @@
     align-items: center;
     gap: 10px;
 }
+.otp-verification-verify-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
 .otp-verification-send,
 .otp-verification-verify {
     padding: 10px 18px;
@@ -2229,6 +2235,7 @@
     color: #1e40af;
     margin: 0 0 16px 0;
     letter-spacing: 0.02em;
+    text-align: center;
 }
 .dark .partner-form-section-title { color: #93c5fd; }
 .partner-form-field {
@@ -2333,6 +2340,92 @@
 .partner-submit-btn:disabled {
     opacity: 0.7;
     cursor: not-allowed;
+}
+
+/* Partner form: verification block (email) – match form theme */
+.partner-verification-block {
+    margin-top: 0.5rem;
+}
+.partner-verification-block .otp-verification-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+}
+.partner-verification-block .otp-verification-verify-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.partner-verification-block .otp-verification-send,
+.partner-verification-block .otp-verification-verify {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+.partner-verification-block .otp-verification-send:hover:not(:disabled),
+.partner-verification-block .otp-verification-verify:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+}
+.partner-verification-block .otp-verification-send:disabled,
+.partner-verification-block .otp-verification-verify:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+.partner-verification-block .otp-verification-verify {
+    flex: 0 0 auto;
+    min-width: 100px;
+}
+.partner-verification-block .otp-verification-input {
+    flex: 1;
+    min-width: 120px;
+    width: auto;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #1e293b;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.partner-verification-block .otp-verification-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+.partner-verification-block .otp-verification-input::placeholder {
+    color: #94a3b8;
+}
+.dark .partner-verification-block .otp-verification-input {
+    background: #0f172a;
+    border-color: #334155;
+    color: #f1f5f9;
+}
+.partner-verification-block .otp-verification-error {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: #dc2626;
+    font-weight: 500;
+}
+.partner-verification-block .otp-verification-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: #ecfdf5;
+    color: #065f46;
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border: 1px solid #a7f3d0;
 }
 
 /* Contact page: Talk to Expert → chatbot CTA */

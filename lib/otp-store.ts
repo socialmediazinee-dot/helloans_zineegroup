@@ -42,6 +42,11 @@ export function getSessionId(mobile: string): string | null {
   return entry.sessionId
 }
 
+/** Normalize OTP to digits only for comparison (handles spaces when pasting). */
+function normalizeOtp(otp: string): string {
+  return String(otp).replace(/\D/g, '').slice(0, 6)
+}
+
 /** Verify and consume OTP only on success. Wrong code does not delete so user can retry. */
 export function consumeOtp(mobile: string, otp: string): boolean {
   const key = normalizeMobile(mobile)
@@ -50,7 +55,8 @@ export function consumeOtp(mobile: string, otp: string): boolean {
     store.delete(key)
     return false
   }
-  if (entry.otp !== String(otp).trim()) {
+  const inputOtp = normalizeOtp(otp)
+  if (inputOtp.length !== 6 || entry.otp !== inputOtp) {
     return false
   }
   store.delete(key)

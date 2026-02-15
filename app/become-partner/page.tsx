@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import EmailVerification from '@/components/EmailVerification'
+import OtpVerification from '@/components/OtpVerification'
 
 type LoginModalType = 'employee' | 'customer' | 'partner' | null
 
@@ -28,6 +29,7 @@ export default function BecomePartnerPage() {
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [submitMessage, setSubmitMessage] = useState('')
     const [emailVerified, setEmailVerified] = useState(false)
+    const [mobileVerified, setMobileVerified] = useState(false)
 
     /* Demo login (no real auth): modal + 7-click unlock to dashboard message */
     const [loginModal, setLoginModal] = useState<LoginModalType>(null)
@@ -59,11 +61,14 @@ export default function BecomePartnerPage() {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const name = e.target.name
+        let value = e.target.value
+        if (name === 'phone') value = value.replace(/\D/g, '').slice(0, 10)
         setFormData({
             ...formData,
-            [name]: e.target.value
+            [name]: value
         })
         if (name === 'email') setEmailVerified(false)
+        if (name === 'phone') setMobileVerified(false)
         if (submitMessage) setSubmitMessage('')
     }
 
@@ -86,6 +91,7 @@ export default function BecomePartnerPage() {
             if (response.ok) {
                 setSubmitMessage(t('partner.success'))
                 setEmailVerified(false)
+                setMobileVerified(false)
                 setFormData({
                     name: '',
                     companyName: '',
@@ -220,11 +226,15 @@ export default function BecomePartnerPage() {
                                                         placeholder="you@company.com"
                                                         required
                                                     />
-                                                    <EmailVerification
-                                                        email={formData.email}
-                                                        onVerified={() => setEmailVerified(true)}
-                                                        verified={emailVerified}
-                                                    />
+                                                    <div className="partner-verification-block">
+                                                        <EmailVerification
+                                                            email={formData.email}
+                                                            onVerified={() => setEmailVerified(true)}
+                                                            verified={emailVerified}
+                                                            sendButtonLabel="Send verification code"
+                                                            verifyButtonLabel="Verify"
+                                                        />
+                                                    </div>
                                                 </div>
                                                 <div className="partner-form-field">
                                                     <label className="partner-form-label" htmlFor="partner-phone">{t('partner.labelPhone')} <span className="partner-required">*</span></label>
@@ -236,8 +246,18 @@ export default function BecomePartnerPage() {
                                                         value={formData.phone}
                                                         onChange={handleChange}
                                                         placeholder="10-digit mobile"
+                                                        maxLength={10}
                                                         required
                                                     />
+                                                    <div className="partner-verification-block">
+                                                        <OtpVerification
+                                                            mobile={formData.phone}
+                                                            onVerified={() => setMobileVerified(true)}
+                                                            verified={mobileVerified}
+                                                            sendButtonLabel="Send OTP"
+                                                            verifyButtonLabel="Verify"
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -298,7 +318,7 @@ export default function BecomePartnerPage() {
                                         <button
                                             type="submit"
                                             className="partner-submit-btn"
-                                            disabled={isSubmitting || !emailVerified}
+                                            disabled={isSubmitting || !emailVerified || !mobileVerified}
                                         >
                                             {isSubmitting ? t('partner.submitting') : t('partner.submit')}
                                         </button>

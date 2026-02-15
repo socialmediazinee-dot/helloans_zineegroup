@@ -229,12 +229,14 @@ export default function CibilScorePage() {
                           maxLength={10}
                           required
                         />
-                        <OtpVerification
-                          mobile={formData.mobileNumber}
-                          onVerified={() => setMobileVerified(true)}
-                          verified={mobileVerified}
-                          className={styles.otpVerification}
-                        />
+                        <div className={styles.verificationBlock}>
+                          <OtpVerification
+                            mobile={formData.mobileNumber}
+                            onVerified={() => setMobileVerified(true)}
+                            verified={mobileVerified}
+                            className={styles.otpVerification}
+                          />
+                        </div>
                       </div>
                       <div>
                         <label className={styles.label}>
@@ -249,12 +251,14 @@ export default function CibilScorePage() {
                           onChange={handleChange}
                           required
                         />
-                        <EmailVerification
-                          email={formData.email}
-                          onVerified={() => setEmailVerified(true)}
-                          verified={emailVerified}
-                          className={styles.otpVerification}
-                        />
+                        <div className={styles.verificationBlock}>
+                          <EmailVerification
+                            email={formData.email}
+                            onVerified={() => setEmailVerified(true)}
+                            verified={emailVerified}
+                            className={styles.otpVerification}
+                          />
+                        </div>
                       </div>
                     </div>
 

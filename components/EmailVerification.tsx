@@ -95,7 +95,7 @@ export default function EmailVerification({
           {loading && !sent ? 'Sending...' : sendButtonLabel}
         </button>
         {sent && (
-          <>
+          <div className="otp-verification-verify-row">
             <input
               type="text"
               inputMode="numeric"
@@ -114,7 +114,7 @@ export default function EmailVerification({
             >
               {loading ? 'Verifying...' : verifyButtonLabel}
             </button>
-          </>
+          </div>
         )}
       </div>
       {error && <p className="otp-verification-error">{error}</p>}

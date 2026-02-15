@@ -270,6 +270,84 @@
     margin-top: 8px;
 }
 
+/* Verification block: match CIBIL form theme (buttons + inputs) */
+.verificationBlock {
+    margin-top: 0.5rem;
+}
+.verificationBlock :global(.otp-verification-actions) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+}
+.verificationBlock :global(.otp-verification-verify-row) {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+.verificationBlock :global(.otp-verification-send),
+.verificationBlock :global(.otp-verification-verify) {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    background-color: #2563eb;
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+.verificationBlock :global(.otp-verification-send:hover:not(:disabled)),
+.verificationBlock :global(.otp-verification-verify:hover:not(:disabled)) {
+    background-color: #1d4ed8;
+}
+.verificationBlock :global(.otp-verification-send:disabled),
+.verificationBlock :global(.otp-verification-verify:disabled) {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+.verificationBlock :global(.otp-verification-verify) {
+    flex: 0 0 auto;
+    min-width: 100px;
+}
+.verificationBlock :global(.otp-verification-input) {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.75rem 1rem;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.2s;
+}
+.verificationBlock :global(.otp-verification-input:focus) {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+.verificationBlock :global(.otp-verification-input::placeholder) {
+    color: #94a3b8;
+}
+.verificationBlock :global(.otp-verification-error) {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: #dc2626;
+    font-weight: 500;
+}
+.verificationBlock :global(.otp-verification-badge) {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: #d1fae5;
+    color: #047857;
+    border-radius: 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
 .submitButton {
     width: 100%;
     padding: 1rem 1.5rem;

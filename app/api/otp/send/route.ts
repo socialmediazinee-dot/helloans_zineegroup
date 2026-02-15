@@ -1,36 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { setOtp, setSessionId, isValidIndianMobile } from '@/lib/otp-store'
+import { setOtp, isValidIndianMobile } from '@/lib/otp-store'
+import { setOtpCookie } from '@/lib/verification-cookie'
 
 function generateOtp(): string {
   return String(Math.floor(100000 + Math.random() * 900000))
 }
 
-/** 2Factor.in: send OTP via AUTOGEN and store session_id for verify. Returns true on success. */
-async function sendVia2Factor(mobile: string): Promise<boolean> {
+/**
+ * 2Factor.in: send OTP via SMS only (manual OTP flow with POST).
+ * AUTOGEN can use voice; using POST /SMS/{phone}/{otp} forces SMS delivery.
+ * We generate OTP, store locally, and 2Factor sends it by SMS. Verify uses local store.
+ */
+async function sendVia2FactorSms(mobile: string, otp: string): Promise<boolean> {
   const apiKey = process.env.TWO_FACTOR_API_KEY || process.env.OTP_2FACTOR_API_KEY
   if (!apiKey) return false
   const phone = `91${mobile}`
-  const url = `https://2factor.in/API/V1/${apiKey}/SMS/${phone}/AUTOGEN`
+  const url = `https://2factor.in/API/V1/${apiKey}/SMS/${phone}/${otp}`
   try {
-    const res = await fetch(url, { method: 'GET' })
+    const res = await fetch(url, { method: 'POST' })
     const data = (await res.json().catch(() => ({}))) as { Status?: string; Details?: string }
-    if (data.Status !== 'Success' || !data.Details) {
-      console.error('2Factor send failed:', res.status, data)
+    if (data.Status !== 'Success') {
+      console.error('2Factor SMS send failed:', res.status, data)
       return false
     }
-    setSessionId(mobile, data.Details)
     return true
   } catch (e) {
-    console.error('2Factor error:', e)
+    console.error('2Factor SMS error:', e)
     return false
   }
 }
 
 async function sendSms(mobile: string, otp: string): Promise<boolean> {
-  // 2Factor.in (India) – preferred when API key is set
-  const twoFactorSent = await sendVia2Factor(mobile)
-  if (twoFactorSent) return true
-
   const provider = process.env.OTP_SMS_PROVIDER // 'msg91' | 'twilio' | undefined
   const authKey = process.env.MSG91_AUTH_KEY
   const twilioSid = process.env.TWILIO_ACCOUNT_SID
@@ -108,16 +108,20 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // If 2Factor is configured, it sends OTP and we only store session_id (no local OTP)
-    const twoFactorSent = await sendVia2Factor(mobile)
-    if (twoFactorSent) {
-      return NextResponse.json({ success: true, message: 'OTP sent successfully.' })
+    const otp = generateOtp()
+    const normalMobile = mobile.replace(/\D/g, '').slice(-10)
+    setOtp(normalMobile, otp)
+
+    // 2Factor.in: use manual SMS endpoint (POST) so OTP is sent by SMS, not voice
+    const twoFactorSmsSent = await sendVia2FactorSms(normalMobile, otp)
+    if (twoFactorSmsSent) {
+      const res = NextResponse.json({ success: true, message: 'OTP sent successfully.' })
+      const cookie = setOtpCookie(normalMobile, otp)
+      res.cookies.set(cookie.name, cookie.value, cookie.options as Record<string, string | number | boolean>)
+      return res
     }
 
-    const otp = generateOtp()
-    setOtp(mobile, otp)
-
-    const sent = await sendSms(mobile, otp)
+    const sent = await sendSms(normalMobile, otp)
     if (!sent) {
       return NextResponse.json(
         { error: 'Failed to send OTP. Please try again later.' },
@@ -125,7 +129,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    return NextResponse.json({ success: true, message: 'OTP sent successfully.' })
+    const res = NextResponse.json({ success: true, message: 'OTP sent successfully.' })
+    const cookie = setOtpCookie(normalMobile, otp)
+    res.cookies.set(cookie.name, cookie.value, cookie.options as Record<string, string | number | boolean>)
+    return res
   } catch (e) {
     console.error('OTP send error:', e)
     return NextResponse.json(

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { setEmailCode, isValidEmail } from '@/lib/email-verify-store'
+import { setEmailCookie } from '@/lib/verification-cookie'
 
 function generateCode(): string {
   return String(Math.floor(100000 + Math.random() * 900000))
@@ -19,14 +20,15 @@ export async function POST(request: NextRequest) {
     }
 
     const code = generateCode()
-    setEmailCode(email, code)
+    const normalEmail = email.trim().toLowerCase()
+    setEmailCode(normalEmail, code)
 
     const resend = new Resend(process.env.RESEND_API_KEY)
     const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev'
 
     const { error } = await resend.emails.send({
       from: fromEmail,
-      to: email,
+      to: normalEmail,
       subject: 'Your verification code – Zineegroup',
       text: `Your email verification code is: ${code}\n\nThis code is valid for 10 minutes. If you didn't request this, please ignore this email.\n\n— Zineegroup`,
     })
@@ -39,7 +41,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    return NextResponse.json({ success: true, message: 'Verification code sent to your email.' })
+    const res = NextResponse.json({ success: true, message: 'Verification code sent to your email.' })
+    const cookie = setEmailCookie(normalEmail, code)
+    res.cookies.set(cookie.name, cookie.value, cookie.options as Record<string, string | number | boolean>)
+    return res
   } catch (e) {
     console.error('Email verify send error:', e)
     return NextResponse.json(
