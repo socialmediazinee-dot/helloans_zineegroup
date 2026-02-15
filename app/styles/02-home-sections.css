@@ -211,7 +211,7 @@
     box-shadow: 18px 18px 36px rgba(37, 99, 235, 0.35),
                 -18px -18px 36px rgba(37, 99, 235, 0.2);
 }
-/* Top layer: icon + label – slides up on hover */
+/* Top layer: icon + label – slides up on hover. Solid #fff to match icon white so it blends in. */
 .loan-tile-top {
     position: absolute;
     top: 0;
@@ -223,7 +223,7 @@
     align-items: center;
     justify-content: center;
     padding: 18px 14px;
-    background: linear-gradient(160deg, #ffffff 0%, #f8fafc 50%, #eff6ff 100%);
+    background: #ffffff;
     transition: transform 0.4s ease;
     z-index: 1;
 }
@@ -242,13 +242,13 @@
     align-items: center;
     justify-content: center;
     padding: 18px 14px;
-    background: #1e40af;
+    background: #224DCE; /* Tile bottom colour for all tiles */
     color: #fff;
     z-index: 0;
     transition: background 0.3s ease;
 }
 .loan-tile:hover .loan-tile-bottom {
-    background: #2563eb; /* Finalized hover color for product tiles */
+    background: #2563EB; /* Hover / bottom accent colour */
 }
 .loan-tile-bottom .loan-tile-label,
 .loan-tile-bottom .loan-tile-label-line {
@@ -385,7 +385,10 @@
     color: #93c5fd;
 }
 .dark .loan-tile-bottom {
-    background: #2563eb;
+    background: #224DCE;
+}
+.dark .loan-tile:hover .loan-tile-bottom {
+    background: #2563EB;
 }
 .dark .loan-tile-bottom .loan-tile-label,
 .dark .loan-tile-bottom .loan-tile-label-line {
