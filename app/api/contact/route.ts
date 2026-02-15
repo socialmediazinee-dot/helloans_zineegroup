@@ -34,8 +34,8 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        // Email configuration
-        const recipientEmail = process.env.CONTACT_EMAIL || 'info@zineegroup.com'
+        // Email configuration (NOTIFY_EMAIL = one inbox for all form submissions)
+        const recipientEmail = process.env.NOTIFY_EMAIL || process.env.CONTACT_EMAIL || 'info@zineegroup.com'
         const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev'
         const subject = `New Contact Form Submission from ${name}`
 

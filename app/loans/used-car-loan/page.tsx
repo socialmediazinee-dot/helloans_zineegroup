@@ -6,31 +6,31 @@ import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Instant Loan Calculator | Zineegroup',
-  description: 'Get instant loans for unexpected expenses. Quick approval and fast disbursal.',
+  title: 'Used Car Loan Calculator | Zineegroup',
+  description: 'Calculate used car loan EMI. Compare offers from banks and NBFCs for pre-owned car financing.',
 }
 
-export default function InstantLoanPage() {
+export default function UsedCarLoanPage() {
   return (
     <>
       <Header />
       <main className="loan-page-main">
         <div className="loan-page-container">
           <div className="loan-page-header">
-            <h1>Instant Loan</h1>
-            <p>A convenient and speedy way to get the funds you require for unanticipated expenses.</p>
+            <h1>Used Car Loan</h1>
+            <p>Finance your pre-owned car with competitive rates from banks and NBFCs.</p>
           </div>
 
           <BankList
-            offers={bankOffers['instant-loan']}
-            categoryTitle="Banks & NBFCs offering Instant Loan"
-            loanCategory="instant-loan"
+            offers={bankOffers['used-car-loan']}
+            categoryTitle="Banks & NBFCs offering Used Car Loan"
+            loanCategory="used-car-loan"
           />
 
           <LoanCalculator
-            loanType="Instant Loan"
-            defaultInterestRate={12.0}
-            minAmount={50000}
+            loanType="Used Car Loan"
+            defaultInterestRate={11.0}
+            minAmount={100000}
             maxAmount={2000000}
           />
         </div>

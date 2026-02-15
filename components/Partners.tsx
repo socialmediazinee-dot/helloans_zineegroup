@@ -20,7 +20,11 @@ export default function Partners() {
       className="partners-section"
       aria-label="Partners – continuous scroll, pauses on hover"
     >
-      <h2 className="section-title">Our <span className="highlight">Authorized</span> Partners</h2>
+      <h2 className="section-title">
+        <span className="highlight-box">
+          Our <span className="highlight-shimmer">Authorized</span> Partners
+        </span>
+      </h2>
       <div className="partners-slideshow">
         <div className="partners-slideshow-viewport">
           <div className="partners-slideshow-track">

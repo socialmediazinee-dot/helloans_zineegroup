@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Resend } from 'resend'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,75 +16,40 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Email configuration - Update these with your email service
-    const recipientEmail = process.env.REVIEW_EMAIL || 'info@zineegroup.com'
+    // Email configuration (NOTIFY_EMAIL = one inbox for all form submissions)
+    const recipientEmail = process.env.NOTIFY_EMAIL || process.env.REVIEW_EMAIL || 'info@zineegroup.com'
+    const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev'
     const subject = `New Review from ${name}`
-    
-    // Create email body
+
     const emailBody = `
 New Review Submission
 
 Name: ${name}
 Email: ${email}
-Rating: ${rating} out of 5 stars
+Rating: ${rating != null ? `${rating} out of 5 stars` : 'Not provided'}
 
 Review:
 ${review}
 
 ---
 This review was submitted through the website review form.
+Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
     `.trim()
 
-    // Send email using mailto link or email service
-    // For production, integrate with an email service like:
-    // - Nodemailer with SMTP
-    // - SendGrid
-    // - Resend
-    // - AWS SES
-    // - Mailgun
-    
-    // For now, we'll use a simple approach that logs the review
-    // You can replace this with actual email sending logic
-    
-    console.log('Review received:', {
-      to: recipientEmail,
-      subject,
-      body: emailBody
-    })
-
-    // Example: If using nodemailer, uncomment and configure:
-    /*
-    const nodemailer = require('nodemailer')
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
-      secure: true,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    })
-
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM || email,
-      to: recipientEmail,
-      subject: subject,
-      text: emailBody,
-    })
-    */
-
-    // For development/testing, you can also use a service like Resend:
-    /*
-    const resend = require('resend')
-    const resendClient = new resend.Resend(process.env.RESEND_API_KEY)
-    
-    await resendClient.emails.send({
-      from: 'onboarding@resend.dev',
-      to: recipientEmail,
-      subject: subject,
-      text: emailBody,
-    })
-    */
+    if (process.env.RESEND_API_KEY) {
+      try {
+        await resend.emails.send({
+          from: fromEmail,
+          to: recipientEmail,
+          subject,
+          text: emailBody,
+        })
+      } catch (emailError) {
+        console.error('Error sending review email:', emailError)
+      }
+    } else {
+      console.log('Review received (RESEND_API_KEY not set):', { to: recipientEmail, subject, body: emailBody })
+    }
 
     return NextResponse.json(
       { message: 'Review submitted successfully' },

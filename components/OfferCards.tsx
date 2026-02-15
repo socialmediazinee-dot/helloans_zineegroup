@@ -87,8 +87,12 @@ export default function OfferCards() {
 
   return (
     <section className={styles.section} id="about">
-      <h2 className={styles.title}>Our Offers</h2>
-      <p className={styles.subtitle}>Hover to reveal details</p>
+      <h2 className={styles.title}>
+        <span className="highlight-box">
+          Our <span className="highlight-shimmer">Offers</span>
+        </span>
+      </h2>
+      <p className={styles.subtitle}>       </p>
 
       <div className={styles.container}>
         {cards.map((card) => (

@@ -3,12 +3,16 @@
    ========================================================================== */
 
 .hero-section {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
     padding: 100px 0 !important;
     min-height: 350px !important;
     display: flex !important;
     align-items: center !important;
     position: relative;
     overflow: hidden;
+    border-radius: 28px;
     background: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
         radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
 }
@@ -21,27 +25,22 @@
     gap: 30px !important;
     width: 100% !important;
     max-width: 1600px !important;
-    /* Increased from 1400px */
     margin: 0 auto !important;
     padding: 0 !important;
 }
 
-.hero-text-content {
+/* Single block: layout (flex 35%) + glass card styling for the hero title text */
+.hero-text-block {
     flex: 0 0 35% !important;
     min-width: 0 !important;
     padding-left: 1% !important;
-    /* Slide text right */
     animation: fadeInSlideLeft 1s ease-out;
-}
-
-.hero-text-wrapper {
     background: rgba(246, 239, 246, 0.4);
     backdrop-filter: blur(12px);
     border-radius: 30px;
     padding: 40px;
     box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
     display: inline-block;
-    /* Hug the content */
 }
 
 .hero-carousel-content {
@@ -53,7 +52,7 @@
     justify-content: flex-start !important;
 }
 
-.hero-text-content h1 {
+.hero-text-block .highlight-box {
     font-size: 64px !important;
     line-height: 1.1 !important;
     font-weight: 800 !important;
@@ -62,13 +61,14 @@
     border: none !important;
     background: transparent !important;
     box-shadow: none !important;
+    display: block !important;
 }
 
 /* Ensure no pseudo-elements create borders */
-.hero-text-content::before,
-.hero-text-content::after,
-.hero-text-content h1::before,
-.hero-text-content h1::after {
+.hero-text-block::before,
+.hero-text-block::after,
+.hero-text-block .highlight-box::before,
+.hero-text-block .highlight-box::after {
     display: none !important;
     content: none !important;
     border: none !important;
@@ -86,7 +86,7 @@
 }
 
 /* Glass shimmer + blue for main focus word in every header / main line */
-.hero-text-content h1 .highlight,
+.hero-text-block .highlight-box .highlight,
 .highlight,
 .nav-link-highlight .nav-link-label {
     position: relative;
@@ -110,7 +110,7 @@
     filter: none;
 }
 
-.hero-text-content h1 .highlight::before,
+.hero-text-block .highlight-box .highlight::before,
 .highlight::before {
     content: '';
     position: absolute;
@@ -127,7 +127,42 @@
     display: none;
 }
 
+/* Loan tiles: full-line box, shimmer on single word only */
+.highlight-box {
+    position: relative;
+    display: inline-block;
+    padding: 0.15em 0.45em;
+    border-radius: 8px;
+    box-sizing: content-box;
+    color: inherit;
+}
 
+.highlight-box::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    z-index: -1;
+}
+
+.highlight-box .highlight-shimmer {
+    display: inline;
+    background-image: linear-gradient(120deg,
+            #1e40af 0%,
+            #3b82f6 40%,
+            rgba(255, 255, 255, 0.9) 50%,
+            #3b82f6 60%,
+            #1e40af 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glassShimmer 3s linear infinite;
+}
 
 .carousel-track-premium {
     display: flex;
@@ -181,7 +216,7 @@
 
 /* Responsive Fixes */
 @media (max-width: 1200px) {
-    .hero-text-content h1 {
+    .hero-text-block .highlight-box {
         font-size: 52px !important;
     }
 
@@ -198,7 +233,7 @@
         padding-top: 60px !important;
     }
 
-    .hero-text-content {
+    .hero-text-block {
         text-align: center !important;
     }
 
@@ -227,17 +262,17 @@
         gap: 24px !important;
     }
 
-    .hero-text-content {
+    .hero-text-block {
         flex: 0 0 auto !important;
         padding-left: 0 !important;
     }
 
-    .hero-text-content h1 {
+    .hero-text-block .highlight-box {
         font-size: 32px !important;
         line-height: 1.2 !important;
     }
 
-    .hero-text-wrapper {
+    .hero-text-block {
         padding: 24px 20px;
         border-radius: 20px;
     }
@@ -258,11 +293,11 @@
         gap: 20px !important;
     }
 
-    .hero-text-content h1 {
+    .hero-text-block .highlight-box {
         font-size: 26px !important;
     }
 
-    .hero-text-wrapper {
+    .hero-text-block {
         padding: 20px 16px;
         border-radius: 16px;
     }

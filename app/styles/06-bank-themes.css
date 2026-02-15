@@ -1445,6 +1445,26 @@ body:has(.bank-app-page-wrapper) {
     margin: 0;
 }
 
+.bank-app-form .form-input,
+.bank-app-form .form-input-pan {
+    padding: 14px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    color: #1e293b;
+    outline: none;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.bank-app-form .form-input:focus,
+.bank-app-form .form-input-pan:focus {
+    border-color: #004C8A;
+    box-shadow: 0 0 0 3px rgba(0, 76, 138, 0.1);
+}
+
 .dob-inputs {
     display: flex;
     gap: 12px;
@@ -4249,7 +4269,7 @@ body:has(.bank-app-page-wrapper) {
 
 
 
-.hero-text-content h1 {
+.hero-text-block .highlight-box {
     font-size: 52px !important;
     line-height: 1.1 !important;
     margin: 0 !important;
@@ -4279,7 +4299,7 @@ body:has(.bank-app-page-wrapper) {
 }
 
 @media (max-width: 1200px) {
-    .hero-text-content h1 {
+    .hero-text-block .highlight-box {
         font-size: 40px;
     }
 
@@ -4292,7 +4312,7 @@ body:has(.bank-app-page-wrapper) {
         justify-content: center;
     }
 
-    .hero-text-content h1 {
+    .hero-text-block .highlight-box {
         font-size: 36px;
     }
 }

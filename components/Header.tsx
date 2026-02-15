@@ -233,9 +233,6 @@ export default function Header() {
                   >
                     {isApplyNow ? (
                       <span className="nav-link-apply-now-inner">
-                        <svg className="nav-link-apply-now-thunder" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                          <path d="M13 2L4 14h6l-3 8 10-12h-6l3-8z" />
-                        </svg>
                         <span className="nav-link-apply-now-text">
                           <span className="nav-link-apply-now-line1">{t('apply.applyNowLine1')}</span>
                           <span className="nav-link-apply-now-line2">{t('apply.applyNowLine2')}</span>

@@ -10,7 +10,7 @@ import AxisSinglePageForm from '@/components/AxisSinglePageForm'
 import KotakSinglePageForm from '@/components/KotakSinglePageForm'
 import OtpVerification from '@/components/OtpVerification'
 
-const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis'] as const
+const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis', 'bajaj', 'au', 'adityabirla'] as const
 
 const bankInfo: Record<string, { name: string; logo: string; color: string; primaryColor: string }> = {
   icici: { name: 'ICICI Bank', logo: '/assets/images/partners/icici.jpg', color: '#E85D04', primaryColor: '#E85D04' },
@@ -20,6 +20,9 @@ const bankInfo: Record<string, { name: string; logo: string; color: string; prim
   kotak: { name: 'Kotak Mahindra Bank', logo: '/assets/images/Kotak-1.png', color: '#00AEEF', primaryColor: '#00AEEF' },
   hdfc: { name: 'HDFC Bank', logo: '/assets/images/HDFC.png', color: '#004C8A', primaryColor: '#E31837' },
   axis: { name: 'Axis Bank', logo: '/assets/images/AX.png', color: '#8B0040', primaryColor: '#8B0040' },
+  bajaj: { name: 'Bajaj Finserv', logo: '/assets/images/partners/bajaj.png', color: '#0076b8', primaryColor: '#0076b8' },
+  au: { name: 'AU Small Finance Bank', logo: '/assets/images/partners/au.png', color: '#003366', primaryColor: '#003366' },
+  adityabirla: { name: 'Aditya Birla Finance', logo: '/assets/images/partners/abfl.webp', color: '#a02030', primaryColor: '#a02030' },
 }
 
 const LOAN_TYPE_LABELS: Record<string, string> = {
@@ -30,6 +33,9 @@ const LOAN_TYPE_LABELS: Record<string, string> = {
   'gold-loans': 'Gold Loan',
   'credit-cards': 'Credit Card',
   'insurance': 'Insurance',
+  'overdraft': 'Overdraft',
+  'secure-loans': 'Secure Loan',
+  'used-car-loan': 'Used Car Loan',
 }
 
 function getBankThemeClass(bankId: string): string {
@@ -41,6 +47,9 @@ function getBankThemeClass(bankId: string): string {
     kotak: 'kotak-bank-theme',
     hdfc: 'hdfc-bank-theme',
     axis: 'axis-bank-theme',
+    bajaj: 'hdfc-bank-theme',
+    au: 'hdfc-bank-theme',
+    adityabirla: 'hdfc-bank-theme',
   }
   return map[bankId] || 'hdfc-bank-theme'
 }
@@ -110,6 +119,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
     formData.mobileNumber.length === 10 &&
     formData.day && formData.month && formData.year &&
     formData.consentPersonalData &&
+    formData.consentPerfios &&
     mobileVerified
   )
 
@@ -643,7 +653,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
         </div>
       )}
 
-      {/* ICICI: blue bar + clean tagline strip, no illustration */}
+      {/* ICICI: bank bar with logo + name only */}
       {bankId === 'icici' && (
         <div className="bank-hero bank-hero-icici">
           <div className="bank-hero-bar bank-hero-bar-icici">
@@ -652,14 +662,10 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
               <span className="bank-hero-brand-text">ICICI BANK</span>
             </div>
           </div>
-          <div className="bank-hero-tagline-strip bank-hero-tagline-icici">
-            <h1 className="bank-hero-tagline-title">Apply for {loanLabel}</h1>
-            <p className="bank-hero-tagline-sub">Quick approval · Minimal documentation · Competitive rates</p>
-          </div>
         </div>
       )}
 
-      {/* IndusInd: red bar + white tagline */}
+      {/* IndusInd: bank bar with logo + name only */}
       {bankId === 'indusind' && (
         <div className="bank-hero bank-hero-indusind">
           <div className="bank-hero-bar bank-hero-bar-indusind">
@@ -668,14 +674,10 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
               <span className="bank-hero-brand-text">INDUSIND BANK</span>
             </div>
           </div>
-          <div className="bank-hero-tagline-strip bank-hero-tagline-indusind">
-            <h1 className="bank-hero-tagline-title">Your {loanLabel} — One form away</h1>
-            <p className="bank-hero-tagline-sub">Digital application · Fast processing</p>
-          </div>
         </div>
       )}
 
-      {/* YES Bank: dark blue bar + white strip */}
+      {/* YES Bank: bank bar with logo + name only */}
       {bankId === 'yes' && (
         <div className="bank-hero bank-hero-yes">
           <div className="bank-hero-bar bank-hero-bar-yes">
@@ -684,14 +686,10 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
               <span className="bank-hero-brand-text">YES BANK</span>
             </div>
           </div>
-          <div className="bank-hero-tagline-strip bank-hero-tagline-yes">
-            <h1 className="bank-hero-tagline-title">Apply for {loanLabel}</h1>
-            <p className="bank-hero-tagline-sub">Simple steps · Transparent process</p>
-          </div>
         </div>
       )}
 
-      {/* IDFC: red bar + white strip */}
+      {/* IDFC: bank bar with logo + name only */}
       {bankId === 'idfc' && (
         <div className="bank-hero bank-hero-idfc">
           <div className="bank-hero-bar bank-hero-bar-idfc">
@@ -700,14 +698,10 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
               <span className="bank-hero-brand-text">IDFC FIRST BANK</span>
             </div>
           </div>
-          <div className="bank-hero-tagline-strip bank-hero-tagline-idfc">
-            <h1 className="bank-hero-tagline-title">Get your {loanLabel} with IDFC FIRST Bank</h1>
-            <p className="bank-hero-tagline-sub">No hidden charges · Quick disbursal</p>
-          </div>
         </div>
       )}
 
-      {/* Kotak: teal/blue bar + light strip */}
+      {/* Kotak: bank bar with logo + name only */}
       {bankId === 'kotak' && (
         <div className="bank-hero bank-hero-kotak">
           <div className="bank-hero-bar bank-hero-bar-kotak">
@@ -716,9 +710,17 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
               <span className="bank-hero-brand-text">KOTAK MAHINDRA BANK</span>
             </div>
           </div>
-          <div className="bank-hero-tagline-strip bank-hero-tagline-kotak">
-            <h1 className="bank-hero-tagline-title">Apply for {loanLabel}</h1>
-            <p className="bank-hero-tagline-sub">Instant eligibility check · Same-day disbursal for pre-approved</p>
+        </div>
+      )}
+
+      {/* Bajaj / AU / Aditya Birla: bank bar (for overdraft etc.) */}
+      {(bankId === 'bajaj' || bankId === 'au' || bankId === 'adityabirla') && (
+        <div className="bank-hero bank-hero-icici">
+          <div className="bank-hero-bar bank-hero-bar-icici" style={{ background: bank.primaryColor }}>
+            <div className="bank-hero-bar-inner">
+              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
+              <span className="bank-hero-brand-text">{bank.name.toUpperCase()}</span>
+            </div>
           </div>
         </div>
       )}
@@ -837,7 +839,22 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
                         required
                       />
                     </div>
-                    <a href="#" className="form-alternative-link" style={{ color: bank.primaryColor }}>Having issues? Click to validate with PAN →</a>
+                  </div>
+
+                  {/* PAN Number */}
+                  <div className="form-field-group">
+                    <label className="form-field-label">PAN Number</label>
+                    <input
+                      type="text"
+                      name="panNo"
+                      className="form-input form-input-pan"
+                      placeholder="e.g. ABCDE1234F"
+                      value={formData.panNo}
+                      onChange={handleChange}
+                      maxLength={10}
+                      required
+                    />
+                    <p className="form-hint-text">5 letters, 4 digits, 1 letter (e.g. ABCDE1234F)</p>
                   </div>
 
                   {/* Source of Income */}
@@ -958,20 +975,12 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
                     <label className="consent-checkbox-label">
                       <input
                         type="checkbox"
-                        name="consentPersonalizedOffers"
-                        checked={formData.consentPersonalizedOffers}
-                        onChange={handleChange}
-                      />
-                      <span>I hereby consent to processing of my Data for sending me personalized offers on other products and services of {bank.name}, its affiliates, and partners through Call, SMS, WhatsApp, Email or other channels in the manner described in the notice <a href="#" className="consent-link-text" style={{ color: bank.primaryColor }}>here</a></span>
-                    </label>
-                    <label className="consent-checkbox-label">
-                      <input
-                        type="checkbox"
                         name="consentPerfios"
                         checked={formData.consentPerfios}
                         onChange={handleChange}
+                        required
                       />
-                      <span>I have read, understood, and hereby accept the <a href="#" className="consent-link-text" style={{ color: bank.primaryColor }}>Privacy Policy</a> of {bank.name} Ltd. I/we hereby give the consent in relation to Requested Products. I Agree to <a href="#" className="consent-link-text" style={{ color: bank.primaryColor }}>Perfios T&C</a></span>
+                      <span><span className="required-asterisk">*</span> I have read, understood, and hereby accept the <a href="#" className="consent-link-text" style={{ color: bank.primaryColor }}>Privacy Policy</a> of {bank.name} Ltd. I/we hereby give the consent in relation to Requested Products. I Agree to <a href="#" className="consent-link-text" style={{ color: bank.primaryColor }}>Perfios T&C</a></span>
                     </label>
                   </div>
 

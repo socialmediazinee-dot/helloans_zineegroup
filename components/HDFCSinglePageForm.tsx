@@ -246,7 +246,6 @@ export default function HDFCSinglePageForm({
                   <input type="text" name="month" value={formData.month} onChange={handleChange} placeholder="MM" maxLength={2} className="hdfc-single-input hdfc-single-dob" required />
                   <input type="text" name="year" value={formData.year} onChange={handleChange} placeholder="YYYY" maxLength={4} className="hdfc-single-input hdfc-single-dob" required />
                 </div>
-                <a href="#" className="hdfc-single-link" style={{ color: bank.primaryColor }}>Having issues? Click to validate with PAN →</a>
               </div>
               <div className="hdfc-single-field">
                 <label className="hdfc-single-label">Your source of income</label>

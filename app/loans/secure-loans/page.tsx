@@ -1,5 +1,6 @@
 import LoanCalculator from '@/components/LoanCalculator'
-
+import BankList from '@/components/BankList'
+import { bankOffers } from '@/data/bankOffers'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -19,6 +20,12 @@ export default function SecureLoansPage() {
             <h1>Secure Loans</h1>
             <p>With a secured loan, you're eligible for low interest rates since property is pledged as security.</p>
           </div>
+
+          <BankList
+            offers={bankOffers['secure-loans']}
+            categoryTitle="Banks & NBFCs offering Secure Loans"
+            loanCategory="secure-loans"
+          />
 
           <LoanCalculator
             loanType="Secure Loan"

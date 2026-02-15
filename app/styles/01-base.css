@@ -439,16 +439,18 @@ html[lang="hi"] .logo {
     display: flex;
     flex: 1;
     justify-content: center;
+    align-items: center;
     position: relative;
     z-index: 2;
     min-width: 0;
     margin: 0 8px;
     transition: none;
     overflow: hidden;
+    background: transparent;
     /* Prevent transition on desktop */
 }
 
-/* Desktop: Always visible */
+/* Desktop: Always visible, no clipping so pill edges stay clean */
 @media (min-width: 769px) {
     .main-nav {
         display: flex !important;
@@ -456,6 +458,7 @@ html[lang="hi"] .logo {
         opacity: 1 !important;
         visibility: visible !important;
         margin: 0 12px !important;
+        overflow: visible !important;
     }
 
     .header-actions {
@@ -561,9 +564,8 @@ html[lang="hi"] .logo {
     }
 }
 
-/* Menu bar: 3D glass (amorph) effect */
-/* Menu bar: 3D glass (amorph) effect */
-/* Menu bar: 3D glass (amorph) effect */
+/* Menu bar: 3D glass pill – only the pill is visible; nav wrapper is transparent */
+/* Pill opacity: light = rgba(255,255,255,0.1) (10%), dark = rgba(30,41,59,0.5) (50%) */
 .main-nav-pill {
     display: flex;
     align-items: center;
@@ -572,16 +574,13 @@ html[lang="hi"] .logo {
     padding: 8px 14px;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.1);
-    /* More transparent */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.25);
-    /* Stronger border */
     box-shadow:
         0 8px 32px rgba(15, 23, 42, 0.12),
-        /* Deeper shadow */
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    width: 100%;
+    width: fit-content;
     max-width: 100%;
     min-width: 0;
     flex-wrap: nowrap;
@@ -794,35 +793,24 @@ html[lang="hi"] .logo {
     font-weight: 600;
 }
 
-/* Apply Now in menu bar: two lines + thunder icon */
+/* Apply Now in menu bar: two lines, caps, same size */
 .nav-link-apply-now .nav-link-apply-now-inner {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-}
-.nav-link-apply-now .nav-link-apply-now-thunder {
-    width: 18px;
-    height: 18px;
-    flex-shrink: 0;
-    color: #f59e0b;
 }
 .nav-link-apply-now .nav-link-apply-now-text {
     display: flex;
     flex-direction: column;
     align-items: center;
     line-height: 1.15;
+    text-transform: uppercase;
 }
-.nav-link-apply-now .nav-link-apply-now-line1 {
-    display: block;
-    font-weight: 700;
-    font-size: 1.05em;
-}
+.nav-link-apply-now .nav-link-apply-now-line1,
 .nav-link-apply-now .nav-link-apply-now-line2 {
     display: block;
     font-weight: 600;
-    font-size: 0.95em;
-    opacity: 0.95;
+    font-size: 1em;
 }
 .nav-link-apply-now {
     font-size: 1.15em;

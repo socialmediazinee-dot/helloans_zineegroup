@@ -53,7 +53,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const recipientEmail = process.env.LOAN_EMAIL || process.env.CIBIL_EMAIL || 'info@zineegroup.com'
+    // NOTIFY_EMAIL = one inbox for all form submissions
+    const recipientEmail = process.env.NOTIFY_EMAIL || process.env.LOAN_EMAIL || process.env.CIBIL_EMAIL || 'info@zineegroup.com'
     const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev'
     const subject = `CIBIL Score Enquiry from ${name}`
 

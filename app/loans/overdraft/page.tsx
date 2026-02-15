@@ -1,4 +1,6 @@
 import LoanCalculator from '@/components/LoanCalculator'
+import BankList from '@/components/BankList'
+import { bankOffers } from '@/data/bankOffers'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -18,6 +20,12 @@ export default function OverdraftPage() {
                         <h1>Overdraft</h1>
                         <p>An overdraft allows you to withdraw more money than you have in your account, providing flexible short-term funding.</p>
                     </div>
+
+                    <BankList
+                        offers={bankOffers['overdraft']}
+                        categoryTitle="Overdraft Offers"
+                        loanCategory="overdraft"
+                    />
 
                     <LoanCalculator
                         loanType="Overdraft"

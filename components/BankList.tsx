@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { BankOffer } from '@/data/bankOffers'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-export type LoanCategorySlug = 'personal-loans' | 'business-loans' | 'credit-cards' | 'home-loans' | 'gold-loans' | 'education-loans' | 'insurance'
+export type LoanCategorySlug = 'personal-loans' | 'business-loans' | 'instant-loan' | 'credit-cards' | 'home-loans' | 'gold-loans' | 'education-loans' | 'insurance' | 'overdraft' | 'secure-loans' | 'used-car-loan'
 
 interface BankListProps {
     offers: BankOffer[]
