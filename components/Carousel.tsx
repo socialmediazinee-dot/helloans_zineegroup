@@ -93,11 +93,7 @@ export default function Carousel() {
                 key={slide.id}
                 className={`carousel-modern-item ${index === currentIndex ? 'active' : ''}`}
               >
-                <InstantLoanSlide
-                  title={slide.title}
-                  subtitle={slide.subtitle}
-                  banks={slide.banks}
-                />
+                <InstantLoanSlide />
               </div>
             ))}
           </div>

@@ -1,15 +1,14 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 const TEST_EMAIL = 'k613624@gmail.com'
 
-export default function TestEmailOutPage() {
+function TestEmailOutContent() {
   const searchParams = useSearchParams()
   const [result, setResult] = useState<{ ok: boolean; message: string } | null>(null)
 
-  // Show success/error from URL after form POST + redirect (works without JS)
   useEffect(() => {
     const sent = searchParams.get('sent')
     const error = searchParams.get('error')
@@ -115,5 +114,13 @@ export default function TestEmailOutPage() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function TestEmailOutPage() {
+  return (
+    <Suspense fallback={<div style={{ maxWidth: 520, margin: '40px auto', padding: 24 }}>Loading…</div>}>
+      <TestEmailOutContent />
+    </Suspense>
   )
 }

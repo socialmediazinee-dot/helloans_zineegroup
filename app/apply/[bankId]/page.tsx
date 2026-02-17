@@ -462,15 +462,15 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
                   </div>
                   <div className="detail-item">
                     <span className="detail-label">Date of Birth:</span>
-                    <span className="detail-value">{appliedData.day}/{appliedData.month}/{appliedData.year}</span>
+                    <span className="detail-value">{String(appliedData.day)}/{String(appliedData.month)}/{String(appliedData.year)}</span>
                   </div>
                   <div className="detail-item">
                     <span className="detail-label">Name:</span>
-                    <span className="detail-value">{[appliedData.firstName, appliedData.middleName, appliedData.lastName].filter(Boolean).join(' ')}</span>
+                    <span className="detail-value">{[appliedData.firstName, appliedData.middleName, appliedData.lastName].filter(Boolean).map(String).join(' ')}</span>
                   </div>
                   <div className="detail-item">
                     <span className="detail-label">Source of Income:</span>
-                    <span className="detail-value">{appliedData.sourceOfIncome === 'salaried' ? 'Salaried' : 'Self Employed / Professionals / Business'}</span>
+                    <span className="detail-value">{String(appliedData.sourceOfIncome) === 'salaried' ? 'Salaried' : 'Self Employed / Professionals / Business'}</span>
                   </div>
                 </div>
               </div>

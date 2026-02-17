@@ -1,4 +1,24 @@
-import { Bank } from '../components/LoanCalculator'
+export interface Bank {
+    id: string
+    name: string
+    applicationUrl: string
+    interestRate: number
+    processingFee: string
+    minAmount: number
+    maxAmount: number
+    minTenure: number
+    maxTenure: number
+    maxLoanAmount: number
+    eligibility: string[]
+    features: string[]
+    eligibilityDetails: {
+        age: string
+        employment: string[]
+        workExperience: string
+        income: string
+        documents: string[]
+    }
+}
 
 const createBank = (id: string, name: string, url: string): Bank => ({
     id,
