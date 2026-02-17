@@ -85,7 +85,7 @@ export default function InstantLoanSlide() {
                         alt={partner.name}
                         width={120}
                         height={80}
-                        style={{ objectFit: 'contain', borderRadius: '12px' }}
+                        style={{ objectFit: 'contain', borderRadius: '8px', maxWidth: '100%', maxHeight: '100%' }}
                     />
                 ) : (
                     <span className="modern-card-text">{partner.name}</span>

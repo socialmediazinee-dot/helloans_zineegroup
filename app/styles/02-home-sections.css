@@ -2166,7 +2166,7 @@
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(240, 249, 255, 0.9) 50%, rgba(255, 255, 255, 0.85) 100%);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    margin-top: 48px;
+    margin-top: 24px;
     border-top: 1px solid #e2e8f0;
     position: relative;
     overflow: hidden;

@@ -1433,8 +1433,8 @@ html[lang="hi"] .btn-call-label {
     width: 90%;
     background-color: rgba(240, 249, 255, 0.3);
     /* More transparent to show vector background */
-    padding: 40px 0;
-    /* Remove horizontal padding to use full width when needed */
+    padding: 190px 0 32px;
+    /* Tighter bottom padding to reduce gap above footer */
     overflow: visible;
     /* Allow expanded cards to overflow into sidebar area */
     position: relative;

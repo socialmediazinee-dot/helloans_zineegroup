@@ -1628,6 +1628,14 @@
     background: #F8F9FA;
 }
 
+.about-header-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Main Content Section */
 .about-main-content {
     margin-bottom: 80px;

@@ -1,0 +1,76 @@
+/* Gallery page - wave-style image grid */
+.galleryItem {
+  --s: 14px;
+  width: calc(3 * 4 * var(--s));
+  aspect-ratio: 1;
+  object-fit: cover;
+  padding: var(--s);
+  border: var(--s) solid transparent;
+  background: #BF4D28;
+  border-radius: calc(3.5 * var(--s));
+  mask:
+    radial-gradient(calc(1.414 * var(--s)), #000 calc(100% - 1px), transparent),
+    conic-gradient(#000 0 0) content-box,
+    radial-gradient(calc(1.414 * var(--s)), transparent 100%, #000 calc(100% + 1px))
+      var(--s) var(--s) padding-box;
+  mask-size: calc(var(--s) * 4) calc(var(--s) * 4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: var(--font-poppins), sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.galleryItem1 {
+  translate: var(--s) var(--s);
+}
+
+.galleryItem2 {
+  translate: 0 calc(-1 * var(--s));
+  width: calc(4 * 4 * var(--s));
+  height: calc(3 * 4 * var(--s));
+  aspect-ratio: auto;
+}
+
+.galleryItem3 {
+  translate: calc(-1 * var(--s)) var(--s);
+}
+
+.galleryItem4 {
+  translate: calc(3 * var(--s)) 0;
+}
+
+.galleryItem5 {
+  translate: 0 calc(-2 * var(--s));
+  margin: auto;
+  height: calc(4 * 4 * var(--s));
+  width: calc(3 * 4 * var(--s));
+  aspect-ratio: auto;
+}
+
+.galleryItem6 {
+  translate: calc(-3 * var(--s)) 0;
+}
+
+.galleryTitle {
+  text-align: center;
+  margin: 24px 0 32px;
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.galleryGrid {
+  margin: 0;
+  min-height: 60vh;
+  display: grid;
+  place-content: center;
+  grid-template-columns: repeat(3, auto);
+  background: #F2E9E1;
+  padding: 40px 20px;
+  border-radius: 16px;
+}
