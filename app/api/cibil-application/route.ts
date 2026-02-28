@@ -1,14 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { rateLimit } from '@/lib/rate-limit'
+import { truncate } from '@/lib/sanitize'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
-    const { name, panNumber, dob, mobileNumber, email, city, pincode } = body
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+    const { allowed } = rateLimit(ip, { maxRequests: 5, windowMs: 60_000 })
+    if (!allowed) {
+      return NextResponse.json({ error: 'Too many requests. Please wait a minute.' }, { status: 429 })
+    }
 
-    // Validate required fields
+    const body = await request.json()
+    const name = truncate(body.name, 200)
+    const panNumber = truncate(body.panNumber, 20)
+    const dob = truncate(body.dob, 20)
+    const mobileNumber = truncate(body.mobileNumber, 20)
+    const email = truncate(body.email, 200)
+    const city = truncate(body.city, 200)
+    const pincode = truncate(body.pincode, 10)
+
     if (!name || !panNumber || !dob || !mobileNumber || !email || !city || !pincode) {
       return NextResponse.json(
         { error: 'Missing required fields' },
@@ -82,10 +95,9 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
         text: emailBody,
       })
     } catch (emailError) {
-      console.error('Error sending email:', emailError)
+      console.error('CIBIL email error:', emailError instanceof Error ? emailError.message : 'unknown')
     }
 
-    // Send confirmation email to user
     try {
       await resend.emails.send({
         from: fromEmail,
@@ -94,7 +106,7 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
         text: `Hi ${name},\n\nThank you for your CIBIL score enquiry. We have received your details and will contact you via email shortly.\n\n— Zineegroup Team`,
       })
     } catch (e) {
-      console.error('Confirmation email error:', e)
+      console.error('Confirmation email error:', e instanceof Error ? e.message : 'unknown')
     }
 
     return NextResponse.json(
@@ -102,9 +114,9 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
       { status: 200 }
     )
   } catch (error) {
-    console.error('Error processing CIBIL application:', error)
+    console.error('CIBIL application error:', error instanceof Error ? error.message : 'unknown')
     return NextResponse.json(
-      { error: 'Internal server error. Please try again later.' },
+      { error: 'Something went wrong. Please try again later.' },
       { status: 500 }
     )
   }

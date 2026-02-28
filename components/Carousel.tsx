@@ -36,7 +36,6 @@ export default function Carousel() {
         { name: 'YES Bank', slug: 'yes', logo: '/assets/banks/yes-bank-logo-png.png', color: '#006BB4', link: 'https://popcard.mymoneymantra.com?sms=false&btb=true&utm_source=yescc&utm_medium=mmm&utm_campaign=yescc-mmm-941530' },
         { name: 'Bank of Baroda', slug: 'bob', color: '#FF6600', link: 'https://bobcard.mymoneymantra.com?sms=false&btb=true&utm_source=bobcc&utm_medium=mmm&utm_campaign=bobcc-mmm-941530' },
         { name: 'Federal Bank', slug: 'federal', color: '#0066CC', link: 'https://federalcc.mymoneymantra.com?sms=false&btb=true&utm_source=fedcc&utm_medium=mmm&utm_campaign=fedcc-mmm-941530' },
-        { name: 'AU Bank', slug: 'au', color: '#FF9900', link: 'https://aucc.mymoneymantra.com/?sms=false&btb=true&utm_source=aucc&utm_medium=mmm&utm_campaign=aucc-mmm-941530' },
         { name: 'SBI Card', slug: 'sbi', color: '#288CC8', link: 'https://sbicard.mymoneymantra.com?sms=false&btb=true&utm_source=sbcc&utm_medium=mmm&utm_campaign=sbcc-mmm-941530' },
         { name: 'Axis Bank', slug: 'axis', logo: '/assets/banks/axis-bank-logo.png', color: '#8C1D2C', link: 'https://axis-card.mymoneymantra.com?sms=false&btb=true&utm_source=axs&utm_medium=mmm&utm_campaign=axs-mmm-941530' },
       ]
@@ -73,11 +72,13 @@ export default function Carousel() {
       return
     }
 
-    autoAdvanceTimerRef.current = setInterval(handleNext, 6000)
+    autoAdvanceTimerRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % slides.length)
+    }, 6000)
     return () => {
       if (autoAdvanceTimerRef.current) clearInterval(autoAdvanceTimerRef.current)
     }
-  }, [currentIndex, isPaused])
+  }, [isPaused, slides.length])
 
   return (
     <section className="flip-carousel-section" id="apply">

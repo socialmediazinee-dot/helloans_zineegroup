@@ -16,7 +16,7 @@ export default function CreditCardsPage() {
             <main className="loan-page-main">
                 <div className="loan-page-container">
                     <div className="loan-page-header">
-                        <h1>Credit Cards</h1>
+                        <h1><span className="loan-title-shimmer">Credit</span> Cards</h1>
                         <p>Unlock rewards, cashback, and exclusive lifestyle benefits with our wide range of credit card options.</p>
                     </div>
 

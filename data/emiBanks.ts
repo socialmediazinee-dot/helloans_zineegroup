@@ -106,21 +106,6 @@ export const emiBanks: EmiBank[] = [
     applyUrl: 'https://www.bankofbaroda.in/personal-banking/loans/personal-loans',
   },
   {
-    id: 'pnb',
-    name: 'Punjab National Bank',
-    logo: '/assets/images/PNB.png',
-    interestRate: 10.35,
-    processingFee: '1% of loan amount',
-    minAmount: 50000,
-    maxAmount: 2000000,
-    minTenureYrs: 1,
-    maxTenureYrs: 5,
-    description:
-      'PNB personal loans come with minimal processing fees and attractive interest rates for salaried and self-employed.',
-    features: ['Low processing fee', 'No prepayment charges', 'Simple eligibility', 'Wide reach'],
-    applyUrl: 'https://www.pnbbank.in/english/retail-banking/loans/personal-loan.aspx',
-  },
-  {
     id: 'indusind',
     name: 'IndusInd Bank',
     logo: '/assets/images/partners/indusind.jpeg',

@@ -16,11 +16,11 @@ export default function HomeLoansPage() {
             <main className="loan-page-main">
                 <div className="loan-page-container">
                     <div className="loan-page-header">
-                        <h1>Home Loan & LAP</h1>
+                        <h1><span className="loan-title-shimmer">Home</span> Loan & LAP</h1>
                         <p>Turn your dream home into reality or leverage your property for funds with our home loan solutions.</p>
                     </div>
 
-                    <BankList offers={bankOffers['home-loans']} categoryTitle="Home Loan & LAP Offers" />
+                    <BankList offers={bankOffers['home-loans']} categoryTitle="Home Loan & LAP Offers" loanCategory="home-loans" />
                 </div>
             </main>
             <Footer />

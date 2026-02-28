@@ -22,9 +22,6 @@ export default function AboutUsPage() {
                   <h1 className="about-title">{t('about.title')}</h1>
                   <p className="about-subtitle">{t('about.subtitle')}</p>
                   <div className="about-header-buttons">
-                    <Link href="/apply-for-loan" className="about-header-button">
-                      {t('about.learnMore')}
-                    </Link>
                     <Link href="/gallery" className="about-header-button">
                       {t('about.gallery')}
                     </Link>
@@ -43,11 +40,6 @@ export default function AboutUsPage() {
                     <p className="about-text">
                       {t('about.intro3')}
                     </p>
-                    <div className="about-cta">
-                      <Link href="/apply-for-loan" className="about-cta-button">
-                        {t('nav.apply')}
-                      </Link>
-                    </div>
                   </div>
                 </div>
 
@@ -57,7 +49,7 @@ export default function AboutUsPage() {
                   <p className="about-why-subtitle">{t('about.whyChooseSubtitle')}</p>
                   <p className="about-why-text">{t('about.whyChooseText')}</p>
                   <div className="why-choose-grid">
-                    <div className="why-choose-card">
+                    <div className="why-choose-card why-choose-card--blue">
                       <div className="why-choose-icon-wrapper">
                         <svg className="why-choose-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -66,24 +58,27 @@ export default function AboutUsPage() {
                         </svg>
                       </div>
                       <h4 className="why-choose-title">{t('about.professionalService')}</h4>
+                      <p className="why-choose-desc">Expert loan advisors with deep market knowledge to guide you.</p>
                     </div>
-                    <div className="why-choose-card">
+                    <div className="why-choose-card why-choose-card--amber">
                       <div className="why-choose-icon-wrapper">
                         <svg className="why-choose-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
                       <h4 className="why-choose-title">{t('about.ultraFastSupport')}</h4>
+                      <p className="why-choose-desc">Quick turnaround from application to disbursal.</p>
                     </div>
-                    <div className="why-choose-card">
+                    <div className="why-choose-card why-choose-card--green">
                       <div className="why-choose-icon-wrapper">
                         <svg className="why-choose-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M12 2V22M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6312 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6312 13.6815 18 14.5717 18 15.5C18 16.4283 17.6312 17.3185 16.9749 17.9749C16.3185 18.6312 15.4283 19 14.5 19H6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       </div>
                       <h4 className="why-choose-title">{t('about.lowInterestLoan')}</h4>
+                      <p className="why-choose-desc">Competitive rates negotiated from our partner banks.</p>
                     </div>
-                    <div className="why-choose-card">
+                    <div className="why-choose-card why-choose-card--purple">
                       <div className="why-choose-icon-wrapper">
                         <svg className="why-choose-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
@@ -91,6 +86,7 @@ export default function AboutUsPage() {
                         </svg>
                       </div>
                       <h4 className="why-choose-title">{t('about.available24x7')}</h4>
+                      <p className="why-choose-desc">Round-the-clock assistance whenever you need us.</p>
                     </div>
                   </div>
                 </div>

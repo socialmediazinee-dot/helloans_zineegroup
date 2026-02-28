@@ -8,7 +8,11 @@ import crypto from 'crypto'
 const COOKIE_OTP = 'v_otp'
 const COOKIE_EMAIL = 'v_email'
 const MAX_AGE = 10 * 60 // 10 minutes
-const SECRET = process.env.VERIFICATION_COOKIE_SECRET || process.env.TWO_FACTOR_API_KEY || 'dev-secret-change-in-prod'
+const SECRET = process.env.VERIFICATION_COOKIE_SECRET || process.env.TWO_FACTOR_API_KEY || process.env.RESEND_API_KEY || 'dev-secret-change-in-prod'
+
+if (process.env.NODE_ENV === 'production' && !process.env.VERIFICATION_COOKIE_SECRET && !process.env.TWO_FACTOR_API_KEY) {
+  console.warn('[SECURITY] Set VERIFICATION_COOKIE_SECRET env var in production for secure cookie signing.')
+}
 
 function sign(payload: string): string {
   return crypto.createHmac('sha256', SECRET).update(payload).digest('base64url')

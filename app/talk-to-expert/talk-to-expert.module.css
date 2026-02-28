@@ -14,7 +14,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem 1.5rem 4rem;
-  padding-top: calc(132px + 3rem);
+  padding-top: calc(10px + 20vh);
   box-sizing: border-box;
 }
 
@@ -154,6 +154,20 @@
   line-height: 1;
 }
 
+.contactRow {
+  display: flex;
+  gap: 12px;
+  margin: 0 -0.5rem 0 0;
+}
+
+.contactBlock {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
 .emailBlock {
   padding: 1.25rem 1.25rem 0.5rem;
   margin: 0 -0.5rem 0 0;
@@ -177,6 +191,14 @@
   color: #0284c7;
   text-decoration: none;
   transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contactIcon {
+  flex-shrink: 0;
+  color: #0284c7;
 }
 
 .emailLink:hover {

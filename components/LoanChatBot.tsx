@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import { bankOffers, type OfferCategory } from '@/data/bankOffers'
 
 interface Option {
   id: string
@@ -27,7 +28,6 @@ interface LoanChatBotProps {
   onClose?: () => void
 }
 
-// Format bot text: support \n and • bullets
 function FormattedMessage({ text, title }: { text: string; title?: string }) {
   const parts = text.split(/\n/).filter(Boolean)
   return (
@@ -52,279 +52,305 @@ function FormattedMessage({ text, title }: { text: string; title?: string }) {
   )
 }
 
-// All bot replies and options (single source of truth)
+/* ── Loan type definitions ── */
+
+const LOAN_TYPES = [
+  { id: 'personal', label: 'Personal Loans', category: 'personal-loans' as OfferCategory },
+  { id: 'business', label: 'Business Loans', category: 'business-loans' as OfferCategory },
+  { id: 'home', label: 'Home Loans', category: 'home-loans' as OfferCategory },
+  { id: 'gold', label: 'Gold Loans', category: 'gold-loans' as OfferCategory },
+  { id: 'education', label: 'Education Loans', category: 'education-loans' as OfferCategory },
+  { id: 'car', label: 'Used Car Loans', category: 'used-car-loan' as OfferCategory },
+  { id: 'lap', label: 'Loan Against Property', category: 'secure-loans' as OfferCategory },
+  { id: 'bt', label: 'Balance Transfer', category: 'balance-transfer' as OfferCategory },
+  { id: 'pro', label: 'Professional Loans', category: 'professional-loans' as OfferCategory },
+  { id: 'od', label: 'Overdraft', category: 'overdraft' as OfferCategory },
+  { id: 'ins', label: 'Insurance', category: 'insurance' as OfferCategory },
+  { id: 'cc', label: 'Credit Cards', category: 'credit-cards' as OfferCategory },
+]
+
+/* ── Loan content per type ── */
+
+const LOAN_INFO: Record<string, { overview: string; eligibility: string; documents: string; interest: string; repayment: string }> = {
+  personal: {
+    overview: 'Personal loans are unsecured — no collateral needed. Amounts from ₹10,000 to ₹50 lakh, tenure 12–60 months. Quick approval with minimal documents.',
+    eligibility: '• Age: 21–60 years\n• Income: Min. ₹15,000–₹25,000/month (salaried)\n• CIBIL: 650+ preferred; 750+ for best rates\n• Employment: Salaried (1+ year) or self-employed (2+ years)\n• Debt-to-income: Ideally under 40%',
+    documents: '• ID: Aadhaar, PAN, passport or driving licence\n• Address: Aadhaar, utility bill or rent agreement\n• Income: Last 3 months salary slips + 6 months bank statements\n• Employment: Offer letter or employment certificate\n• Photo: 1–2 passport-size\n\nSelf-employed: add ITR (2–3 years), GST and business proof.',
+    interest: '• Interest: 10.5%–24% p.a. depending on profile & lender\n• Processing: 0.5%–6% of loan amount (often capped)\n• Prepayment: Some banks allow with 0–4% charges\n• GST: 18% on processing fee',
+    repayment: '• Tenure: 12–60 months\n• Shorter tenure = less interest, higher EMI\n• Longer tenure = lower EMI, more total interest\n• Part-payment and prepayment can reduce interest cost',
+  },
+  business: {
+    overview: 'Business loans cover working capital, equipment, expansion and more. Secured and unsecured options available from ₹1 lakh to ₹5 crore.',
+    eligibility: '• Business age: 1–3+ years\n• Turnover: As per lender (e.g. ₹10L+)\n• CIBIL: 650+ for promoters\n• Registration: GST, incorporation/partnership proof\n• Cash flow: Positive and consistent',
+    documents: '• Registration: Certificate of incorporation, partnership deed\n• KYC: Aadhaar, PAN of partners/directors\n• Financials: ITR, P&L, balance sheet (2–3 years)\n• Bank statements: 6–12 months\n• GST returns and registration',
+    interest: '• Rate: 8%–20% p.a.; secured loans often lower\n• Processing: 0.5%–3% of loan amount\n• Depends on turnover, collateral and credit profile',
+    repayment: '• Tenure: 1–7 years typically\n• EMI or overdraft/revolving facility\n• Part-prepayment usually allowed\n• Collateral may allow lower rates and longer tenure',
+  },
+  home: {
+    overview: 'Home loans for purchase, construction, improvement or balance transfer. Get up to 90% of property value with long tenure up to 30 years.',
+    eligibility: '• Age: 18–70 at loan maturity\n• Income: Min. ₹25,000–30,000/month\n• CIBIL: 650+ preferred\n• Down payment: Usually 10–20% of property value\n• FOIR: Generally up to 40–50%',
+    documents: '• ID & address: Aadhaar, PAN, passport\n• Income: Salary slips, Form 16, ITR (2–3 years)\n• Bank statements: 6 months\n• Property: Sale agreement, NOC, title papers\n• Photos and application form',
+    interest: '• Rate: 8.5%–12% p.a.\n• Tax: Deduction on interest (Section 24) and principal (80C)\n• Processing: ~0.5%–1% of loan amount',
+    repayment: '• Tenure: Up to 30 years\n• Floating or fixed rate options\n• Part-prepayment with minimal charges on floating rate\n• Balance transfer possible if better rate available',
+  },
+  gold: {
+    overview: 'Get instant funds against your gold jewellery. Loan up to 60–75% of gold value with quick disbursal and minimal documents.',
+    eligibility: '• Age: 18–70 years\n• Own gold jewellery (min. 18 carat purity)\n• No income proof required in most cases\n• Any CIBIL score accepted\n• Indian resident',
+    documents: '• ID: Aadhaar, PAN or voter ID\n• Address proof: Aadhaar or utility bill\n• Gold jewellery for valuation\n• Passport-size photographs',
+    interest: '• Rate: 8.25%–17% p.a.\n• Processing: 0.25%–1% of loan amount\n• No prepayment charges usually\n• Lower rates for higher gold value',
+    repayment: '• Tenure: 3 months to 3 years\n• Bullet payment or EMI options\n• Part-release of gold possible\n• Renewal facility available',
+  },
+  education: {
+    overview: 'Fund your higher education in India or abroad. Covers tuition, hostel, living expenses with moratorium during the course.',
+    eligibility: '• Indian citizen with admission to recognized institution\n• Age: 16–35 years\n• Co-applicant (parent/guardian) usually required\n• Merit-based or income-based approval\n• Collateral-free up to ₹7.5 lakh',
+    documents: '• Admission letter and fee structure\n• Academic records and mark sheets\n• Co-applicant income proof and KYC\n• Collateral documents (for higher amounts)\n• Passport and visa (for abroad)',
+    interest: '• Rate: 7%–13% p.a.\n• Processing: 0–1% of loan amount\n• Tax benefit under Section 80E on entire interest\n• Subsidised schemes for economically weaker sections',
+    repayment: '• Moratorium: During course + 6–12 months after\n• Repayment tenure: 5–15 years after moratorium\n• No prepayment charges usually\n• EMI starts after moratorium ends',
+  },
+  car: {
+    overview: 'Finance your pre-owned vehicle with up to 85–90% of car value. Vehicle serves as security with competitive rates.',
+    eligibility: '• Age: 21–65 years\n• Min. salary: ₹15,000/month\n• CIBIL: 650+ preferred\n• Car age limit: 7–10 years (at loan maturity)\n• Vehicle inspection required',
+    documents: '• ID: Aadhaar, PAN\n• Income: Salary slips, bank statements\n• Car: RC book, insurance copy\n• Sale agreement with seller\n• Vehicle valuation report',
+    interest: '• Rate: 10%–18% p.a.\n• Processing: 1%–3% of loan amount\n• Higher rates than new car loans\n• Rate depends on car age and condition',
+    repayment: '• Tenure: 1–7 years\n• Car remains hypothecated to lender\n• Insurance must be maintained throughout\n• Part-prepayment usually allowed',
+  },
+  lap: {
+    overview: 'Unlock the value of your property. Secured by residential or commercial property with lower rates than unsecured loans.',
+    eligibility: '• Own residential or commercial property\n• Age: 25–65 years\n• Income proof (salaried or self-employed)\n• CIBIL: 650+ preferred\n• Clear property title required',
+    documents: '• Property papers: title deed, NOC, encumbrance certificate\n• Income proof: salary slips, ITR, bank statements\n• KYC: Aadhaar, PAN, address proof\n• Property valuation report\n• Approved building plan',
+    interest: '• Rate: 8%–14% p.a.\n• Processing: 0.5%–2% of loan amount\n• Lower than unsecured loans\n• Rate depends on property value and location',
+    repayment: '• Tenure: 5–20 years\n• Part-prepayment usually allowed\n• Property remains mortgaged until closure\n• Can be used for any purpose',
+  },
+  bt: {
+    overview: 'Switch your existing loan to a lower interest rate lender. Reduce your EMI or total interest with a top-up option available.',
+    eligibility: '• Existing loan with good repayment history\n• Min. 6–12 EMIs already paid\n• Better or same CIBIL score\n• No recent defaults or bounces\n• Loan type must be transferable',
+    documents: '• Existing loan statement and sanction letter\n• NOC from current lender\n• ID and income proof\n• Repayment track record (bank statement)\n• Property documents (for home loan BT)',
+    interest: '• Typically 0.5%–2% lower than current rate\n• Processing fee on new loan applies\n• Check foreclosure charges on old loan\n• Savings depend on outstanding amount and remaining tenure',
+    repayment: '• Same or new tenure with new lender\n• Top-up amount possible on transfer\n• EMI adjusted per new rate\n• Old loan closed by new lender directly',
+  },
+  pro: {
+    overview: 'Tailored loans for doctors, CAs, architects and other professionals. Based on practice income and qualifications with flexible terms.',
+    eligibility: '• Qualified professional (doctor, CA, architect, engineer, etc.)\n• Practice experience: 1–3+ years\n• CIBIL: 650+ preferred\n• Professional registration required\n• Stable practice income',
+    documents: '• Professional qualification certificate\n• Practice registration/licence\n• ITR and income proof (2–3 years)\n• KYC: Aadhaar, PAN, address proof\n• Clinic/office proof (if applicable)',
+    interest: '• Rate: 10%–18% p.a.\n• Processing: 1%–3% of loan amount\n• Rates based on specialization and income\n• Collateral-free up to certain limits',
+    repayment: '• Tenure: 1–7 years\n• Flexible EMI options\n• Part-prepayment allowed\n• Higher limits for established professionals',
+  },
+  od: {
+    overview: 'Flexible credit line — use only what you need and pay interest only on the amount used. Ideal for variable cash flow needs.',
+    eligibility: '• Existing bank relationship preferred\n• Good CIBIL score (650+)\n• Regular income or cash flow\n• For secured: property or FD as collateral\n• Business or professional income proof',
+    documents: '• KYC: Aadhaar, PAN, address proof\n• Income: salary slips, ITR, bank statements (6–12 months)\n• Property papers (for secured OD)\n• Business proof (for business OD)\n• FD receipt (for OD against FD)',
+    interest: '• Rate: 10%–18% p.a. (on utilized amount only)\n• Processing: 0.5%–2% of sanctioned limit\n• Renewal fee annually\n• Lower rates for secured overdraft',
+    repayment: '• Revolving credit — draw and repay as needed\n• Interest charged only on amount used\n• Facility renewed annually or periodically\n• No fixed EMI; pay back at your pace',
+  },
+  ins: {
+    overview: 'Protect your health, life and assets. Compare life, health and general insurance plans from top insurers through leading banks.',
+    eligibility: '• Age criteria vary by plan type\n• Medical check-up may be required\n• Income declaration for life/term plans\n• No pre-existing conditions exclusion in some plans\n• Indian resident',
+    documents: '• KYC: Aadhaar, PAN, address proof\n• Age proof: birth certificate or passport\n• Medical reports (if required)\n• Income proof for term plans\n• Nominee details',
+    interest: 'Insurance works on premiums, not interest rates.\n• Compare plans for coverage vs premium\n• Term plans are most affordable for life cover\n• Health plans: check co-pay, sub-limits, waiting period\n• Bundled plans may offer better value',
+    repayment: '• Monthly, quarterly or annual premium payments\n• Grace period: usually 15–30 days\n• Some plans have surrender value\n• Tax benefit under Section 80C (life) and 80D (health)',
+  },
+  cc: {
+    overview: 'Get a credit card with rewards, cashback and perks. Multiple options from leading banks for different spending patterns.',
+    eligibility: '• Age: 21–65 years\n• Min. salary: ₹15,000–25,000/month\n• CIBIL: 700+ preferred\n• Salaried or self-employed\n• Existing bank relationship helps',
+    documents: '• ID: Aadhaar, PAN\n• Address proof\n• Salary slips (last 3 months)\n• Form 16 or ITR\n• Bank statements (3–6 months)',
+    interest: '• Revolving credit interest: 24%–42% p.a.\n• Annual fee: ₹0–₹10,000+ (waived on spending targets)\n• Late payment fee: ₹100–₹1,300\n• No interest if full bill paid by due date',
+    repayment: '• Minimum due: 5% of outstanding or ₹200\n• Full payment avoids interest charges\n• Billing cycle: ~30 days\n• Convert large purchases to no-cost EMI',
+  },
+}
+
+/* ── Generate per-loan-type flows from LOAN_INFO ── */
+
+function buildLoanFlows(): Record<string, { title?: string; text: string; options: Option[] }> {
+  const flows: Record<string, { title?: string; text: string; options: Option[] }> = {}
+  for (const lt of LOAN_TYPES) {
+    const info = LOAN_INFO[lt.id]
+    if (!info) continue
+
+    flows[`loan-${lt.id}`] = {
+      title: lt.label,
+      text: info.overview + '\n\nWhat would you like to know?',
+      options: [
+        { id: 'elig', text: 'Eligibility', nextFlow: `loan-${lt.id}-eligibility` },
+        { id: 'docs', text: 'Documents Required', nextFlow: `loan-${lt.id}-documents` },
+        { id: 'interest', text: 'Interest Rates & Fees', nextFlow: `loan-${lt.id}-interest` },
+        { id: 'repay', text: 'Repayment & Tenure', nextFlow: `loan-${lt.id}-repayment` },
+        { id: 'apply', text: 'How to Apply', nextFlow: `apply-banks:${lt.category}` },
+        { id: 'back', text: '← Types of Loan', nextFlow: 'loan-types' },
+        { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
+      ],
+    }
+
+    flows[`loan-${lt.id}-eligibility`] = {
+      title: `${lt.label} – Eligibility`,
+      text: info.eligibility,
+      options: [
+        { id: 'back', text: `← ${lt.label}`, nextFlow: `loan-${lt.id}` },
+        { id: 'docs', text: 'Documents', nextFlow: `loan-${lt.id}-documents` },
+        { id: 'apply', text: 'How to Apply', nextFlow: `apply-banks:${lt.category}` },
+        { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
+      ],
+    }
+
+    flows[`loan-${lt.id}-documents`] = {
+      title: `${lt.label} – Documents`,
+      text: info.documents,
+      options: [
+        { id: 'back', text: `← ${lt.label}`, nextFlow: `loan-${lt.id}` },
+        { id: 'apply', text: 'How to Apply', nextFlow: `apply-banks:${lt.category}` },
+        { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
+      ],
+    }
+
+    flows[`loan-${lt.id}-interest`] = {
+      title: `${lt.label} – Interest & Fees`,
+      text: info.interest,
+      options: [
+        { id: 'back', text: `← ${lt.label}`, nextFlow: `loan-${lt.id}` },
+        { id: 'repay', text: 'Repayment', nextFlow: `loan-${lt.id}-repayment` },
+        { id: 'apply', text: 'How to Apply', nextFlow: `apply-banks:${lt.category}` },
+        { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
+      ],
+    }
+
+    flows[`loan-${lt.id}-repayment`] = {
+      title: `${lt.label} – Repayment`,
+      text: info.repayment,
+      options: [
+        { id: 'back', text: `← ${lt.label}`, nextFlow: `loan-${lt.id}` },
+        { id: 'apply', text: 'How to Apply', nextFlow: `apply-banks:${lt.category}` },
+        { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
+      ],
+    }
+  }
+  return flows
+}
+
+/* ── All bot flows (static + generated) ── */
+
 const FLOWS: Record<string, { title?: string; text: string; options: Option[] }> = {
   initial: {
     title: 'Welcome to Helloans',
-    text: `I'm your loan guide. Choose a topic below—we'll go step by step so you get clear, useful answers.`,
+    text: `I'm your loan guide. How can I help you today?`,
     options: [
-      { id: 'p', text: 'Personal Loans', nextFlow: 'personal' },
-      { id: 'b', text: 'Business Loans', nextFlow: 'business' },
-      { id: 'h', text: 'Home Loans', nextFlow: 'home' },
-      { id: 'o', text: 'Gold, Education & Other Loans', nextFlow: 'other' },
+      { id: 'types', text: 'Types of Loan', nextFlow: 'loan-types' },
+      { id: 'faq', text: 'Common Questions', nextFlow: 'faq' },
       { id: 'emi', text: 'EMI & Repayment', nextFlow: 'emi-repayment' },
       { id: 'cibil', text: 'CIBIL & Eligibility', nextFlow: 'cibil' },
       { id: 'apply', text: 'I want to apply', nextFlow: 'apply-intro' },
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  personal: {
-    title: 'Personal Loans',
-    text: `Personal loans are unsecured—no collateral needed. Pick what you'd like to explore next.`,
+  'loan-types': {
+    title: 'Types of Loan',
+    text: 'Select a loan type to learn more about eligibility, documents, interest rates and how to apply.',
     options: [
-      { id: 'pt', text: 'Types of personal loans', nextFlow: 'personal-types' },
-      { id: 'pe', text: 'Eligibility criteria', nextFlow: 'personal-eligibility' },
-      { id: 'pd', text: 'Documents required', nextFlow: 'personal-documents' },
-      { id: 'pi', text: 'Interest rates & fees', nextFlow: 'personal-interest' },
-      { id: 'pr', text: 'Repayment & tenure tips', nextFlow: 'personal-repayment' },
-      { id: 'pa', text: 'Loan amount & tenure range', nextFlow: 'personal-amount' },
-      { id: 'ph', text: 'How to apply', nextFlow: 'personal-apply' },
+      ...LOAN_TYPES.map((lt) => ({ id: lt.id, text: lt.label, nextFlow: `loan-${lt.id}` })),
+      { id: 'back', text: '← Main menu', nextFlow: 'initial' },
+    ],
+  },
+  ...buildLoanFlows(),
+
+  /* ── Apply intro (shortcut from main menu) ── */
+  'apply-intro': {
+    title: 'Apply for a loan',
+    text: 'Which type of loan would you like to apply for? Select one to see available banks.',
+    options: [
+      ...LOAN_TYPES.map((lt) => ({ id: lt.id, text: lt.label, nextFlow: `apply-banks:${lt.category}` })),
+      { id: 'back', text: '← Main menu', nextFlow: 'initial' },
+    ],
+  },
+
+  /* ── FAQ ── */
+  faq: {
+    title: 'Common questions',
+    text: `Pick a question that's on your mind.`,
+    options: [
+      { id: 'faq1', text: 'What is the minimum salary for a personal loan?', nextFlow: 'faq-min-salary' },
+      { id: 'faq2', text: 'Can I get a loan with a low CIBIL score?', nextFlow: 'faq-low-cibil' },
+      { id: 'faq3', text: 'How long does loan approval take?', nextFlow: 'faq-approval-time' },
+      { id: 'faq4', text: 'What is processing fee?', nextFlow: 'faq-processing-fee' },
+      { id: 'faq5', text: 'Can I prepay my loan early?', nextFlow: 'faq-prepay' },
+      { id: 'faq6', text: 'Why was my loan rejected?', nextFlow: 'faq-rejection' },
+      { id: 'faq7', text: 'How much can I borrow for a home loan?', nextFlow: 'faq-home-amount' },
+      { id: 'faq8', text: 'Secured vs unsecured loan?', nextFlow: 'faq-secured-unsecured' },
       { id: 'back', text: '← Main menu', nextFlow: 'initial' },
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  'personal-types': {
-    title: 'Types of personal loans',
-    text: `• Unsecured personal loans — No collateral; approval based on income & CIBIL\n• Secured personal loans — Backed by FD or savings; often lower interest\n• Debt consolidation — One loan to pay off multiple debts\n• Wedding / medical / travel — Purpose-based loans with flexible tenure\n• Top-up on existing loan — Extra amount on your current loan\n\nYou can compare offers on our EMI calculator.`,
+  'faq-min-salary': {
+    title: 'Minimum salary for personal loan',
+    text: `Most banks and NBFCs ask for a minimum net monthly salary of ₹15,000–₹25,000 for salaried applicants. Some lenders go lower (e.g. ₹12,000) and some higher. It also depends on your city, employer profile and existing obligations. Self-employed applicants are assessed on ITR and business income instead of salary.`,
     options: [
-      { id: 'back', text: '← Back to Personal Loans', nextFlow: 'personal' },
-      { id: 'pe', text: 'Eligibility', nextFlow: 'personal-eligibility' },
-      { id: 'pi', text: 'Interest rates', nextFlow: 'personal-interest' },
+      { id: 'back', text: '← Common questions', nextFlow: 'faq' },
+      { id: 'pe', text: 'Full eligibility criteria', nextFlow: 'loan-personal-eligibility' },
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  'personal-eligibility': {
-    title: 'Personal loan eligibility',
-    text: `• Age: Usually 21–60 years (varies by lender)\n• Income: Min. ₹15,000–₹25,000/month for salaried\n• CIBIL: 650+ preferred; 750+ for best rates\n• Employment: Salaried (1+ year) or self-employed (2+ years)\n• Debt-to-income: Ideally under 40%\n\nImproving your CIBIL and keeping documents ready speeds up approval.`,
+  'faq-low-cibil': {
+    title: 'Loan with low CIBIL score',
+    text: `A CIBIL score below 650 can make approval harder and rates higher, but it's not always a no. Some lenders offer loans to applicants with 600–650 for a higher interest rate or lower amount. Secured options (e.g. loan against FD, gold loan) are easier with a low score. Improving CIBIL by paying existing dues on time and correcting report errors can help.`,
     options: [
-      { id: 'back', text: '← Back to Personal Loans', nextFlow: 'personal' },
-      { id: 'pd', text: 'Documents', nextFlow: 'personal-documents' },
+      { id: 'back', text: '← Common questions', nextFlow: 'faq' },
       { id: 'cibil', text: 'Improve CIBIL score', nextFlow: 'cibil' },
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  'personal-documents': {
-    title: 'Documents for personal loan',
-    text: `• ID: Aadhaar, PAN, passport or driving licence\n• Address: Aadhaar, utility bill or rent agreement\n• Income: Last 3 months' salary slips + 6 months' bank statements\n• Employment: Offer letter or employment certificate\n• Photo: 1–2 passport-size\n\nSelf-employed: add ITR (2–3 years), GST and business proof.`,
+  'faq-approval-time': {
+    title: 'How long does approval take?',
+    text: `• Personal / instant loans: Often 1–3 working days; some lenders offer same-day disbursal for pre-approved customers.\n• Home / business loans: Usually 1–4 weeks due to property verification and longer underwriting.\n• Delays happen if documents are incomplete or additional checks are needed.`,
     options: [
-      { id: 'back', text: '← Back to Personal Loans', nextFlow: 'personal' },
-      { id: 'ph', text: 'How to apply', nextFlow: 'personal-apply' },
-      { id: 'apply', text: 'Apply now', nextFlow: 'apply-intro' },
+      { id: 'back', text: '← Common questions', nextFlow: 'faq' },
+      { id: 'apply', text: 'I want to apply', nextFlow: 'apply-intro' },
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  'personal-interest': {
-    title: 'Interest rates & fees',
-    text: `• Interest: Roughly 10.5%–24% p.a. depending on profile & lender\n• Processing: 0.5%–6% of loan amount (often capped)\n• Prepayment: Some banks allow with 0–4% charges\n• GST: 18% on processing fee\n\nUse our EMI calculator to see monthly instalments for different amounts and tenures.`,
+  'faq-processing-fee': {
+    title: 'Processing fee',
+    text: `Processing fee is a one-time charge levied by the lender to cover verification and administrative cost. It's usually 0.5%–2.5% of the loan amount (sometimes with a cap). It may be deducted from the disbursed amount or paid separately. GST (18%) is added on the fee. Some banks offer waivers during offers.`,
     options: [
-      { id: 'back', text: '← Back to Personal Loans', nextFlow: 'personal' },
-      { id: 'emi', text: 'EMI & repayment', nextFlow: 'emi-repayment' },
+      { id: 'back', text: '← Common questions', nextFlow: 'faq' },
+      { id: 'pi', text: 'Interest & other fees', nextFlow: 'loan-personal-interest' },
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  'personal-repayment': {
-    title: 'Repayment & tenure',
-    text: `• Tenure: Usually 12–60 months; choose based on EMI you're comfortable with\n• Shorter tenure = less interest, higher EMI\n• Longer tenure = lower EMI, more total interest\n• Prepayment and part-payment can reduce interest—check your lender's policy\n\nWe can help you plan EMI and prepayment.`,
+  'faq-prepay': {
+    title: 'Prepayment and foreclosure',
+    text: `Most personal and home loans allow full or part prepayment. Rules differ by lender:\n• Part prepayment: Reduces outstanding; some banks allow it with no charges, others charge 1–4%.\n• Full foreclosure: Closing the loan early; charges if any are mentioned in your agreement.\n• Floating-rate home loans often have minimal or no prepayment charges.`,
     options: [
-      { id: 'back', text: '← Back to Personal Loans', nextFlow: 'personal' },
-      { id: 'emi', text: 'EMI calculator', nextFlow: 'emi-repayment' },
+      { id: 'back', text: '← Common questions', nextFlow: 'faq' },
+      { id: 'pr', text: 'Repayment & tenure', nextFlow: 'loan-personal-repayment' },
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  'personal-amount': {
-    title: 'Loan amount & tenure',
-    text: `• Amount: From ₹10,000 to ₹40–50 lakh (lender-dependent)\n• Tenure: 12–60 months typically\n• Your limit depends on income, existing obligations and CIBIL\n\nUse our EMI calculator to try different combinations.`,
+  'faq-rejection': {
+    title: 'Why was my loan rejected?',
+    text: `Common reasons include:\n• Low CIBIL or repayment history issues\n• Income too low or unstable for the requested amount\n• High existing debt (EMIs) compared to income\n• Incomplete or inconsistent documents\n• Age or employment criteria not met\n\nWe can help you improve eligibility or find a product that fits your profile.`,
     options: [
-      { id: 'back', text: '← Back to Personal Loans', nextFlow: 'personal' },
-      { id: 'apply', text: 'Apply now', nextFlow: 'apply-intro' },
+      { id: 'back', text: '← Common questions', nextFlow: 'faq' },
+      { id: 'cibil', text: 'CIBIL & eligibility', nextFlow: 'cibil' },
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  'personal-apply': {
-    title: 'How to apply',
-    text: `1. Check eligibility and required documents\n2. Compare offers using our EMI calculator\n3. Click "Apply now" and fill the form\n4. Submit documents; we'll connect you with the right lender\n5. Get approval and disbursal as per the lender's process`,
+  'faq-home-amount': {
+    title: 'How much can I borrow for a home loan?',
+    text: `Lenders typically offer 75–90% of the property's value. Your eligibility is based on:\n• Income and existing EMIs (FOIR – usually 40–50%)\n• Age and remaining working years\n• CIBIL score and employment stability\n• Property valuation and legal clearance`,
     options: [
-      { id: 'apply', text: 'Apply now', nextFlow: 'apply-intro' },
-      { id: 'back', text: '← Back to Personal Loans', nextFlow: 'personal' },
+      { id: 'back', text: '← Common questions', nextFlow: 'faq' },
+      { id: 'h', text: 'Home loans overview', nextFlow: 'loan-home' },
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  business: {
-    title: 'Business loans',
-    text: `From working capital to equipment funding—choose what you need.`,
+  'faq-secured-unsecured': {
+    title: 'Secured vs unsecured loan',
+    text: `• Unsecured: No collateral. Approval depends on income, CIBIL and employment. Examples: personal loan, credit card. Interest is usually higher.\n• Secured: Backed by an asset (e.g. property, gold, FD). Lower risk for the lender, so rates are often lower. Examples: home loan, gold loan, loan against property.\n\nIf you have collateral, secured loans can save interest; if not, unsecured options are the way.`,
     options: [
-      { id: 'bt', text: 'Types of business loans', nextFlow: 'business-types' },
-      { id: 'be', text: 'Eligibility', nextFlow: 'business-eligibility' },
-      { id: 'bd', text: 'Documents', nextFlow: 'business-documents' },
-      { id: 'bi', text: 'Interest & fees', nextFlow: 'business-interest' },
-      { id: 'bh', text: 'How to apply', nextFlow: 'business-apply' },
-      { id: 'back', text: '← Main menu', nextFlow: 'initial' },
+      { id: 'back', text: '← Common questions', nextFlow: 'faq' },
+      { id: 'types', text: 'Types of Loan', nextFlow: 'loan-types' },
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  'business-types': {
-    title: 'Types of business loans',
-    text: `• Term loans — Lump sum for a fixed period\n• Working capital — For day-to-day operations\n• Machinery / equipment — For purchase\n• Invoice / receivables financing\n• Business line of credit — Draw as needed\n• Loan against property (LAP) for business`,
-    options: [
-      { id: 'back', text: '← Back to Business', nextFlow: 'business' },
-      { id: 'be', text: 'Eligibility', nextFlow: 'business-eligibility' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'business-eligibility': {
-    title: 'Business loan eligibility',
-    text: `• Business age: Often 1–3+ years\n• Turnover: As per lender (e.g. ₹10L+)\n• CIBIL: 650+ for promoters\n• Registration: GST, incorporation/partnership proof\n• Cash flow: Positive and consistent`,
-    options: [
-      { id: 'back', text: '← Back to Business', nextFlow: 'business' },
-      { id: 'bd', text: 'Documents', nextFlow: 'business-documents' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'business-documents': {
-    title: 'Documents for business loan',
-    text: `• Registration: Certificate of incorporation, partnership deed\n• KYC: Aadhaar, PAN of partners/directors\n• Financials: ITR, P&L, balance sheet (2–3 years)\n• Bank statements: 6–12 months\n• GST returns and registration`,
-    options: [
-      { id: 'back', text: '← Back to Business', nextFlow: 'business' },
-      { id: 'bh', text: 'How to apply', nextFlow: 'business-apply' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'business-interest': {
-    title: 'Interest & fees',
-    text: `• Rate: Typically 8%–20% p.a.; secured loans often lower\n• Processing: 0.5%–3% of loan amount\n• Depends on turnover, collateral and credit profile.`,
-    options: [
-      { id: 'back', text: '← Back to Business', nextFlow: 'business' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'business-apply': {
-    title: 'How to apply',
-    text: `Share your business details and documents. Our team will match you with suitable lenders and guide you through the process.`,
-    options: [
-      { id: 'apply', text: 'Apply now', nextFlow: 'apply-intro' },
-      { id: 'back', text: '← Back to Business', nextFlow: 'business' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  home: {
-    title: 'Home loans',
-    text: `From purchase to construction—here's what you need to know.`,
-    options: [
-      { id: 'ht', text: 'Types of home loans', nextFlow: 'home-types' },
-      { id: 'he', text: 'Eligibility', nextFlow: 'home-eligibility' },
-      { id: 'hd', text: 'Documents', nextFlow: 'home-documents' },
-      { id: 'hi', text: 'Interest & tax benefits', nextFlow: 'home-interest' },
-      { id: 'hh', text: 'How to apply', nextFlow: 'home-apply' },
-      { id: 'back', text: '← Main menu', nextFlow: 'initial' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'home-types': {
-    title: 'Types of home loans',
-    text: `• Purchase (new/resale)\n• Construction\n• Plot + construction\n• Home improvement\n• Balance transfer from another bank`,
-    options: [
-      { id: 'back', text: '← Back to Home Loans', nextFlow: 'home' },
-      { id: 'he', text: 'Eligibility', nextFlow: 'home-eligibility' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'home-eligibility': {
-    title: 'Home loan eligibility',
-    text: `• Age: 18–70 at loan maturity\n• Income: Min. ₹25,000–30,000/month (varies)\n• CIBIL: 650+ preferred\n• Down payment: Usually 10–20% of property value\n• FOIR: Generally up to 40–50%`,
-    options: [
-      { id: 'back', text: '← Back to Home Loans', nextFlow: 'home' },
-      { id: 'hd', text: 'Documents', nextFlow: 'home-documents' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'home-documents': {
-    title: 'Documents for home loan',
-    text: `• ID & address: Aadhaar, PAN, passport\n• Income: Salary slips, Form 16, ITR (2–3 years)\n• Bank statements: 6 months\n• Property: Sale agreement, NOC, title papers\n• Photos and application form`,
-    options: [
-      { id: 'back', text: '← Back to Home Loans', nextFlow: 'home' },
-      { id: 'hh', text: 'How to apply', nextFlow: 'home-apply' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'home-interest': {
-    title: 'Interest & tax benefits',
-    text: `• Rate: Around 8.5%–12% p.a. (varies)\n• Tax: Deduction on interest (Section 24) and principal (80C) as per income tax rules\n• Processing: ~0.5%–1% of loan amount`,
-    options: [
-      { id: 'back', text: '← Back to Home Loans', nextFlow: 'home' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'home-apply': {
-    title: 'How to apply',
-    text: `Submit your details and property documents. We'll connect you with partner banks and help with the process until disbursal.`,
-    options: [
-      { id: 'apply', text: 'Apply now', nextFlow: 'apply-intro' },
-      { id: 'back', text: '← Back to Home Loans', nextFlow: 'home' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  other: {
-    title: 'Gold, education & other loans',
-    text: `We can help with several other loan products.`,
-    options: [
-      { id: 'gold', text: 'Gold loans', nextFlow: 'other-gold' },
-      { id: 'edu', text: 'Education loans', nextFlow: 'other-education' },
-      { id: 'car', text: 'Car / vehicle loans', nextFlow: 'other-car' },
-      { id: 'lap', text: 'Loan against property', nextFlow: 'other-lap' },
-      { id: 'bt', text: 'Balance transfer', nextFlow: 'other-bt' },
-      { id: 'pro', text: 'Professional loans', nextFlow: 'other-professional' },
-      { id: 'back', text: '← Main menu', nextFlow: 'initial' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'other-gold': {
-    title: 'Gold loans',
-    text: `• Loan against gold jewellery (e.g. 60–75% of value)\n• Quick disbursal, lower interest than many unsecured loans\n• Documents: ID, address, gold (for valuation)\n• Tenure: Short to medium term`,
-    options: [
-      { id: 'back', text: '← Back', nextFlow: 'other' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'other-education': {
-    title: 'Education loans',
-    text: `• For higher studies in India or abroad\n• Covers tuition, living and other costs\n• Moratorium possible during course + some time after\n• Collateral may be required for large amounts`,
-    options: [
-      { id: 'back', text: '← Back', nextFlow: 'other' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'other-car': {
-    title: 'Car / vehicle loans',
-    text: `• Finance for new or used cars\n• Loan up to 85–90% of on-road price\n• Tenure usually 1–7 years\n• Vehicle is security for the loan`,
-    options: [
-      { id: 'back', text: '← Back', nextFlow: 'other' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'other-lap': {
-    title: 'Loan against property (LAP)',
-    text: `• Loan secured by residential/commercial property\n• Lower interest than personal loans; higher amount\n• Used for business, education or other needs\n• Property valuation and legal checks apply`,
-    options: [
-      { id: 'back', text: '← Back', nextFlow: 'other' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'other-bt': {
-    title: 'Balance transfer',
-    text: `• Move your existing loan to another lender for lower rate or better terms\n• Can reduce EMI or total interest\n• Processing fee and prepayment charges on old loan may apply`,
-    options: [
-      { id: 'back', text: '← Back', nextFlow: 'other' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
-  'other-professional': {
-    title: 'Professional loans',
-    text: `• For doctors, CAs, architects and similar professionals\n• Based on practice and income\n• Flexible tenure and quick processing for eligible applicants`,
-    options: [
-      { id: 'back', text: '← Back', nextFlow: 'other' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
+
+  /* ── EMI & Repayment ── */
   'emi-repayment': {
     title: 'EMI & repayment',
     text: `Understand EMI and how to manage repayment better.`,
@@ -373,6 +399,8 @@ const FLOWS: Record<string, { title?: string; text: string; options: Option[] }>
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
+
+  /* ── CIBIL ── */
   cibil: {
     title: 'CIBIL & eligibility',
     text: `Your credit score affects loan approval and interest rates. Here's what helps.`,
@@ -411,15 +439,8 @@ const FLOWS: Record<string, { title?: string; text: string; options: Option[] }>
       { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
     ],
   },
-  'apply-intro': {
-    title: 'Apply for a loan',
-    text: `You can apply in a few steps. We'll connect you with the right lender and guide you till disbursal.`,
-    options: [
-      { id: 'go', text: 'Go to application', href: '/apply-for-loan' },
-      { id: 'back', text: '← Main menu', nextFlow: 'initial' },
-      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
-    ],
-  },
+
+  /* ── Contact form ── */
   'contact-form-name': {
     text: `I'd be happy to connect you with our team. What's your name?`,
     options: [],
@@ -430,6 +451,33 @@ const FLOWS: Record<string, { title?: string; text: string; options: Option[] }>
     options: [{ id: 'restart', text: 'Start over', nextFlow: 'initial' }],
   },
 }
+
+/* ── Helpers for dynamic bank flows ── */
+
+interface CompareEntry {
+  id: string
+  bank: string
+  interestRate: number
+  processingFee: string
+  minAmount: number
+  maxAmount: number
+  minTenureYrs: number
+  maxTenureYrs: number
+  eligibility: string
+  features: string[]
+}
+
+function formatAmount(n: number): string {
+  if (n >= 10000000) return `₹${(n / 10000000).toFixed(1)} Cr`
+  if (n >= 100000) return `₹${(n / 100000).toFixed(1)} L`
+  return `₹${n.toLocaleString('en-IN')}`
+}
+
+function findLoanTypeByCategory(category: OfferCategory) {
+  return LOAN_TYPES.find((lt) => lt.category === category)
+}
+
+/* ── Component ── */
 
 export default function LoanChatBot(props: LoanChatBotProps) {
   return <LoanChatBotInner {...props} />
@@ -447,10 +495,14 @@ function LoanChatBotInner({
   const [currentFlow, setCurrentFlow] = useState('initial')
   const [contactData, setContactData] = useState({ name: '', number: '' })
   const [inputValue, setInputValue] = useState('')
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const lastUserMsgRef = useRef<HTMLDivElement>(null)
   const messagesContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const contactNameRef = useRef('')
+  const hasInteracted = useRef(false)
+
+  const compareDataRef = useRef<{ personalLoans: CompareEntry[]; businessLoans: CompareEntry[] } | null>(null)
+  const requirementsRef = useRef<{ requirements: { loanCategory: string; bankName: string; requirements: string[] }[] } | null>(null)
 
   useEffect(() => {
     if (embedded) initChat()
@@ -467,8 +519,10 @@ function LoanChatBotInner({
   }, [])
 
   useEffect(() => {
-    const el = messagesContainerRef.current
-    if (el) el.scrollTop = el.scrollHeight
+    if (!hasInteracted.current) return
+    requestAnimationFrame(() => {
+      lastUserMsgRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    })
   }, [messages])
 
   useEffect(() => {
@@ -492,7 +546,138 @@ function LoanChatBotInner({
     setCurrentFlow('initial')
   }
 
+  async function ensureSheetData() {
+    const fetches: Promise<void>[] = []
+    if (!compareDataRef.current) {
+      fetches.push(
+        fetch('/api/loans/compare')
+          .then((r) => r.json())
+          .then((d) => { compareDataRef.current = d })
+          .catch(() => {})
+      )
+    }
+    if (!requirementsRef.current) {
+      fetches.push(
+        fetch('/api/requirements/sheets')
+          .then((r) => r.json())
+          .then((d) => { requirementsRef.current = d })
+          .catch(() => {})
+      )
+    }
+    if (fetches.length) await Promise.all(fetches)
+  }
+
+  function handleApplyBanks(category: OfferCategory) {
+    const banks = bankOffers[category] || []
+    const loanType = findLoanTypeByCategory(category)
+
+    const bankOptions: Option[] = banks
+      .map((b, i) => {
+        if (b.internalApplySlug) {
+          return {
+            id: `bank-${i}`,
+            text: b.bankName,
+            nextFlow: `bank-detail:${b.internalApplySlug}:${category}`,
+          }
+        }
+        if (b.link && b.link !== '#') {
+          return { id: `bank-${i}`, text: b.bankName, href: b.link }
+        }
+        return null
+      })
+      .filter(Boolean) as Option[]
+
+    bankOptions.push(
+      { id: 'back', text: `← ${loanType?.label || 'Back'}`, nextFlow: loanType ? `loan-${loanType.id}` : 'loan-types' },
+      { id: 'menu', text: '← Main menu', nextFlow: 'initial' },
+      { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
+    )
+
+    setCurrentFlow(`apply-banks:${category}`)
+    const botMsg: Message = {
+      id: (Date.now() + 1).toString(),
+      sender: 'bot',
+      title: `Banks for ${loanType?.label || 'this loan'}`,
+      text: `Here are our partner banks and NBFCs for ${loanType?.label?.toLowerCase() || 'this category'}. Select a bank to see details and apply.`,
+      options: bankOptions,
+      timestamp: new Date(),
+    }
+    setMessages((prev) => [...prev, botMsg])
+  }
+
+  async function handleBankDetail(slug: string, category: OfferCategory) {
+    setCurrentFlow(`bank-detail:${slug}:${category}`)
+
+    const banks = bankOffers[category] || []
+    const bank = banks.find((b) => b.internalApplySlug === slug)
+    const bankName = bank?.bankName || slug
+    const loanType = findLoanTypeByCategory(category)
+
+    await ensureSheetData()
+
+    const allCompare = [
+      ...(compareDataRef.current?.personalLoans || []),
+      ...(compareDataRef.current?.businessLoans || []),
+    ]
+    const compareMatch = allCompare.find(
+      (e) => e.id === slug || e.bank.toLowerCase().includes(slug.toLowerCase())
+    )
+
+    const allReqs = requirementsRef.current?.requirements || []
+    const catLabel = (loanType?.label || category).toLowerCase()
+    const reqMatch = allReqs.find(
+      (r) =>
+        r.bankName.toLowerCase().includes(slug.toLowerCase()) &&
+        (r.loanCategory.toLowerCase().includes(catLabel) ||
+          r.loanCategory.toLowerCase().includes(category.replace(/-/g, ' ')))
+    )
+
+    let detailLines: string[] = []
+    if (compareMatch) {
+      detailLines.push(`• Interest Rate: ${compareMatch.interestRate}% p.a.`)
+      detailLines.push(`• Processing Fee: ${compareMatch.processingFee}`)
+      detailLines.push(`• Loan Amount: ${formatAmount(compareMatch.minAmount)} – ${formatAmount(compareMatch.maxAmount)}`)
+      detailLines.push(`• Tenure: ${compareMatch.minTenureYrs}–${compareMatch.maxTenureYrs} years`)
+      if (compareMatch.eligibility) detailLines.push(`• Eligibility: ${compareMatch.eligibility}`)
+      if (compareMatch.features?.length) {
+        detailLines.push('')
+        detailLines.push('Key features:')
+        compareMatch.features.forEach((f) => detailLines.push(`• ${f}`))
+      }
+    }
+
+    if (reqMatch && reqMatch.requirements.length > 0) {
+      detailLines.push('')
+      detailLines.push('Documents / requirements:')
+      reqMatch.requirements.forEach((r) => detailLines.push(`• ${r}`))
+    }
+
+    if (detailLines.length === 0) {
+      detailLines.push(
+        `${bankName} offers competitive rates for ${loanType?.label?.toLowerCase() || 'this product'}. Apply now to get personalised offers and detailed terms.`
+      )
+    }
+
+    const applyUrl = `/apply/${slug}?loanType=${category}`
+
+    const botMsg: Message = {
+      id: (Date.now() + 1).toString(),
+      sender: 'bot',
+      title: bankName,
+      text: detailLines.join('\n'),
+      options: [
+        { id: 'apply', text: 'Apply Now →', href: applyUrl },
+        { id: 'back', text: '← Other banks', nextFlow: `apply-banks:${category}` },
+        { id: 'menu', text: '← Main menu', nextFlow: 'initial' },
+        { id: 'expert', text: 'Talk to an expert', nextFlow: 'contact-form-name' },
+      ],
+      timestamp: new Date(),
+    }
+    setMessages((prev) => [...prev, botMsg])
+  }
+
   function handleOption(option: Option) {
+    hasInteracted.current = true
     const userMsg: Message = {
       id: Date.now().toString(),
       sender: 'user',
@@ -524,6 +709,23 @@ function LoanChatBotInner({
     const nextFlow = option.nextFlow
     if (!nextFlow) return
 
+    // Dynamic: show bank list for a loan category
+    if (nextFlow.startsWith('apply-banks:')) {
+      const category = nextFlow.slice('apply-banks:'.length) as OfferCategory
+      handleApplyBanks(category)
+      return
+    }
+
+    // Dynamic: show bank details (fetched from sheet)
+    if (nextFlow.startsWith('bank-detail:')) {
+      const rest = nextFlow.slice('bank-detail:'.length)
+      const colonIdx = rest.indexOf(':')
+      const slug = rest.slice(0, colonIdx)
+      const category = rest.slice(colonIdx + 1) as OfferCategory
+      handleBankDetail(slug, category)
+      return
+    }
+
     setCurrentFlow(nextFlow)
 
     if (nextFlow === 'contact-form-name') {
@@ -552,6 +754,7 @@ function LoanChatBotInner({
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    hasInteracted.current = true
     const val = inputValue.trim()
     if (!val) return
 
@@ -668,8 +871,16 @@ function LoanChatBotInner({
           </div>
 
           <div ref={messagesContainerRef} className="lc-messages">
-            {messages.map((msg) => (
-              <div key={msg.id} className={`lc-bubble-wrap lc-bubble-wrap--${msg.sender}`}>
+            {messages.map((msg, idx) => {
+              const isLastUser =
+                msg.sender === 'user' &&
+                messages.slice(idx + 1).every((m) => m.sender !== 'user')
+              return (
+              <div
+                key={msg.id}
+                ref={isLastUser ? lastUserMsgRef : undefined}
+                className={`lc-bubble-wrap lc-bubble-wrap--${msg.sender}`}
+              >
                 {msg.sender === 'bot' && (
                   <div className="lc-bubble-avatar">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -713,8 +924,8 @@ function LoanChatBotInner({
                   )}
                 </div>
               </div>
-            ))}
-            <div ref={messagesEndRef} />
+              )
+            })}
           </div>
 
           {showInput && (

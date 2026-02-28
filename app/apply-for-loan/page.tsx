@@ -4,8 +4,6 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import EmailVerification from '@/components/EmailVerification'
-
 export default function ApplyForLoanPage() {
   const { t } = useLanguage()
   const [formData, setFormData] = useState({
@@ -18,7 +16,6 @@ export default function ApplyForLoanPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
-  const [emailVerified, setEmailVerified] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const name = e.target.name
@@ -26,7 +23,6 @@ export default function ApplyForLoanPage() {
       ...formData,
       [name]: e.target.value
     })
-    if (name === 'email') setEmailVerified(false)
     if (submitMessage) setSubmitMessage('')
   }
 
@@ -48,7 +44,6 @@ export default function ApplyForLoanPage() {
 
       if (response.ok) {
         setSubmitMessage(t('apply.successMessage'))
-        setEmailVerified(false)
         setFormData({
           name: '',
           email: '',
@@ -78,7 +73,16 @@ export default function ApplyForLoanPage() {
             <div className="contact-page-container apply-for-loan-page-container">
               {/* Header Section */}
               <div className="contact-header">
-                <h1 className="contact-title">{t('apply.title')}</h1>
+                <h1 className="contact-title">
+                {(() => {
+                  const title = t('apply.title')
+                  if (title.includes('Apply')) {
+                    const [before, after] = title.split('Apply')
+                    return <>{before}<span className="loan-title-shimmer">Apply</span>{after}</>
+                  }
+                  return title
+                })()}
+              </h1>
                 <p className="contact-intro">{t('apply.intro')}</p>
                 <div className="loan-benefits">
                   <div className="benefit-item">
@@ -140,7 +144,7 @@ export default function ApplyForLoanPage() {
                     <div className="form-row">
                       {/* Email Field */}
                       <div className="form-group">
-                        <label className="form-label">Email Address *</label>
+                        <label className="form-label">Email Address</label>
                         <div className="form-input-wrapper">
                           <svg className="form-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -152,14 +156,8 @@ export default function ApplyForLoanPage() {
                             className="form-input"
                             value={formData.email}
                             onChange={handleChange}
-                            required
                           />
                         </div>
-                        <EmailVerification
-                          email={formData.email}
-                          onVerified={() => setEmailVerified(true)}
-                          verified={emailVerified}
-                        />
                       </div>
 
                       {/* Phone Field */}
@@ -252,7 +250,7 @@ export default function ApplyForLoanPage() {
                     <button
                       type="submit"
                       className="form-submit-button"
-                      disabled={isSubmitting || !emailVerified}
+                      disabled={isSubmitting}
                     >
                       {isSubmitting ? t('apply.submitting') : t('apply.applyNow')}
                     </button>

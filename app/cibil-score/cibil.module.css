@@ -4,7 +4,7 @@
     background-color: #f8fafc;
     display: flex;
     flex-direction: column;
-    padding-top: 150px;
+    padding-top: 10px;
     font-size: 1.2em;
     color: #000;
 }
@@ -16,7 +16,7 @@
     background-color: #f8fafc;
     padding: 4rem 1rem;
     overflow: hidden;
-    margin-top: 1vh;
+    margin-top: 16vh;
 }
 
 .heroBackground {
@@ -755,7 +755,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     animation: shimmer 3s linear infinite;
-    display: inline-block;
+    display: inline;
     font-weight: 800;
 }
 

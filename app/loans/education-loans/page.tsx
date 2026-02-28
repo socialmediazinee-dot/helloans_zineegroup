@@ -16,11 +16,11 @@ export default function EducationLoansPage() {
             <main className="loan-page-main">
                 <div className="loan-page-container">
                     <div className="loan-page-header">
-                        <h1>Education Loans</h1>
+                        <h1><span className="loan-title-shimmer">Education</span> Loans</h1>
                         <p>Invest in your future with flexible education loans for studies in India and abroad.</p>
                     </div>
 
-                    <BankList offers={bankOffers['education-loans']} categoryTitle="Top Education Loan Offers" />
+                    <BankList offers={bankOffers['education-loans']} categoryTitle="Top Education Loan Offers" loanCategory="education-loans" />
                 </div>
             </main>
             <Footer />

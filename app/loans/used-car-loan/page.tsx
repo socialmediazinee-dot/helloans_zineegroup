@@ -17,7 +17,7 @@ export default function UsedCarLoanPage() {
       <main className="loan-page-main">
         <div className="loan-page-container">
           <div className="loan-page-header">
-            <h1>Used Car Loan</h1>
+            <h1><span className="loan-title-shimmer">Used Car</span> Loan</h1>
             <p>Finance your pre-owned car with competitive rates from banks and NBFCs.</p>
           </div>
 

@@ -17,7 +17,7 @@ export default function SecureLoansPage() {
       <main className="loan-page-main">
         <div className="loan-page-container">
           <div className="loan-page-header">
-            <h1>Secure Loans</h1>
+            <h1><span className="loan-title-shimmer">Secure</span> Loans</h1>
             <p>With a secured loan, you're eligible for low interest rates since property is pledged as security.</p>
           </div>
 

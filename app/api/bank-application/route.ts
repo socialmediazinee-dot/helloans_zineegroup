@@ -1,11 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { rateLimit } from '@/lib/rate-limit'
+import { escHtml, truncate } from '@/lib/sanitize'
+
+const MAX_BODY_SIZE = 10 * 1024 * 1024 // 10 MB (base64 docs are large)
+const ALLOWED_FILE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'application/pdf']
+
+function validateFile(file: { data?: string; contentType?: string; filename?: string }, label: string): string | null {
+  if (!file?.data) return null
+  if (file.data.length > MAX_BODY_SIZE) return `${label} file is too large (max ~7.5 MB).`
+  if (file.contentType && !ALLOWED_FILE_TYPES.includes(file.contentType)) return `${label} file type not allowed.`
+  return null
+}
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+    const { allowed } = rateLimit(ip, { maxRequests: 5, windowMs: 60_000 })
+    if (!allowed) {
+      return NextResponse.json({ error: 'Too many requests. Please wait a minute.' }, { status: 429 })
+    }
+
+    const contentLength = parseInt(request.headers.get('content-length') || '0', 10)
+    if (contentLength > MAX_BODY_SIZE) {
+      return NextResponse.json({ error: 'Request too large.' }, { status: 413 })
+    }
+
     const body = await request.json()
     const { 
       bankId, 
       bankName,
+      loanType,
+      loanLabel,
       mobileNumber, 
       day, 
       month, 
@@ -19,6 +44,10 @@ export async function POST(request: NextRequest) {
       consentPerfios,
       panCard,
       aadhaarCard,
+      payslip,
+      bankStatement,
+      additionalDoc,
+      addressProof,
       /* HDFC single-page form fields */
       pan,
       firstName,
@@ -89,9 +118,18 @@ export async function POST(request: NextRequest) {
 
     const dateOfBirth = (day && month && year) ? `${day}/${month}/${year}` : ''
 
-    // Email configuration (NOTIFY_EMAIL = one inbox for all form submissions)
-    const recipientEmail = process.env.NOTIFY_EMAIL || process.env.LOAN_EMAIL || 'yamraj26yam@gmail.com'
-    const subject = `New ${bankName || 'Bank'} Loan Application`
+    // Validate uploaded files
+    for (const [fileObj, label] of [
+      [panCard, 'PAN Card'], [aadhaarCard, 'Aadhaar'], [payslip, 'Payslip'],
+      [bankStatement, 'Bank Statement'], [additionalDoc, 'Additional Doc'], [addressProof, 'Address Proof'],
+    ] as const) {
+      const err = validateFile(fileObj as any, label as string)
+      if (err) return NextResponse.json({ error: err }, { status: 400 })
+    }
+
+    const recipientEmail = process.env.NOTIFY_EMAIL || process.env.LOAN_EMAIL || 'info@zineegroup.com'
+    const loanTypeDisplay = loanLabel || (loanType ? String(loanType).replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()) : '')
+    const subject = `New ${bankName || 'Bank'} Loan Application${loanTypeDisplay ? ` – ${loanTypeDisplay}` : ''}`
     
     const fullName = [firstName, middleName, lastName].filter(Boolean).join(' ')
     const hasHdfcFields = pan || firstName || lastName || personalEmail || addressLine1 || employerName || monthlyIncome
@@ -132,8 +170,24 @@ ${fullName ? `Full Name: ${fullName}` : ''}
 ${gender ? `Gender: ${gender}` : ''}
 ${personalEmail ? `Personal Email: ${personalEmail}` : ''}` : ''
 
+    // Build "all form data" for email (every field, excluding file content)
+    const attachmentKeys = ['panCard', 'aadhaarCard', 'payslip', 'bankStatement', 'additionalDoc', 'addressProof']
+    const allFormFields = Object.entries(body)
+      .filter(([k]) => !attachmentKeys.includes(k))
+      .map(([k, v]) => {
+        if (v == null) return null
+        if (typeof v === 'object' && v !== null && 'data' in v && typeof (v as any).data === 'string') return `${k}: [file attached: ${(v as any).filename || k}]`
+        const val = typeof v === 'boolean' ? (v ? 'Yes' : 'No') : (typeof v === 'object' ? JSON.stringify(v) : String(v))
+        return `${k}: ${val}`
+      })
+      .filter(Boolean) as string[]
+    const allFormFieldsText = allFormFields.length ? `\n\nComplete form data:\n${allFormFields.join('\n')}` : ''
+    const allFormFieldsHtml = allFormFields.length ? allFormFields.map(s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')).join('\n') : ''
+
     const emailBody = `
 New Bank Loan Application
+
+Loan Type: ${loanTypeDisplay || loanType || 'Not specified'}
 
 Bank Information:
 Bank: ${bankName || bankId}
@@ -169,24 +223,17 @@ Personalized Offers Consent: ${consentPersonalizedOffers ? 'Yes' : 'No'}
 ${consentPerfios !== undefined ? `Perfios T&C Consent: ${consentPerfios ? 'Yes' : 'No'}` : ''}
 ${consentEligibility !== undefined ? `Eligibility & T&C Consent: ${consentEligibility ? 'Yes' : 'No'}` : ''}
 
+Documents attached: ${[panCard?.data && 'PAN Card', aadhaarCard?.data && 'Aadhaar', payslip?.data && 'Payslip', bankStatement?.data && 'Bank Statement', additionalDoc?.data && 'Additional Doc', addressProof?.data && 'Address Proof'].filter(Boolean).join(', ') || 'None'}
+${allFormFieldsText}
+
 ---
 This loan application was submitted through the bank application form.
 Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
     `.trim()
 
-    // Log the loan application (for development)
-    console.log('Bank loan application received:', {
-      bankId,
-      bankName,
-      mobileNumber,
-      dateOfBirth,
-      sourceOfIncome,
-      loanAmount,
-      tenure,
-      to: recipientEmail,
-      subject,
-      body: emailBody
-    })
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('Bank loan application received:', { bankId, bankName, to: recipientEmail, subject })
+    }
 
     // Prepare attachments array
     const attachments: Array<{
@@ -210,6 +257,34 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
         contentType: aadhaarCard.contentType || 'image/jpeg'
       })
     }
+    if (payslip && payslip.data) {
+      attachments.push({
+        filename: payslip.filename || 'payslip.pdf',
+        content: payslip.data,
+        contentType: payslip.contentType || 'application/pdf'
+      })
+    }
+    if (bankStatement && bankStatement.data) {
+      attachments.push({
+        filename: bankStatement.filename || 'bank-statement.pdf',
+        content: bankStatement.data,
+        contentType: bankStatement.contentType || 'application/pdf'
+      })
+    }
+    if (additionalDoc && additionalDoc.data) {
+      attachments.push({
+        filename: additionalDoc.filename || 'additional-doc.pdf',
+        content: additionalDoc.data,
+        contentType: additionalDoc.contentType || 'application/pdf'
+      })
+    }
+    if (addressProof && addressProof.data) {
+      attachments.push({
+        filename: addressProof.filename || 'address-proof.pdf',
+        content: addressProof.data,
+        contentType: addressProof.contentType || 'application/pdf'
+      })
+    }
 
     // Send email notification using Resend
     try {
@@ -228,41 +303,46 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
               <h2 style="color: #004C8A;">New Bank Loan Application</h2>
               
+              <div style="background: #e0f2fe; padding: 16px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0284c7;">
+                <h3 style="color: #0c4a6e; margin-top: 0;">Loan Type</h3>
+                <p style="font-size: 18px; font-weight: 600; margin: 0;">${escHtml(loanTypeDisplay || loanType || 'Not specified')}</p>
+              </div>
+              
               <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h3 style="color: #1e293b; margin-top: 0;">Bank Information</h3>
-                <p><strong>Bank:</strong> ${bankName || bankId}</p>
-                <p><strong>Bank ID:</strong> ${bankId}</p>
+                <p><strong>Bank:</strong> ${escHtml(bankName || bankId)}</p>
+                <p><strong>Bank ID:</strong> ${escHtml(bankId)}</p>
               </div>
               
               <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h3 style="color: #1e293b; margin-top: 0;">Personal Information</h3>
-                <p><strong>Mobile Number:</strong> +91 ${mobileNumber}</p>
-                <p><strong>Date of Birth:</strong> ${dateOfBirth}</p>
+                <p><strong>Mobile Number:</strong> +91 ${escHtml(mobileNumber)}</p>
+                <p><strong>Date of Birth:</strong> ${escHtml(dateOfBirth)}</p>
                 <p><strong>Source of Income:</strong> ${sourceOfIncome === 'salaried' ? 'Salaried' : 'Self Employed / Professionals / Business'}</p>
-                ${pan ? `<p><strong>PAN:</strong> ${pan}</p>` : ''}
-                ${fullName ? `<p><strong>Full Name:</strong> ${fullName}</p>` : ''}
-                ${gender ? `<p><strong>Gender:</strong> ${gender}</p>` : ''}
-                ${personalEmail ? `<p><strong>Personal Email:</strong> ${personalEmail}</p>` : ''}
-                ${typeOfLoan ? `<p><strong>Type of Loan:</strong> ${typeOfLoan}</p>` : ''}
+                ${pan ? `<p><strong>PAN:</strong> ${escHtml(pan)}</p>` : ''}
+                ${fullName ? `<p><strong>Full Name:</strong> ${escHtml(fullName)}</p>` : ''}
+                ${gender ? `<p><strong>Gender:</strong> ${escHtml(gender)}</p>` : ''}
+                ${personalEmail ? `<p><strong>Personal Email:</strong> ${escHtml(personalEmail)}</p>` : ''}
+                ${typeOfLoan ? `<p><strong>Type of Loan (form):</strong> ${escHtml(typeOfLoan)}</p>` : ''}
               </div>
               
               ${hasHdfcFields && (addressLine1 || employerName) ? `
               <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h3 style="color: #1e293b; margin-top: 0;">Address & Employment</h3>
-                ${addressLine1 ? `<p><strong>Address:</strong> ${addressLine1}${addressLine2 ? `, ${addressLine2}` : ''}${addressLine3 ? `, ${addressLine3}` : ''}</p>` : ''}
-                ${pincode || city || state ? `<p>${[pincode, city, state].filter(Boolean).join(', ')}</p>` : ''}
-                ${employerName ? `<p><strong>Employer:</strong> ${employerName}</p>` : ''}
-                ${monthlyIncome ? `<p><strong>Monthly Income:</strong> ₹${monthlyIncome}</p>` : ''}
-                ${monthlyEmis ? `<p><strong>Monthly EMIs:</strong> ₹${monthlyEmis}</p>` : ''}
-                ${workEmail ? `<p><strong>Work Email:</strong> ${workEmail}</p>` : ''}
+                ${addressLine1 ? `<p><strong>Address:</strong> ${escHtml(addressLine1)}${addressLine2 ? `, ${escHtml(addressLine2)}` : ''}${addressLine3 ? `, ${escHtml(addressLine3)}` : ''}</p>` : ''}
+                ${pincode || city || state ? `<p>${[pincode, city, state].filter(Boolean).map(escHtml).join(', ')}</p>` : ''}
+                ${employerName ? `<p><strong>Employer:</strong> ${escHtml(employerName)}</p>` : ''}
+                ${monthlyIncome ? `<p><strong>Monthly Income:</strong> ₹${escHtml(monthlyIncome)}</p>` : ''}
+                ${monthlyEmis ? `<p><strong>Monthly EMIs:</strong> ₹${escHtml(monthlyEmis)}</p>` : ''}
+                ${workEmail ? `<p><strong>Work Email:</strong> ${escHtml(workEmail)}</p>` : ''}
               </div>
               ` : ''}
               
               ${loanAmount || tenure ? `
               <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h3 style="color: #1e293b; margin-top: 0;">Loan Details</h3>
-                ${loanAmount ? `<p><strong>Loan Amount:</strong> ₹${parseInt(loanAmount).toLocaleString('en-IN')}</p>` : ''}
-                ${tenure ? `<p><strong>Tenure:</strong> ${tenure} ${tenureUnit === 'Yr' ? 'Years' : 'Months'}</p>` : ''}
+                ${loanAmount ? `<p><strong>Loan Amount:</strong> ₹${escHtml(parseInt(loanAmount).toLocaleString('en-IN'))}</p>` : ''}
+                ${tenure ? `<p><strong>Tenure:</strong> ${escHtml(tenure)} ${tenureUnit === 'Yr' ? 'Years' : 'Months'}</p>` : ''}
               </div>
               ` : ''}
               
@@ -290,6 +370,25 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
               </div>
               ` : ''}
               
+              ${(payslip?.data || bankStatement?.data || additionalDoc?.data || addressProof?.data) ? `
+              <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="color: #1e293b; margin-top: 0;">Other documents (attached)</h3>
+                <ul style="margin: 0; padding-left: 20px;">
+                  ${payslip?.data ? `<li>Payslip: ${payslip.filename || 'payslip'}</li>` : ''}
+                  ${bankStatement?.data ? `<li>Bank Statement: ${bankStatement.filename || 'bank-statement'}</li>` : ''}
+                  ${additionalDoc?.data ? `<li>Additional Document: ${additionalDoc.filename || 'additional-doc'}</li>` : ''}
+                  ${addressProof?.data ? `<li>Address Proof: ${addressProof.filename || 'address-proof'}</li>` : ''}
+                </ul>
+              </div>
+              ` : ''}
+              
+              ${allFormFields.length > 0 ? `
+              <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="color: #1e293b; margin-top: 0;">Complete form data</h3>
+                <pre style="margin: 0; font-size: 12px; white-space: pre-wrap; word-break: break-word;">${allFormFieldsHtml}</pre>
+              </div>
+              ` : ''}
+              
               <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 30px 0;">
               <p style="color: #64748b; font-size: 12px;">
                 This loan application was submitted through the bank application form.<br>
@@ -306,32 +405,14 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
         
         const emailResult = await resend.emails.send(emailData)
         
-        console.log('Email sent successfully to:', recipientEmail)
+        if (process.env.NODE_ENV !== 'production') console.log('Email sent to:', recipientEmail)
       } else {
-        // For development: Log email that would be sent
-        console.log('\n=== EMAIL TO BE SENT ===')
-        console.log(`To: ${recipientEmail}`)
-        console.log(`Subject: ${subject}`)
-        console.log(`Body:\n${emailBody}`)
-        if (attachments.length > 0) {
-          console.log(`Attachments: ${attachments.map(a => a.filename).join(', ')}`)
+        if (process.env.NODE_ENV !== 'production') {
+          console.log(`[DEV] Would send email to ${recipientEmail}: ${subject}`)
         }
-        console.log('\nTo enable email sending, set RESEND_API_KEY in .env file')
-        console.log('Get your API key from: https://resend.com/api-keys')
-        console.log('========================\n')
       }
     } catch (emailError: any) {
-      console.error('Error sending email:', emailError)
-      // Log email details even if sending fails
-      console.log('\n=== EMAIL DETAILS (Sending failed) ===')
-      console.log(`To: ${recipientEmail}`)
-      console.log(`Subject: ${subject}`)
-      console.log(`Body:\n${emailBody}`)
-      if (attachments.length > 0) {
-        console.log(`Attachments: ${attachments.map(a => a.filename).join(', ')}`)
-      }
-      console.log('=====================================\n')
-      // Don't fail the request if email fails
+      console.error('Email send failed:', emailError instanceof Error ? emailError.message : 'unknown')
     }
 
     // Send confirmation email to user when we have their email
@@ -347,7 +428,7 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
           text: `Thank you for your ${bankName || 'bank'} loan application. We have received your details and our team will be in touch.\n\n— Zineegroup Team`,
         })
       } catch (e) {
-        console.error('Bank application confirmation email error:', e)
+        console.error('Confirmation email error:', e instanceof Error ? e.message : 'unknown')
       }
     }
 
@@ -378,41 +459,9 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
       { status: 200 }
     )
   } catch (error) {
-    console.error('Error processing bank loan application:', error)
+    console.error('Bank application error:', error instanceof Error ? error.message : 'unknown')
     return NextResponse.json(
-      { error: 'Internal server error. Please try again later.' },
-      { status: 500 }
-    )
-  }
-}
-
-// GET endpoint to retrieve applications (for admin/dashboard)
-export async function GET(request: NextRequest) {
-  try {
-    const { searchParams } = new URL(request.url)
-    const bankId = searchParams.get('bankId')
-    
-    // TODO: Fetch from database
-    // Example:
-    // const applications = await db.bankApplications.findMany({
-    //   where: bankId ? { bankId } : {},
-    //   orderBy: { submittedAt: 'desc' },
-    //   take: 100
-    // })
-    
-    // For now, return mock data or empty array
-    return NextResponse.json(
-      { 
-        message: 'Applications retrieved successfully',
-        applications: [],
-        // applications: applications
-      },
-      { status: 200 }
-    )
-  } catch (error) {
-    console.error('Error retrieving applications:', error)
-    return NextResponse.json(
-      { error: 'Internal server error. Please try again later.' },
+      { error: 'Something went wrong. Please try again later.' },
       { status: 500 }
     )
   }

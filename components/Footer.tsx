@@ -27,7 +27,6 @@ export default function Footer() {
                 <div className="logo-text">
                 </div>
               </div>
-              <div className="logo-tagline">{t('footer.tagline')}</div>
             </div>
             <p className="company-description">
               {t('footer.description')}
@@ -37,31 +36,90 @@ export default function Footer() {
           <div className="footer-section">
             <h3 className="footer-heading">{t('footer.quickLinks')}</h3>
             <ul className="footer-list">
-              <li><Link href="/">{t('nav.home')}</Link></li>
-              <li><Link href="/about-us">{t('nav.about')}</Link></li>
-              <li><Link href="/apply-for-loan">{t('nav.apply')}</Link></li>
-              <li><Link href="/cibil-score">{t('nav.cibil')}</Link></li>
-              <li><Link href="/talk-to-expert">{t('nav.contact')}</Link></li>
+              <li>
+                <Link href="/">
+                  <svg className="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                  {t('nav.home')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/about-us">
+                  <svg className="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  {t('nav.about')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/apply-for-loan">
+                  <svg className="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                  {t('nav.apply')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/cibil-score">
+                  <svg className="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  {t('nav.cibil')}
+                </Link>
+              </li>
+              <li>
+                <Link href="/talk-to-expert">
+                  <svg className="footer-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  {t('nav.contact')}
+                </Link>
+              </li>
             </ul>
           </div>
 
           <div className="footer-section">
             <h3 className="footer-heading">{t('footer.getInTouch')}</h3>
             <ul className="footer-list">
-              {!isCibilPage && (
-                <li className="contact-item">
-                  <svg className="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <a href="tel:+919540185185">+91 9540 185 185</a>
-                </li>
-              )}
+              <li className="contact-item">
+                <svg className="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <a href="tel:+919540185185">+91 9540-185-185</a>
+              </li>
               <li className="contact-item">
                 <svg className="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 <a href="mailto:info@zineegroup.com">info@zineegroup.com</a>
               </li>
+              <li className="contact-item contact-item-address">
+                <a href="https://www.google.com/maps?q=28.628213,77.073670" target="_blank" rel="noopener noreferrer" className="contact-address">
+                  <span className="contact-address-line1">
+                    <svg className="contact-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    B11 F/F Shankar Garden
+                  </span>
+                  <span className="contact-address-line2">Vikaspuri, New Delhi</span>
+                  <span className="contact-address-line3">Delhi 110018</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h3 className="footer-heading">Our Branches</h3>
+            <ul className="footer-list footer-locations">
+              <li><span className="location-dot" />New Delhi (Delhi)</li>
+              <li><span className="location-dot" />Noida (Uttar Pradesh)</li>
+              <li><span className="location-dot" />Lucknow (Uttar Pradesh)</li>
+              <li><span className="location-dot" />Vapi (Gujarat)</li>
+              <li><span className="location-dot" />Raebareli (Uttar Pradesh)</li>
+              <li><span className="location-dot" />Agra (Uttar Pradesh)</li>
+              <li><span className="location-dot" />Saran (Bihar)</li>
+            </ul>
+          </div>
+
+          <div className="footer-section">
+            <h3 className="footer-heading">Our Franchise</h3>
+            <ul className="footer-list footer-locations">
+              <li><span className="location-dot" />Gurgaon (Haryana)</li>
+              <li><span className="location-dot" />Goa (Goa)</li>
+              <li><span className="location-dot" />Chennai (Tamil Nadu)</li>
+              <li><span className="location-dot" />Hyderabad (Telangana)</li>
+              <li><span className="location-dot" />Jaipur (Rajasthan)</li>
             </ul>
           </div>
 

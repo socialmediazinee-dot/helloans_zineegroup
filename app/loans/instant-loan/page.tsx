@@ -17,7 +17,7 @@ export default function InstantLoanPage() {
       <main className="loan-page-main">
         <div className="loan-page-container">
           <div className="loan-page-header">
-            <h1>Instant Loan</h1>
+            <h1><span className="loan-title-shimmer">Instant</span> Loan</h1>
             <p>A convenient and speedy way to get the funds you require for unanticipated expenses.</p>
           </div>
 

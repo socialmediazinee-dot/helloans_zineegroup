@@ -35,7 +35,6 @@ export default function InstantLoanSlide() {
         { name: 'Popcard', url: 'https://popcard.mymoneymantra.com?sms=false&btb=true&utm_source=yescc&utm_medium=mmm&utm_campaign=yescc-mmm-941530', logo: '/assets/images/partners/popcard.jpg' },
         { name: 'Bank of Baroda', url: 'https://bobcard.mymoneymantra.com?sms=false&btb=true&utm_source=bobcc&utm_medium=mmm&utm_campaign=bobcc-mmm-941530', logo: '/assets/images/BOB.png' }, // Using existing asset
         { name: 'Federal Bank', url: 'https://federalcc.mymoneymantra.com?sms=false&btb=true&utm_source=fedcc&utm_medium=mmm&utm_campaign=fedcc-mmm-941530', logo: '/assets/images/partners/federal.jpeg' },
-        { name: 'AU Bank', url: 'https://aucc.mymoneymantra.com/?sms=false&btb=true&utm_source=aucc&utm_medium=mmm&utm_campaign=aucc-mmm-941530', logo: '/assets/images/partners/au.png' },
         { name: 'Kiwi', url: 'https://kiwi.mymoneymantra.com?sms=false&btb=true&utm_source=kiwicc&utm_medium=mmm&utm_campaign=kiwicc-mmm-941530', logo: '/assets/images/partners/kiwi.jpg' },
         { name: 'Tata Neu', url: 'https://tataneu.mymoneymantra.com?sms=false&btb=true&utm_source=neucc&utm_medium=mmm&utm_campaign=neucc-mmm-941530', logo: '/assets/images/partners/tataneu.webp' },
         { name: 'SBI Card', url: 'https://sbicard.mymoneymantra.com?sms=false&btb=true&utm_source=sbcc&utm_medium=mmm&utm_campaign=sbcc-mmm-941530', logo: '/assets/images/SBI.png' }, // Using existing asset
@@ -44,7 +43,7 @@ export default function InstantLoanSlide() {
         { name: 'Magnifi', url: 'https://magnifi.mymoneymantra.com?sms=false&btb=true&utm_source=mficc&utm_medium=mmm&utm_campaign=mficc-mmm-941530', logo: '/assets/images/partners/magnifi.png' },
         { name: 'IndusInd', url: 'https://ccindus.mymoneymantra.com?sms=false&btb=true&utm_source=induscc&utm_medium=mmm&utm_campaign=induscc-mmm-941530', logo: '/assets/images/partners/indusind.jpeg' },
         { name: 'ICICI Bank', url: 'https://icicicc.mymoneymantra.com?sms=false&btb=true&utm_source=icicc&utm_medium=mmm&utm_campaign=icicc-mmm-941530', logo: '/assets/images/partners/icici.jpg' },
-        { name: 'LIC Axis', url: 'https://licaxiscc.mymoneymantra.com?sms=false&btb=true&utm_source=axslic&utm_medium=mmm&utm_campaign=axslic-mmm-941530', logo: null }, // Still missing LIC Axis? checking list again later if uploaded differently
+        { name: 'LIC Axis', url: 'https://licaxiscc.mymoneymantra.com?sms=false&btb=true&utm_source=axslic&utm_medium=mmm&utm_campaign=axslic-mmm-941530', logo: '/assets/images/licaxis-bank.jpg' },
         { name: 'Magnet', url: 'https://magnetcard.mymoneymantra.com/?sms=false&btb=true&utm_source=mfdcc&utm_medium=mmm&utm_campaign=mfdcc-mmm-941530', logo: null },
     ]
 

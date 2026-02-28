@@ -1,7 +1,0 @@
-<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M400 256C400 335.529 335.529 400 256 400C220.648 400 188.315 387.218 163.2 366" stroke="#2563EB" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M112 256C112 176.471 176.471 112 256 112C291.352 112 323.685 124.782 348.8 146" stroke="#2563EB" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M112 368V304H176" stroke="#2563EB" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M400 144V208H336" stroke="#2563EB" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="256" y="275" font-family="Arial" font-size="80" font-weight="bold" text-anchor="middle" fill="#2563EB">⇄</text>
-</svg>

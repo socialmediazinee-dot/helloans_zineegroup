@@ -7,7 +7,6 @@ import { usePathname } from 'next/navigation'
 import StockTicker from './StockTicker'
 import ChatBot from './ChatBot'
 import { useLanguage, getLangLabelKey } from '@/contexts/LanguageContext'
-import { useDarkMode } from '@/contexts/DarkModeContext'
 
 type NavLink = {
   href: string
@@ -25,14 +24,50 @@ const NAV_LINKS: NavLink[] = [
   { href: '/talk-to-expert', labelKey: 'nav.contact' },
 ]
 
+type LoginModalType = 'employee' | 'customer' | 'partner' | null
+
+const LOGIN_OPTIONS: { id: LoginModalType; label: string }[] = [
+  { id: 'employee', label: 'Employee Login' },
+  { id: 'customer', label: 'Customer Login' },
+  { id: 'partner', label: 'Partner Login' },
+]
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeLinkLabel, setActiveLinkLabel] = useState<string | null>(null)
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false)
+  const [isLoginDropdownOpen, setIsLoginDropdownOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
   const { language, setLanguage, t, supportedLanguages } = useLanguage()
-  const { toggleTheme, isDark } = useDarkMode()
+
+  const [loginModal, setLoginModal] = useState<LoginModalType>(null)
+  const [loginUsername, setLoginUsername] = useState('')
+  const [loginPassword, setLoginPassword] = useState('')
+  const [loginError, setLoginError] = useState('')
+  const [loginClickCount, setLoginClickCount] = useState(0)
+  const [showDashboardOverlay, setShowDashboardOverlay] = useState(false)
+
+  const handleLoginSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoginClickCount((c) => c + 1)
+    if (loginClickCount + 1 >= 7) {
+      setLoginModal(null)
+      setLoginError('')
+      setLoginClickCount(0)
+      setShowDashboardOverlay(true)
+      return
+    }
+    setLoginError('Wrong username or password')
+  }
+  const closeLoginModal = () => {
+    setLoginModal(null)
+    setLoginError('')
+    setLoginUsername('')
+    setLoginPassword('')
+    setLoginClickCount(0)
+  }
+  const closeDashboardOverlay = () => setShowDashboardOverlay(false)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,12 +134,15 @@ export default function Header() {
     }
   }, [pathname, t])
 
-  // Close language dropdown and mobile menu when clicking outside
+  // Close dropdowns and mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as HTMLElement
       if (!target.closest('.language-switcher')) {
         setIsLanguageDropdownOpen(false)
+      }
+      if (!target.closest('.login-dropdown')) {
+        setIsLoginDropdownOpen(false)
       }
       if (!target.closest('.mobile-menu-toggle') && !target.closest('.main-nav')) {
         setIsMobileMenuOpen(false)
@@ -247,6 +285,51 @@ export default function Header() {
             </div>
           </nav>
           <div className="header-actions">
+            {/* Login Dropdown */}
+            <div className="login-dropdown">
+              <button
+                className="login-dropdown-button"
+                onClick={() => setIsLoginDropdownOpen(!isLoginDropdownOpen)}
+                aria-label="Login"
+                aria-expanded={isLoginDropdownOpen}
+              >
+                <svg className="login-dropdown-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="login-dropdown-text">{t('nav.login')}</span>
+                <svg
+                  className={`login-dropdown-chevron ${isLoginDropdownOpen ? 'open' : ''}`}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+
+              {isLoginDropdownOpen && (
+                <div className="login-dropdown-menu">
+                  {LOGIN_OPTIONS.map(({ id, label }) => (
+                    <button
+                      key={id}
+                      className="login-dropdown-option"
+                      onClick={() => {
+                        setLoginModal(id)
+                        setIsLoginDropdownOpen(false)
+                        setLoginError('')
+                        setLoginUsername('')
+                        setLoginPassword('')
+                        setLoginClickCount(0)
+                      }}
+                    >
+                      <span className="login-dropdown-option-text">{label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
             {/* Language Switcher */}
             <div className="language-switcher">
               <button
@@ -299,25 +382,6 @@ export default function Header() {
               )}
             </div>
 
-            {/* Dark Mode Toggle */}
-            <button
-              onClick={toggleTheme}
-              className="theme-toggle glass-button"
-              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-              title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-            >
-              {isDark ? (
-                <svg className="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2" />
-                  <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                </svg>
-              ) : (
-                <svg className="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              )}
-            </button>
-
             {/* ChatBot - hide on Talk to Expert page (has its own embedded chat) */}
             {pathname !== '/talk-to-expert' && (
               <div style={{ position: 'relative' }}>
@@ -327,6 +391,58 @@ export default function Header() {
           </div>
         </div>
       </header>
+
+      {/* Login modal */}
+      {loginModal && (
+        <div className="partner-login-modal-overlay" onClick={closeLoginModal}>
+          <div className="partner-login-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="partner-login-modal-header">
+              <h3 className="partner-login-modal-title">
+                {loginModal === 'employee' && 'Employee Login'}
+                {loginModal === 'customer' && 'Customer Login'}
+                {loginModal === 'partner' && 'Partner Login'}
+              </h3>
+              <button type="button" className="partner-login-modal-close" onClick={closeLoginModal} aria-label="Close">&times;</button>
+            </div>
+            <form className="partner-login-form" onSubmit={handleLoginSubmit}>
+              <div className="partner-login-field">
+                <label className="partner-login-label">Username</label>
+                <input
+                  type="text"
+                  className="partner-login-input"
+                  value={loginUsername}
+                  onChange={(e) => setLoginUsername(e.target.value)}
+                  placeholder="Enter username"
+                  autoComplete="username"
+                />
+              </div>
+              <div className="partner-login-field">
+                <label className="partner-login-label">Password</label>
+                <input
+                  type="password"
+                  className="partner-login-input"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  placeholder="Enter password"
+                  autoComplete="current-password"
+                />
+              </div>
+              {loginError && <p className="partner-login-error">{loginError}</p>}
+              <button type="submit" className="partner-login-submit">Login</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Dashboard placeholder overlay */}
+      {showDashboardOverlay && (
+        <div className="partner-dashboard-overlay">
+          <p className="partner-dashboard-message">
+            Here you will dash board – you will create using backend. If you are seeing this, it means it is not KK setting up backend.
+          </p>
+          <button type="button" className="partner-dashboard-close" onClick={closeDashboardOverlay}>Close</button>
+        </div>
+      )}
     </>
   )
 }

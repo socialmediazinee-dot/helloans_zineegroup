@@ -19,7 +19,7 @@ export default function PersonalLoansPage() {
       <main className="loan-page-main">
         <div className="loan-page-container">
           <div className="loan-page-header">
-            <h1>Personal Loans</h1>
+            <h1><span className="loan-title-shimmer">Personal</span> Loans</h1>
             <p>Whether it's for debt repayment or big life ambitions, a personal loan can be an excellent financial instrument.</p>
           </div>
 

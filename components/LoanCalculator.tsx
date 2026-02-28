@@ -3,6 +3,8 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useBankRates } from '@/contexts/BankRatesContext'
+import RupeeIcon from '@/components/RupeeIcon'
 import {
   PieChart,
   Pie,
@@ -24,10 +26,8 @@ interface LoanCalculatorProps {
   onParamsChange?: (params: LoanCalculatorParams) => void
 }
 
-const formatCurrency = (amount: number) => {
+const formatNumber = (amount: number) => {
   return new Intl.NumberFormat('en-IN', {
-    style: 'currency',
-    currency: 'INR',
     maximumFractionDigits: 0,
   }).format(amount)
 }
@@ -40,8 +40,18 @@ export default function LoanCalculator({
   onParamsChange,
 }: LoanCalculatorProps) {
   const { t } = useLanguage()
+  const { getDefaultRate, isLoading: ratesLoading } = useBankRates()
+  const sheetRate = getDefaultRate(loanType)
+  const effectiveDefault = sheetRate ?? defaultInterestRate
+
   const [amount, setAmount] = useState(500000)
-  const [interestRate, setInterestRate] = useState(defaultInterestRate)
+  const [interestRate, setInterestRate] = useState(effectiveDefault)
+
+  useEffect(() => {
+    if (!ratesLoading && sheetRate !== null) {
+      setInterestRate(parseFloat(sheetRate.toFixed(2)))
+    }
+  }, [ratesLoading, sheetRate])
   const [tenure, setTenure] = useState(3)
   const [tenureUnit, setTenureUnit] = useState<'Yr' | 'Mo'>('Yr')
 
@@ -177,7 +187,7 @@ export default function LoanCalculator({
               <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
                 <div style={{ width: '10px', height: '10px', backgroundColor: entry.color || entry.payload?.fill, marginRight: '8px', borderRadius: '2px' }}></div>
                 <span style={{ color: color, fontSize: '0.9rem' }}>
-                  {entry.name}: {formatCurrency(Number(entry.value))}
+                  {entry.name}: <RupeeIcon size={12} />{formatNumber(Number(entry.value))}
                 </span>
               </div>
             )
@@ -193,7 +203,6 @@ export default function LoanCalculator({
       <div className="emi-calc-wrapper">
         <div className="emi-calc-grid">
 
-          {/* Inputs Section */}
           <div className="emi-inputs-section">
 
             {/* Amount Input */}
@@ -201,7 +210,7 @@ export default function LoanCalculator({
               <div className="emi-input-header">
                 <label className="emi-label">{t('emi.loanAmount')}</label>
                 <div className="emi-input-control">
-                  <span className="emi-currency-symbol">₹</span>
+                  <span className="emi-currency-symbol"><RupeeIcon size={16} /></span>
                   <input
                     type="text"
                     value={amount.toLocaleString('en-IN')} // formatting for display
@@ -232,8 +241,8 @@ export default function LoanCalculator({
                 />
               </div>
               <div className="emi-slider-range-labels">
-                <span>{formatCurrency(minAmount)}</span>
-                <span>{formatCurrency(maxAmount)}</span>
+                <span><RupeeIcon size={12} />{formatNumber(minAmount)}</span>
+                <span><RupeeIcon size={12} />{formatNumber(maxAmount)}</span>
               </div>
             </div>
 
@@ -328,51 +337,55 @@ export default function LoanCalculator({
 
           </div>
 
-        </div>
+          <div className="emi-right-col">
+            <div className="emi-results-col">
+              <div className="emi-stat-item">
+                <div className="emi-stat-label">{t('emi.loanEmi')}</div>
+                <div className="emi-stat-value highlight"><RupeeIcon size={18} />{formatNumber(emi)}</div>
+              </div>
+              <div className="emi-stat-item">
+                <div className="emi-stat-label">{t('emi.totalInterestPayable')}</div>
+                <div className="emi-stat-value"><RupeeIcon size={18} />{formatNumber(totalInterest)}</div>
+              </div>
+              <div className="emi-stat-item">
+                <div className="emi-stat-label">{t('emi.totalPayment')}</div>
+                <div className="emi-stat-value"><RupeeIcon size={18} />{formatNumber(totalPayment)}</div>
+              </div>
+            </div>
 
-        {/* Horizontal results row below calculator */}
-        <div className="emi-results-row">
-          <div className="emi-stat-item">
-            <div className="emi-stat-label">{t('emi.loanEmi')}</div>
-            <div className="emi-stat-value highlight">{formatCurrency(emi)}</div>
+            <div className="emi-chart-col">
+              <ResponsiveContainer width="100%" height={220}>
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="40%"
+                    innerRadius={30}
+                    outerRadius={55}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend
+                    verticalAlign="bottom"
+                    iconSize={10}
+                    wrapperStyle={{ fontSize: '12px', paddingTop: '8px' }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-          <div className="emi-stat-item">
-            <div className="emi-stat-label">{t('emi.totalInterestPayable')}</div>
-            <div className="emi-stat-value">{formatCurrency(totalInterest)}</div>
-          </div>
-          <div className="emi-stat-item">
-            <div className="emi-stat-label">{t('emi.totalPayment')}</div>
-            <div className="emi-stat-value">{formatCurrency(totalPayment)}</div>
-          </div>
-        </div>
 
-        {/* Pie Chart */}
-        <div className="emi-chart-container">
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={pieData}
-                cx="50%"
-                cy="50%"
-                innerRadius={60}
-                outerRadius={90}
-                paddingAngle={5}
-                dataKey="value"
-              >
-                {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip content={<CustomTooltip />} />
-              <Legend />
-            </PieChart>
-          </ResponsiveContainer>
         </div>
 
         {/* Repayment Schedule Table */}
         <div className="emi-schedule-section">
           <h3 className="emi-section-title emi-section-title-glass">
-            Check Your Repayment Schedule
+            Check your <span className="shimmer-text">repayment schedule</span>
           </h3>
           <div className="emi-table-wrapper">
             <table className="emi-table emi-table-pro">
@@ -403,10 +416,10 @@ export default function LoanCalculator({
                           {expandedYear === row.year ? '−' : '+'}
                         </button>
                       </td>
-                      <td className="emi-td emi-td-num">{formatCurrency(row.principalPaid)}</td>
-                      <td className="emi-td emi-td-num">{formatCurrency(row.interestPaid)}</td>
-                      <td className="emi-td emi-td-num">{formatCurrency(row.totalPayment)}</td>
-                      <td className="emi-td emi-td-num">{formatCurrency(row.balance)}</td>
+                      <td className="emi-td emi-td-num"><RupeeIcon size={12} />{formatNumber(row.principalPaid)}</td>
+                      <td className="emi-td emi-td-num"><RupeeIcon size={12} />{formatNumber(row.interestPaid)}</td>
+                      <td className="emi-td emi-td-num"><RupeeIcon size={12} />{formatNumber(row.totalPayment)}</td>
+                      <td className="emi-td emi-td-num"><RupeeIcon size={12} />{formatNumber(row.balance)}</td>
                       <td className="emi-td emi-td-center">{row.loanPaidExecute}</td>
                       <td className="emi-td emi-td-action"></td>
                     </tr>
@@ -428,10 +441,10 @@ export default function LoanCalculator({
                                 {row.months.map((mo) => (
                                   <tr key={mo.month}>
                                     <td className="emi-monthly-td-month">{mo.month}</td>
-                                    <td className="emi-monthly-td-num">{formatCurrency(mo.emi)}</td>
-                                    <td className="emi-monthly-td-num">{formatCurrency(mo.principal)}</td>
-                                    <td className="emi-monthly-td-num">{formatCurrency(mo.interest)}</td>
-                                    <td className="emi-monthly-td-num">{formatCurrency(mo.balance)}</td>
+                                    <td className="emi-monthly-td-num"><RupeeIcon size={11} />{formatNumber(mo.emi)}</td>
+                                    <td className="emi-monthly-td-num"><RupeeIcon size={11} />{formatNumber(mo.principal)}</td>
+                                    <td className="emi-monthly-td-num"><RupeeIcon size={11} />{formatNumber(mo.interest)}</td>
+                                    <td className="emi-monthly-td-num"><RupeeIcon size={11} />{formatNumber(mo.balance)}</td>
                                   </tr>
                                 ))}
                               </tbody>

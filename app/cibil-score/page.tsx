@@ -5,7 +5,6 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { useLanguage } from '@/contexts/LanguageContext'
 import OtpVerification from '@/components/OtpVerification'
-import EmailVerification from '@/components/EmailVerification'
 import styles from './cibil.module.css'
 
 export default function CibilScorePage() {
@@ -22,7 +21,6 @@ export default function CibilScorePage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
   const [mobileVerified, setMobileVerified] = useState(false)
-  const [emailVerified, setEmailVerified] = useState(false)
 
   // Accordion state for Knowledge Hub
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0)
@@ -34,9 +32,6 @@ export default function CibilScorePage() {
     } else if (name === 'mobileNumber' && value.length <= 10) {
       setFormData({ ...formData, [name]: value.replace(/\D/g, '') })
       setMobileVerified(false)
-    } else if (name === 'email') {
-      setFormData({ ...formData, [name]: value })
-      setEmailVerified(false)
     } else if (name !== 'mobileNumber') {
       setFormData({ ...formData, [name]: value })
     }
@@ -57,7 +52,6 @@ export default function CibilScorePage() {
       if (response.ok) {
         setSubmitMessage(t('cibil.formSuccess') || 'Your CIBIL score enquiry has been submitted. We will contact you via email.')
         setMobileVerified(false)
-        setEmailVerified(false)
         setFormData({
           name: '',
           panNumber: '',
@@ -89,7 +83,7 @@ export default function CibilScorePage() {
       )
     },
     {
-      title: "New RBI Guidelines (2025)",
+      title: "New RBI Guidelines (2026)",
       content: (
         <ul style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}>
           <li><strong>Faster Updates:</strong> Banks now report to bureaus every 15 days (bi-monthly), so clearing dues reflects faster!</li>
@@ -125,15 +119,11 @@ export default function CibilScorePage() {
           <div className={styles.container}>
             <div className={styles.heroGrid}>
               <div className={styles.heroContent}>
-                <span className={styles.badge}>
-                  OFFICIAL CIBIL PARTNER
-                </span>
                 <h1 className={styles.headline}>
                   Check Your <span className={styles.textShimmer}>CIBIL Score</span> Instantly
                 </h1>
                 <p className={styles.subheadline}>
-                  Get your detailed credit report for free. No impact on your score.
-                  Trusted by millions of Indians for accurate credit insights.
+                  Get your detailed credit report for free. Trusted by millions of Indians for accurate credit insights.
                 </p>
 
                 <div className={styles.trustBadges}>
@@ -147,7 +137,7 @@ export default function CibilScorePage() {
                     <div className={styles.iconBoxBlue}>
                       <svg width="20" height="20" className={styles.textBlue} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </div>
-                    <span className={styles.trustText}>Updated Daily</span>
+                    <span className={styles.trustText}>Updated Timely</span>
                   </div>
                 </div>
               </div>
@@ -240,25 +230,16 @@ export default function CibilScorePage() {
                       </div>
                       <div>
                         <label className={styles.label}>
-                          {t('cibil.formEmailLabel') || 'Email ID'} <span style={{ color: '#ef4444' }}>*</span>
-                        </label>
-                        <input
-                          type="email"
-                          name="email"
-                          placeholder="rahul@example.com"
-                          className={styles.input}
-                          value={formData.email}
-                          onChange={handleChange}
-                          required
-                        />
-                        <div className={styles.verificationBlock}>
-                          <EmailVerification
-                            email={formData.email}
-                            onVerified={() => setEmailVerified(true)}
-                            verified={emailVerified}
-                            className={styles.otpVerification}
-                          />
-                        </div>
+                        {t('cibil.formEmailLabel') || 'Email ID'}
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="rahul@example.com"
+                        className={styles.input}
+                        value={formData.email}
+                        onChange={handleChange}
+                      />
                       </div>
                     </div>
 
@@ -302,7 +283,7 @@ export default function CibilScorePage() {
 
                     <button
                       type="submit"
-                      disabled={isSubmitting || !mobileVerified || !emailVerified}
+                      disabled={isSubmitting || !mobileVerified}
                       className={styles.submitButton}
                     >
                       {isSubmitting ? (
@@ -341,7 +322,7 @@ export default function CibilScorePage() {
 
             <div className={styles.glassCard}>
               <h2 className={styles.sectionTitle}>
-                Why You Should Check Your CIBIL Score with <span className={styles.glassHighlight}><span className={styles.textShimmer}>Helloans (and It's Free!)</span></span>
+                Why You Should Check Your CIBIL Score with Helloans (and It&#39;s Free!)
               </h2>
               <div className={styles.divider} style={{ marginBottom: '2rem' }}></div>
 
@@ -351,7 +332,7 @@ export default function CibilScorePage() {
                     <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                   </div>
                   <div className={styles.featureText}>
-                    Unlock <span className={styles.glassHighlight}><span className={styles.textShimmer}>Exclusive Loan & Credit Card Deals</span></span> from top lenders.
+                    <span className={styles.textShimmer}>Unlock</span> Exclusive Loan & Credit Card Deals from top lenders.
                   </div>
                 </div>
 
@@ -360,7 +341,7 @@ export default function CibilScorePage() {
                     <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                   </div>
                   <div className={styles.featureText}>
-                    <span className={styles.glassHighlight}><span className={styles.textShimmer}>Effortless</span></span> Credit Score Check - 100% Safe & Secure.
+                    <span className={styles.textShimmer}>Safe & Secure</span> Credit Score Check - 100% Effortless.
                   </div>
                 </div>
 
@@ -369,7 +350,7 @@ export default function CibilScorePage() {
                     <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
                   </div>
                   <div className={styles.featureText}>
-                    <span className={styles.glassHighlight}><span className={styles.textShimmer}>Simplified</span></span> Credit Report Insights & Expert Tips.
+                    <span className={styles.textShimmer}>Simplified</span> Credit Report Insights & Expert Tips.
                   </div>
                 </div>
               </div>

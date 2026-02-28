@@ -5,16 +5,7 @@ import Footer from '@/components/Footer'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
-import EmailVerification from '@/components/EmailVerification'
 import OtpVerification from '@/components/OtpVerification'
-
-type LoginModalType = 'employee' | 'customer' | 'partner' | null
-
-const LOGIN_TILES: { id: LoginModalType; label: string }[] = [
-    { id: 'employee', label: 'Employee Login' },
-    { id: 'customer', label: 'Customer Login' },
-    { id: 'partner', label: 'Partner Login' },
-]
 
 export default function BecomePartnerPage() {
     const { t } = useLanguage()
@@ -28,36 +19,7 @@ export default function BecomePartnerPage() {
     })
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [submitMessage, setSubmitMessage] = useState('')
-    const [emailVerified, setEmailVerified] = useState(false)
     const [mobileVerified, setMobileVerified] = useState(false)
-
-    /* Demo login (no real auth): modal + 7-click unlock to dashboard message */
-    const [loginModal, setLoginModal] = useState<LoginModalType>(null)
-    const [loginUsername, setLoginUsername] = useState('')
-    const [loginPassword, setLoginPassword] = useState('')
-    const [loginError, setLoginError] = useState('')
-    const [loginClickCount, setLoginClickCount] = useState(0)
-    const [showDashboardOverlay, setShowDashboardOverlay] = useState(false)
-    const handleLoginSubmit = (e: React.FormEvent) => {
-        e.preventDefault()
-        setLoginClickCount((c) => c + 1)
-        if (loginClickCount + 1 >= 7) {
-            setLoginModal(null)
-            setLoginError('')
-            setLoginClickCount(0)
-            setShowDashboardOverlay(true)
-            return
-        }
-        setLoginError('Wrong username or password')
-    }
-    const closeLoginModal = () => {
-        setLoginModal(null)
-        setLoginError('')
-        setLoginUsername('')
-        setLoginPassword('')
-        setLoginClickCount(0)
-    }
-    const closeDashboardOverlay = () => setShowDashboardOverlay(false)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const name = e.target.name
@@ -67,7 +29,6 @@ export default function BecomePartnerPage() {
             ...formData,
             [name]: value
         })
-        if (name === 'email') setEmailVerified(false)
         if (name === 'phone') setMobileVerified(false)
         if (submitMessage) setSubmitMessage('')
     }
@@ -90,7 +51,6 @@ export default function BecomePartnerPage() {
 
             if (response.ok) {
                 setSubmitMessage(t('partner.success'))
-                setEmailVerified(false)
                 setMobileVerified(false)
                 setFormData({
                     name: '',
@@ -121,30 +81,10 @@ export default function BecomePartnerPage() {
                         <div className="become-partner-page">
                             {/* Hero strip */}
                             <header className="partner-hero">
-                                <h1 className="partner-hero-title">{t('partner.title')}</h1>
+                                <h1 className="partner-hero-title">{t('partner.titlePrefix')}<span className="shimmer-word">{t('partner.titleHighlight')}</span>{t('partner.titleSuffix')}</h1>
                                 <p className="partner-hero-tagline">{t('partner.heroTagline')}</p>
                                 <p className="partner-hero-subtitle">{t('partner.subtitle')}</p>
                             </header>
-
-                            {/* Login tiles (demo – no real login) */}
-                            <div className="partner-login-tiles">
-                                {LOGIN_TILES.map(({ id, label }) => (
-                                    <button
-                                        key={id}
-                                        type="button"
-                                        className="partner-login-tile"
-                                        onClick={() => {
-                                            setLoginModal(id)
-                                            setLoginError('')
-                                            setLoginUsername('')
-                                            setLoginPassword('')
-                                            setLoginClickCount(0)
-                                        }}
-                                    >
-                                        {label}
-                                    </button>
-                                ))}
-                            </div>
 
                             <div className="partner-layout">
                                 {/* Left: Why partner with us */}
@@ -174,7 +114,21 @@ export default function BecomePartnerPage() {
                                     </ul>
                                     <div className="partner-contact-block">
                                         <span className="partner-contact-label">Email us</span>
-                                        <a href="mailto:info@zineegroup.com" className="partner-contact-email-link">info@zineegroup.com</a>
+                                        <a href="mailto:info@zineegroup.com" className="partner-contact-email-link">
+                                            <svg className="partner-contact-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3 8L10.89 13.26C11.2187 13.4793 11.6049 13.5963 12 13.5963C12.3951 13.5963 12.7813 13.4793 13.11 13.26L21 8M5 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V7C21 6.46957 20.7893 5.96086 20.4142 5.58579C20.0391 5.21071 19.5304 5 19 5H5C4.46957 5 3.96086 5.21071 3.58579 5.58579C3.21071 5.96086 3 6.46957 3 7V17C3 17.5304 3.21071 18.0391 3.58579 18.4142C3.96086 18.7893 4.46957 19 5 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                            info@zineegroup.com
+                                        </a>
+                                    </div>
+                                    <div className="partner-contact-block">
+                                        <span className="partner-contact-label">Call us</span>
+                                        <a href="tel:+919540185185" className="partner-contact-email-link">
+                                            <svg className="partner-contact-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                            +91 9540-185-185
+                                        </a>
                                     </div>
                                     <div className="partner-social-block">
                                         <span className="partner-social-label">{t('contact.socialMedia')}</span>
@@ -215,7 +169,7 @@ export default function BecomePartnerPage() {
                                             </div>
                                             <div className="partner-form-row">
                                                 <div className="partner-form-field">
-                                                    <label className="partner-form-label" htmlFor="partner-email">{t('partner.labelWorkEmail')} <span className="partner-required">*</span></label>
+                                                    <label className="partner-form-label" htmlFor="partner-email">{t('partner.labelWorkEmail')}</label>
                                                     <input
                                                         id="partner-email"
                                                         type="email"
@@ -224,17 +178,7 @@ export default function BecomePartnerPage() {
                                                         value={formData.email}
                                                         onChange={handleChange}
                                                         placeholder="you@company.com"
-                                                        required
                                                     />
-                                                    <div className="partner-verification-block">
-                                                        <EmailVerification
-                                                            email={formData.email}
-                                                            onVerified={() => setEmailVerified(true)}
-                                                            verified={emailVerified}
-                                                            sendButtonLabel="Send verification code"
-                                                            verifyButtonLabel="Verify"
-                                                        />
-                                                    </div>
                                                 </div>
                                                 <div className="partner-form-field">
                                                     <label className="partner-form-label" htmlFor="partner-phone">{t('partner.labelPhone')} <span className="partner-required">*</span></label>
@@ -318,7 +262,7 @@ export default function BecomePartnerPage() {
                                         <button
                                             type="submit"
                                             className="partner-submit-btn"
-                                            disabled={isSubmitting || !emailVerified || !mobileVerified}
+                                            disabled={isSubmitting || !mobileVerified}
                                         >
                                             {isSubmitting ? t('partner.submitting') : t('partner.submit')}
                                         </button>
@@ -332,57 +276,6 @@ export default function BecomePartnerPage() {
                 <Footer />
             </div>
 
-            {/* Demo login modal */}
-            {loginModal && (
-                <div className="partner-login-modal-overlay" onClick={closeLoginModal}>
-                    <div className="partner-login-modal" onClick={(e) => e.stopPropagation()}>
-                        <div className="partner-login-modal-header">
-                            <h3 className="partner-login-modal-title">
-                                {loginModal === 'employee' && 'Employee Login'}
-                                {loginModal === 'customer' && 'Customer Login'}
-                                {loginModal === 'partner' && 'Partner Login'}
-                            </h3>
-                            <button type="button" className="partner-login-modal-close" onClick={closeLoginModal} aria-label="Close">×</button>
-                        </div>
-                        <form className="partner-login-form" onSubmit={handleLoginSubmit}>
-                            <div className="partner-login-field">
-                                <label className="partner-login-label">Username</label>
-                                <input
-                                    type="text"
-                                    className="partner-login-input"
-                                    value={loginUsername}
-                                    onChange={(e) => setLoginUsername(e.target.value)}
-                                    placeholder="Enter username"
-                                    autoComplete="username"
-                                />
-                            </div>
-                            <div className="partner-login-field">
-                                <label className="partner-login-label">Password</label>
-                                <input
-                                    type="password"
-                                    className="partner-login-input"
-                                    value={loginPassword}
-                                    onChange={(e) => setLoginPassword(e.target.value)}
-                                    placeholder="Enter password"
-                                    autoComplete="current-password"
-                                />
-                            </div>
-                            {loginError && <p className="partner-login-error">{loginError}</p>}
-                            <button type="submit" className="partner-login-submit">Login</button>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            {/* Dashboard placeholder overlay (after 7 login clicks) */}
-            {showDashboardOverlay && (
-                <div className="partner-dashboard-overlay">
-                    <p className="partner-dashboard-message">
-                        Here you will dash board – you will create using backend. If you are seeing this, it means it is not KK setting up backend.
-                    </p>
-                    <button type="button" className="partner-dashboard-close" onClick={closeDashboardOverlay}>Close</button>
-                </div>
-            )}
         </div>
     )
 }

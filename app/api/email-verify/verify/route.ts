@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { consumeEmailCode, isValidEmail } from '@/lib/email-verify-store'
 import { getEmailCookie, clearEmailCookie } from '@/lib/verification-cookie'
+import { rateLimit } from '@/lib/rate-limit'
 
 export async function POST(request: NextRequest) {
   try {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+    const { allowed } = rateLimit(ip, { maxRequests: 10, windowMs: 60_000 })
+    if (!allowed) {
+      return NextResponse.json({ error: 'Too many attempts. Please wait a minute.' }, { status: 429 })
+    }
     const body = await request.json()
     const email = String(body.email ?? '').trim().toLowerCase()
     const code = String(body.code ?? '').trim().replace(/\D/g, '')
@@ -47,7 +53,7 @@ export async function POST(request: NextRequest) {
     res.cookies.set(clearEmailCookie().name, '', { path: '/', maxAge: 0 })
     return res
   } catch (e) {
-    console.error('Email verify error:', e)
+    console.error('Email verify error:', e instanceof Error ? e.message : 'unknown')
     return NextResponse.json(
       { error: 'Something went wrong. Please try again.' },
       { status: 500 }

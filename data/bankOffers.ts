@@ -22,8 +22,10 @@ export type OfferCategory =
     | 'overdraft'
     | 'secure-loans'
     | 'used-car-loan'
+    | 'balance-transfer'
+    | 'professional-loans'
 
-/** Only 7 banks (ICICI, IndusInd, YES, IDFC, Kotak, HDFC, Axis) + 3 NBFCs (Bajaj Finserv, Tata Capital, Aditya Birla Finance). Each category shows only those that offer that product. */
+/** 7 banks + 6 NBFCs (Bajaj, Tata Capital, Aditya Birla, Cholamandalam, Poonawalla, Piramal) for personal-loans. Other categories show only those that offer that product. */
 export const bankOffers: Record<OfferCategory, BankOffer[]> = {
     'personal-loans': [
         {
@@ -75,20 +77,100 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
             logo: '/assets/images/AX.png',
             brandColor: '#7b0046',
         },
-    ],
-    // Business Loans: only ready-made (Poonawalla) + self-created (IDFC) – no random links
-    'business-loans': [
+        // NBFCs
         {
-            bankName: 'IDFC First Bank',
+            bankName: 'Bajaj Finserv',
             link: '#',
-            internalApplySlug: 'idfc',
-            logo: '/assets/images/partners/idfc.webp',
-            brandColor: '#7a003c',
+            internalApplySlug: 'bajaj',
+            logo: '/assets/images/partners/bajaj.png',
+            brandColor: '#0076b8',
         },
         {
-            bankName: 'Poonawalla',
-            link: 'https://poonawalla.mymoneymantra.com/?sms=false&btb=true&utm_source=pnwpl&utm_medium=mmm&utm_campaign=pnwpl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
+            bankName: 'Tata Capital',
+            link: '#',
+            internalApplySlug: 'tata',
+            logo: '/assets/images/partners/tata.png',
+            brandColor: '#2b8fcb',
+        },
+        {
+            bankName: 'Aditya Birla Capital',
+            link: '#',
+            internalApplySlug: 'adityabirla',
+            logo: '/assets/images/partners/abfl.webp',
+            brandColor: '#a02030',
+        },
+        {
+            bankName: 'Cholamandalam',
+            link: '#',
+            internalApplySlug: 'cholamandalam',
+            logo: '/assets/images/cholamandalam.png',
+            brandColor: '#0d47a1',
+        },
+        {
+            bankName: 'Poonawalla Fincorp',
+            link: '#',
+            internalApplySlug: 'poonawalla',
             logo: '/assets/images/partners/poonawalla.png',
+            brandColor: '#1e88e5',
+        },
+        {
+            bankName: 'Piramal Capital',
+            link: '#',
+            internalApplySlug: 'piramal',
+            logo: '/assets/images/Piramal_Finance_logo.svg',
+            brandColor: '#1565c0',
+        },
+    ],
+    // Business Loans: 7 banks + 6 NBFCs
+    'business-loans': [
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
+        { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
+        {
+            bankName: 'Bajaj Finserv',
+            link: '#',
+            internalApplySlug: 'bajaj',
+            logo: '/assets/images/partners/bajaj.png',
+            brandColor: '#0076b8',
+        },
+        {
+            bankName: 'Tata Capital',
+            link: '#',
+            internalApplySlug: 'tata',
+            logo: '/assets/images/partners/tata.png',
+            brandColor: '#2b8fcb',
+        },
+        {
+            bankName: 'Aditya Birla Capital',
+            link: '#',
+            internalApplySlug: 'adityabirla',
+            logo: '/assets/images/partners/abfl.webp',
+            brandColor: '#a02030',
+        },
+        {
+            bankName: 'Cholamandalam',
+            link: '#',
+            internalApplySlug: 'cholamandalam',
+            logo: '/assets/images/cholamandalam.png',
+            brandColor: '#0d47a1',
+        },
+        {
+            bankName: 'Poonawalla Fincorp',
+            link: '#',
+            internalApplySlug: 'poonawalla',
+            logo: '/assets/images/partners/poonawalla.png',
+            brandColor: '#1e88e5',
+        },
+        {
+            bankName: 'Piramal Capital',
+            link: '#',
+            internalApplySlug: 'piramal',
+            logo: '/assets/images/Piramal_Finance_logo.svg',
+            brandColor: '#1565c0',
         },
     ],
     // Instant loan: only the 10 partners from Instant Personal Loan carousel (InstantLoanSlide)
@@ -147,7 +229,7 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
             brandColor: '#7a003c',
         },
     ],
-    // Home Loans: all 7 banks use self-created bank page (internal apply)
+    // Home Loans: 7 banks + 6 NBFCs
     'home-loans': [
         { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
         { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
@@ -156,76 +238,33 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
         { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
         { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'Bajaj Finserv', link: '#', internalApplySlug: 'bajaj', logo: '/assets/images/partners/bajaj.png', brandColor: '#0076b8' },
+        { bankName: 'Tata Capital', link: '#', internalApplySlug: 'tata', logo: '/assets/images/partners/tata.png', brandColor: '#2b8fcb' },
+        { bankName: 'Aditya Birla Capital', link: '#', internalApplySlug: 'adityabirla', logo: '/assets/images/partners/abfl.webp', brandColor: '#a02030' },
+        { bankName: 'Cholamandalam', link: '#', internalApplySlug: 'cholamandalam', logo: '/assets/images/cholamandalam.png', brandColor: '#0d47a1' },
+        { bankName: 'Poonawalla Fincorp', link: '#', internalApplySlug: 'poonawalla', logo: '/assets/images/partners/poonawalla.png', brandColor: '#1e88e5' },
+        { bankName: 'Piramal Capital', link: '#', internalApplySlug: 'piramal', logo: '/assets/images/Piramal_Finance_logo.svg', brandColor: '#1565c0' },
     ],
-    // Gold Loan: HDFC + one from carousel (Muthoot – business loan slide, gold loan NBFC)
+    // Gold Loan: Top 5 banks + Muthoot NBFC
     'gold-loans': [
-        {
-            bankName: 'HDFC Bank',
-            link: 'https://www.hdfc.bank.in/loans/gold-loan',
-            logo: '/assets/images/HDFC.png',
-            brandColor: '#004c8f',
-        },
+        { bankName: 'Punjab National Bank', link: '#', internalApplySlug: 'pnb', logo: '/assets/images/PNB.png', brandColor: '#0b3d91' },
+        { bankName: 'State Bank of India', link: '#', internalApplySlug: 'sbi', logo: '/assets/images/SBI.png', brandColor: '#22409a' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'Canara Bank', link: '#', internalApplySlug: 'canara', logo: '/assets/images/CB.png', brandColor: '#fbb034' },
+        { bankName: 'Bank of Baroda', link: '#', internalApplySlug: 'bob', logo: '/assets/images/BOB.png', brandColor: '#f26522' },
         {
             bankName: 'Muthoot',
             link: 'https://muthoot.mymoneymantra.com/?sms=false&btb=true&v1=EDI&utm_source=medi&utm_medium=mmm&utm_campaign=medi-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
             logo: '/assets/images/partners/muthoot.png',
         },
     ],
+    // Education Loans: Top 5 banks
     'education-loans': [
-        {
-            bankName: 'HDFC Bank',
-            link: 'https://www.hdfc.bank.in/loans/education-loan',
-            logo: '/assets/images/HDFC.png',
-            brandColor: '#004c8f',
-        },
-        {
-            bankName: 'ICICI Bank',
-            link: 'https://www.icicibank.com/education-loan',
-            logo: '/assets/images/partners/icici.jpg',
-            brandColor: '#b6401e',
-        },
-        {
-            bankName: 'Axis Bank',
-            link: 'https://www.axisbank.com/retail/loans/education-loan',
-            logo: '/assets/images/AX.png',
-            brandColor: '#7b0046',
-        },
-        {
-            bankName: 'Kotak Mahindra Bank',
-            link: 'https://www.kotak.com/en/personal-banking/loans/education-loan.html',
-            logo: '/assets/images/Kotak-1.png',
-            brandColor: '#d71920',
-        },
-        {
-            bankName: 'IDFC First Bank',
-            link: 'https://www.idfcfirstbank.com/education-loan',
-            logo: '/assets/images/partners/idfc.webp',
-            brandColor: '#7a003c',
-        },
-        {
-            bankName: 'IndusInd Bank',
-            link: 'https://www.indusind.com/in/en/personal/loans/education-loan.html',
-            logo: '/assets/images/partners/indusind.jpeg',
-            brandColor: '#C4122E',
-        },
-        {
-            bankName: 'YES Bank',
-            link: 'https://www.yesbank.in/retail-banking/loans/education-loan',
-            logo: '/assets/images/partners/yes.png',
-            brandColor: '#1e4f9c',
-        },
-        {
-            bankName: 'Tata Capital',
-            link: 'https://www.tatacapital.com/education-loan',
-            logo: '/assets/images/partners/tata.png',
-            brandColor: '#2b8fcb',
-        },
-        {
-            bankName: 'Aditya Birla Finance',
-            link: 'https://www.adityabirlacapital.com/loans/education-loan',
-            logo: '/assets/images/partners/abfl.webp',
-            brandColor: '#a02030',
-        },
+        { bankName: 'Punjab National Bank', link: '#', internalApplySlug: 'pnb', logo: '/assets/images/PNB.png', brandColor: '#0b3d91' },
+        { bankName: 'State Bank of India', link: '#', internalApplySlug: 'sbi', logo: '/assets/images/SBI.png', brandColor: '#22409a' },
+        { bankName: 'Bank of Baroda', link: '#', internalApplySlug: 'bob', logo: '/assets/images/BOB.png', brandColor: '#f26522' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
     ],
     // Credit cards: only the 14 partners from Instant Credit Cards carousel (InstantLoanSlide)
     'credit-cards': [
@@ -243,11 +282,6 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
             bankName: 'Federal Bank',
             link: 'https://federalcc.mymoneymantra.com?sms=false&btb=true&utm_source=fedcc&utm_medium=mmm&utm_campaign=fedcc-mmm-941530',
             logo: '/assets/images/partners/federal.jpeg',
-        },
-        {
-            bankName: 'AU Bank',
-            link: 'https://aucc.mymoneymantra.com/?sms=false&btb=true&utm_source=aucc&utm_medium=mmm&utm_campaign=aucc-mmm-941530',
-            logo: '/assets/images/partners/au.png',
         },
         {
             bankName: 'Kiwi',
@@ -295,29 +329,38 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
         {
             bankName: 'LIC Axis',
             link: 'https://licaxiscc.mymoneymantra.com?sms=false&btb=true&utm_source=axslic&utm_medium=mmm&utm_campaign=axslic-mmm-941530',
+            logo: '/assets/images/licaxis-bank.jpg',
         },
         {
             bankName: 'Magnet',
             link: 'https://magnetcard.mymoneymantra.com/?sms=false&btb=true&utm_source=mfdcc&utm_medium=mmm&utm_campaign=mfdcc-mmm-941530',
         },
     ],
-    // Insurance: all 7 banks use self-created bank page (internal apply)
+    // Insurance: Top 5 banks (by bancassurance commission)
     'insurance': [
         { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
         { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
-        { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
+        { bankName: 'State Bank of India', link: '#', internalApplySlug: 'sbi', logo: '/assets/images/SBI.png', brandColor: '#22409a' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
-        { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
-        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
     ],
-    // Overdraft: only 3 – Bajaj, AU Small Finance Bank, Aditya Birla – all use self-created bank page
+    // Overdraft: 7 banks + 6 NBFCs
     'overdraft': [
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
+        { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
         { bankName: 'Bajaj Finserv', link: '#', internalApplySlug: 'bajaj', logo: '/assets/images/partners/bajaj.png', brandColor: '#0076b8' },
-        { bankName: 'AU Small Finance Bank', link: '#', internalApplySlug: 'au', logo: '/assets/images/partners/au.png', brandColor: '#0076b8' },
-        { bankName: 'Aditya Birla Finance', link: '#', internalApplySlug: 'adityabirla', logo: '/assets/images/partners/abfl.webp', brandColor: '#a02030' },
+        { bankName: 'Tata Capital', link: '#', internalApplySlug: 'tata', logo: '/assets/images/partners/tata.png', brandColor: '#2b8fcb' },
+        { bankName: 'Aditya Birla Capital', link: '#', internalApplySlug: 'adityabirla', logo: '/assets/images/partners/abfl.webp', brandColor: '#a02030' },
+        { bankName: 'Cholamandalam', link: '#', internalApplySlug: 'cholamandalam', logo: '/assets/images/cholamandalam.png', brandColor: '#0d47a1' },
+        { bankName: 'Poonawalla Fincorp', link: '#', internalApplySlug: 'poonawalla', logo: '/assets/images/partners/poonawalla.png', brandColor: '#1e88e5' },
+        { bankName: 'Piramal Capital', link: '#', internalApplySlug: 'piramal', logo: '/assets/images/Piramal_Finance_logo.svg', brandColor: '#1565c0' },
     ],
-    // Secure Loans: only 7 banks (all self-created) – removed random-link NBFCs
+    // Secure Loans: 7 banks + 6 NBFCs
     'secure-loans': [
         { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
@@ -326,6 +369,12 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
         { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
         { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
+        { bankName: 'Bajaj Finserv', link: '#', internalApplySlug: 'bajaj', logo: '/assets/images/partners/bajaj.png', brandColor: '#0076b8' },
+        { bankName: 'Tata Capital', link: '#', internalApplySlug: 'tata', logo: '/assets/images/partners/tata.png', brandColor: '#2b8fcb' },
+        { bankName: 'Aditya Birla Capital', link: '#', internalApplySlug: 'adityabirla', logo: '/assets/images/partners/abfl.webp', brandColor: '#a02030' },
+        { bankName: 'Cholamandalam', link: '#', internalApplySlug: 'cholamandalam', logo: '/assets/images/cholamandalam.png', brandColor: '#0d47a1' },
+        { bankName: 'Poonawalla Fincorp', link: '#', internalApplySlug: 'poonawalla', logo: '/assets/images/partners/poonawalla.png', brandColor: '#1e88e5' },
+        { bankName: 'Piramal Capital', link: '#', internalApplySlug: 'piramal', logo: '/assets/images/Piramal_Finance_logo.svg', brandColor: '#1565c0' },
     ],
     // Used Car Loan: only 7 banks (all self-created) – removed random-link NBFCs
     'used-car-loan': [
@@ -336,5 +385,37 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
         { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
         { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
+    ],
+    // Balance Transfer: 7 banks + 6 NBFCs
+    'balance-transfer': [
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
+        { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
+        { bankName: 'Bajaj Finserv', link: '#', internalApplySlug: 'bajaj', logo: '/assets/images/partners/bajaj.png', brandColor: '#0076b8' },
+        { bankName: 'Tata Capital', link: '#', internalApplySlug: 'tata', logo: '/assets/images/partners/tata.png', brandColor: '#2b8fcb' },
+        { bankName: 'Aditya Birla Capital', link: '#', internalApplySlug: 'adityabirla', logo: '/assets/images/partners/abfl.webp', brandColor: '#a02030' },
+        { bankName: 'Cholamandalam', link: '#', internalApplySlug: 'cholamandalam', logo: '/assets/images/cholamandalam.png', brandColor: '#0d47a1' },
+        { bankName: 'Poonawalla Fincorp', link: '#', internalApplySlug: 'poonawalla', logo: '/assets/images/partners/poonawalla.png', brandColor: '#1e88e5' },
+        { bankName: 'Piramal Capital', link: '#', internalApplySlug: 'piramal', logo: '/assets/images/Piramal_Finance_logo.svg', brandColor: '#1565c0' },
+    ],
+    // Professional Loans: 7 banks + 6 NBFCs
+    'professional-loans': [
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
+        { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
+        { bankName: 'Bajaj Finserv', link: '#', internalApplySlug: 'bajaj', logo: '/assets/images/partners/bajaj.png', brandColor: '#0076b8' },
+        { bankName: 'Tata Capital', link: '#', internalApplySlug: 'tata', logo: '/assets/images/partners/tata.png', brandColor: '#2b8fcb' },
+        { bankName: 'Aditya Birla Capital', link: '#', internalApplySlug: 'adityabirla', logo: '/assets/images/partners/abfl.webp', brandColor: '#a02030' },
+        { bankName: 'Cholamandalam', link: '#', internalApplySlug: 'cholamandalam', logo: '/assets/images/cholamandalam.png', brandColor: '#0d47a1' },
+        { bankName: 'Poonawalla Fincorp', link: '#', internalApplySlug: 'poonawalla', logo: '/assets/images/partners/poonawalla.png', brandColor: '#1e88e5' },
+        { bankName: 'Piramal Capital', link: '#', internalApplySlug: 'piramal', logo: '/assets/images/Piramal_Finance_logo.svg', brandColor: '#1565c0' },
     ],
 }

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import RupeeIcon from '@/components/RupeeIcon'
 
 const CITIES = ['Delhi', 'Mumbai', 'Bengaluru', 'Hyderabad', 'Other']
 
@@ -43,7 +44,6 @@ export default function KotakSinglePageForm({
     formData.pan.replace(/\s/g, '').length >= 10 &&
     formData.fullName.trim() &&
     formData.mobileNumber.length === 10 &&
-    formData.personalEmail.trim() &&
     formData.netMonthlySalary.trim() &&
     formData.currentCity.trim()
 
@@ -124,7 +124,7 @@ export default function KotakSinglePageForm({
           </div>
           <div className="kotak-single-field">
             <label>Personal email ID</label>
-            <input type="email" name="personalEmail" value={formData.personalEmail} onChange={handleChange} placeholder="Enter email" required />
+            <input type="email" name="personalEmail" value={formData.personalEmail} onChange={handleChange} placeholder="Enter email" />
           </div>
           <div className="kotak-single-field">
             <label>Employment Type</label>
@@ -140,7 +140,7 @@ export default function KotakSinglePageForm({
           <div className="kotak-single-field">
             <label>Net monthly in-hand salary</label>
             <div className="kotak-single-rupee">
-              <span>₹</span>
+              <span><RupeeIcon size={16} /></span>
               <input type="text" name="netMonthlySalary" value={formData.netMonthlySalary} onChange={handleChange} placeholder="Enter net monthly salary" inputMode="numeric" required />
             </div>
             <p className="kotak-single-hint">Do not include incentives, bonuses or any one-time payments.</p>

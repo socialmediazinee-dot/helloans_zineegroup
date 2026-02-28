@@ -3,16 +3,11 @@
 import { useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import AxisBankHeader from '@/components/AxisBankHeader'
-import HDFCSinglePageForm from '@/components/HDFCSinglePageForm'
-import YesBankSinglePageForm from '@/components/YesBankSinglePageForm'
-import AxisSinglePageForm from '@/components/AxisSinglePageForm'
-import KotakSinglePageForm from '@/components/KotakSinglePageForm'
 import OtpVerification from '@/components/OtpVerification'
 
-const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis', 'bajaj', 'au', 'adityabirla'] as const
+const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis', 'bajaj', 'adityabirla', 'tata', 'cholamandalam', 'poonawalla', 'piramal', 'pnb', 'sbi', 'canara', 'bob'] as const
 
-const bankInfo: Record<string, { name: string; logo: string; color: string; primaryColor: string }> = {
+const bankInfo: Record<string, { name: string; logo?: string; color: string; primaryColor: string }> = {
   icici: { name: 'ICICI Bank', logo: '/assets/images/partners/icici.jpg', color: '#E85D04', primaryColor: '#E85D04' },
   indusind: { name: 'IndusInd Bank', logo: '/assets/images/partners/indusind.jpeg', color: '#C4122E', primaryColor: '#C4122E' },
   yes: { name: 'YES Bank', logo: '/assets/banks/yes-bank-logo-png.png', color: '#132744', primaryColor: '#C4122E' },
@@ -21,8 +16,15 @@ const bankInfo: Record<string, { name: string; logo: string; color: string; prim
   hdfc: { name: 'HDFC Bank', logo: '/assets/images/HDFC.png', color: '#004C8A', primaryColor: '#E31837' },
   axis: { name: 'Axis Bank', logo: '/assets/images/AX.png', color: '#8B0040', primaryColor: '#8B0040' },
   bajaj: { name: 'Bajaj Finserv', logo: '/assets/images/partners/bajaj.png', color: '#0076b8', primaryColor: '#0076b8' },
-  au: { name: 'AU Small Finance Bank', logo: '/assets/images/partners/au.png', color: '#003366', primaryColor: '#003366' },
-  adityabirla: { name: 'Aditya Birla Finance', logo: '/assets/images/partners/abfl.webp', color: '#a02030', primaryColor: '#a02030' },
+  adityabirla: { name: 'Aditya Birla Capital', logo: '/assets/images/partners/abfl.webp', color: '#a02030', primaryColor: '#a02030' },
+  tata: { name: 'Tata Capital', logo: '/assets/images/partners/tata.png', color: '#2b8fcb', primaryColor: '#2b8fcb' },
+  cholamandalam: { name: 'Cholamandalam', logo: '/assets/images/cholamandalam.png', color: '#0d47a1', primaryColor: '#0d47a1' },
+  poonawalla: { name: 'Poonawalla Fincorp', logo: '/assets/images/partners/poonawalla.png', color: '#1e88e5', primaryColor: '#1e88e5' },
+  piramal: { name: 'Piramal Capital', logo: '/assets/images/Piramal_Finance_logo.svg', color: '#1565c0', primaryColor: '#1565c0' },
+  pnb: { name: 'Punjab National Bank', logo: '/assets/images/PNB.png', color: '#0b3d91', primaryColor: '#d4272e' },
+  sbi: { name: 'State Bank of India', logo: '/assets/images/SBI.png', color: '#22409a', primaryColor: '#22409a' },
+  canara: { name: 'Canara Bank', logo: '/assets/images/CB.png', color: '#fbb034', primaryColor: '#0066b3' },
+  bob: { name: 'Bank of Baroda', logo: '/assets/images/BOB.png', color: '#f26522', primaryColor: '#ed1c24' },
 }
 
 const LOAN_TYPE_LABELS: Record<string, string> = {
@@ -36,6 +38,8 @@ const LOAN_TYPE_LABELS: Record<string, string> = {
   'overdraft': 'Overdraft',
   'secure-loans': 'Secure Loan',
   'used-car-loan': 'Used Car Loan',
+  'balance-transfer': 'Balance Transfer',
+  'professional-loans': 'Professional Loan',
 }
 
 function getBankThemeClass(bankId: string): string {
@@ -48,76 +52,93 @@ function getBankThemeClass(bankId: string): string {
     hdfc: 'hdfc-bank-theme',
     axis: 'axis-bank-theme',
     bajaj: 'hdfc-bank-theme',
-    au: 'hdfc-bank-theme',
     adityabirla: 'hdfc-bank-theme',
+    tata: 'hdfc-bank-theme',
+    cholamandalam: 'hdfc-bank-theme',
+    poonawalla: 'hdfc-bank-theme',
+    piramal: 'hdfc-bank-theme',
+    pnb: 'pnb-bank-theme',
+    sbi: 'sbi-bank-theme',
+    canara: 'canara-bank-theme',
+    bob: 'bob-bank-theme',
   }
   return map[bankId] || 'hdfc-bank-theme'
 }
 
-function getBankLayoutConfig(bankId: string): { hasFixedHeader: boolean; paddingTop: string; showHeroBanner: boolean } {
-  if (bankId === 'axis') return { hasFixedHeader: true, paddingTop: '85px', showHeroBanner: false }
-  if (bankId === 'hdfc') return { hasFixedHeader: false, paddingTop: '0', showHeroBanner: true }
-  return { hasFixedHeader: false, paddingTop: '0', showHeroBanner: true }
-}
 
 export default function BankApplicationPage({ params }: { params: { bankId: string } }) {
   const searchParams = useSearchParams()
   const bankId = params.bankId
   const bank = bankInfo[bankId] || bankInfo.hdfc
+
   const loanTypeSlug = searchParams.get('loanType') || 'personal-loans'
   const loanLabel = LOAN_TYPE_LABELS[loanTypeSlug] || 'Personal Loan'
 
+  const [formTitleLabel, setFormTitleLabel] = useState(loanLabel)
+  useEffect(() => {
+    const slug = searchParams.get('loanType') || 'personal-loans'
+    setFormTitleLabel(LOAN_TYPE_LABELS[slug] || 'Personal Loan')
+  }, [searchParams])
+
   const [formData, setFormData] = useState({
     mobileNumber: '',
+    email: '',
     day: '',
     month: '',
     year: '',
     sourceOfIncome: 'salaried',
+    employerName: '',
+    pincode: '',
+    city: '',
     consentPersonalData: false,
     consentPersonalizedOffers: false,
     consentPerfios: false,
+    panNo: '',
     panCard: null as File | null,
     aadhaarCard: null as File | null,
-    // PNB specific fields
-    existingCustomer: '',
-    referredBy: '',
-    loanPurpose: '',
-    loanAmount: '',
-    gender: '',
-    maritalStatus: '',
-    email: '',
-    name: '',
-    residentialStatus: '',
-    panNo: '',
-    permanentAddressLine1: '',
-    permanentAddressLine2: '',
-    permanentDistrict: '',
-    permanentCity: '',
-    permanentState: '',
-    permanentPincode: '',
-    presentAddressLine1: '',
-    presentAddressLine2: '',
-    presentDistrict: '',
-    presentCity: '',
-    presentState: '',
-    presentPincode: '',
-    sameAsPresentAddress: false,
-    sameAsPermanentAddress: false,
+    payslip: null as File | null,
+    bankStatement: null as File | null,
+    additionalDoc: null as File | null,
+    addressProof: null as File | null,
   })
-
-  const [activePrimaryTab, setActivePrimaryTab] = useState('personal')
-  const [activeSecondaryTab, setActiveSecondaryTab] = useState('personal')
 
   const [panPreview, setPanPreview] = useState<string | null>(null)
   const [aadhaarPreview, setAadhaarPreview] = useState<string | null>(null)
+  const [filePreviews, setFilePreviews] = useState<Record<string, string | null>>({})
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isApplied, setIsApplied] = useState(false)
-  const [appliedData, setAppliedData] = useState<Record<string, unknown> | null>(null)
   const [mobileVerified, setMobileVerified] = useState(false)
+
+  const dobError = (() => {
+    const { day, month, year } = formData
+    if (!day || !month || !year) return ''
+    const d = parseInt(day, 10)
+    const m = parseInt(month, 10)
+    const y = parseInt(year, 10)
+    if (isNaN(d) || isNaN(m) || isNaN(y)) return ''
+    if (d < 1 || d > 31) return 'Invalid day'
+    if (m < 1 || m > 12) return 'Invalid month'
+    if (year.length < 4) return ''
+    if (y < 1900 || y > new Date().getFullYear()) return 'Invalid year'
+    const dob = new Date(y, m - 1, d)
+    if (dob.getDate() !== d || dob.getMonth() !== m - 1) return 'Invalid date'
+    const today = new Date()
+    let age = today.getFullYear() - dob.getFullYear()
+    const monthDiff = today.getMonth() - dob.getMonth()
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) age--
+    if (age < 18) return 'You must be at least 18 years old to apply'
+    return ''
+  })()
+
+  const isDobValid = !!(
+    formData.day && formData.month && formData.year &&
+    formData.year.length === 4 && !dobError
+  )
+
   const canProceed = !!(
     formData.mobileNumber.length === 10 &&
-    formData.day && formData.month && formData.year &&
+    isDobValid &&
     formData.consentPersonalData &&
     formData.consentPerfios &&
     mobileVerified
@@ -133,52 +154,64 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
     }))
   }
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: 'panCard' | 'aadhaarCard') => {
+  type DocField = 'panCard' | 'aadhaarCard' | 'payslip' | 'bankStatement' | 'additionalDoc' | 'addressProof'
+
+  const DOC_LABELS: Record<DocField, string> = {
+    panCard: 'PAN Card',
+    aadhaarCard: 'Aadhaar Card',
+    payslip: 'Payslip',
+    bankStatement: 'Bank Statement',
+    additionalDoc: 'Additional Document',
+    addressProof: 'Address Proof',
+  }
+
+  const IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
+  const PDF_TYPES = ['application/pdf']
+  const ALL_DOC_TYPES = [...IMAGE_TYPES, ...PDF_TYPES]
+
+  const handleDocUpload = (e: React.ChangeEvent<HTMLInputElement>, field: DocField, allowPdf = false) => {
     const file = e.target.files?.[0]
-    if (file) {
-      // Validate file type
-      const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif']
-      if (!validTypes.includes(file.type)) {
-        alert(`Please upload a valid image file (JPG, JPEG, PNG, WEBP, or GIF) for ${field === 'panCard' ? 'PAN Card' : 'Aadhaar Card'}`)
-        e.target.value = ''
-        return
-      }
+    if (!file) return
 
-      // Validate file size (max 5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        alert(`File size should be less than 5MB for ${field === 'panCard' ? 'PAN Card' : 'Aadhaar Card'}`)
-        e.target.value = ''
-        return
-      }
+    const validTypes = allowPdf ? ALL_DOC_TYPES : IMAGE_TYPES
+    if (!validTypes.includes(file.type)) {
+      const formats = allowPdf ? 'JPG, PNG, WEBP, GIF, or PDF' : 'JPG, PNG, WEBP, or GIF'
+      alert(`Please upload a valid file (${formats}) for ${DOC_LABELS[field]}`)
+      e.target.value = ''
+      return
+    }
 
-      setFormData(prev => ({
-        ...prev,
-        [field]: file
-      }))
+    if (file.size > 2 * 1024 * 1024) {
+      alert(`File size must be under 2 MB. Please compress or re-upload a smaller file for ${DOC_LABELS[field]}.`)
+      e.target.value = ''
+      return
+    }
 
-      // Create preview
+    setFormData(prev => ({ ...prev, [field]: file }))
+
+    if (field === 'panCard' || field === 'aadhaarCard') {
       const reader = new FileReader()
       reader.onloadend = () => {
-        if (field === 'panCard') {
-          setPanPreview(reader.result as string)
-        } else {
-          setAadhaarPreview(reader.result as string)
-        }
+        if (field === 'panCard') setPanPreview(reader.result as string)
+        else setAadhaarPreview(reader.result as string)
       }
       reader.readAsDataURL(file)
+    } else if (file.type.startsWith('image/')) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setFilePreviews(prev => ({ ...prev, [field]: reader.result as string }))
+      }
+      reader.readAsDataURL(file)
+    } else {
+      setFilePreviews(prev => ({ ...prev, [field]: null }))
     }
   }
 
-  const removeFile = (field: 'panCard' | 'aadhaarCard') => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: null
-    }))
-    if (field === 'panCard') {
-      setPanPreview(null)
-    } else {
-      setAadhaarPreview(null)
-    }
+  const removeDoc = (field: DocField) => {
+    setFormData(prev => ({ ...prev, [field]: null }))
+    if (field === 'panCard') setPanPreview(null)
+    else if (field === 'aadhaarCard') setAadhaarPreview(null)
+    else setFilePreviews(prev => ({ ...prev, [field]: null }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -188,9 +221,19 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
     setIsSubmitting(true)
 
     try {
-      // Convert files to base64
-      const panCardBase64 = formData.panCard ? await fileToBase64(formData.panCard) : null
-      const aadhaarCardBase64 = formData.aadhaarCard ? await fileToBase64(formData.aadhaarCard) : null
+      const toAttachment = async (file: File | null) => {
+        if (!file) return null
+        return { data: await fileToBase64(file), filename: file.name, contentType: file.type }
+      }
+
+      const [panCardAtt, aadhaarCardAtt, payslipAtt, bankStatementAtt, additionalDocAtt, addressProofAtt] = await Promise.all([
+        toAttachment(formData.panCard),
+        toAttachment(formData.aadhaarCard),
+        toAttachment(formData.payslip),
+        toAttachment(formData.bankStatement),
+        toAttachment(formData.additionalDoc),
+        toAttachment(formData.addressProof),
+      ])
 
       const response = await fetch('/api/bank-application', {
         method: 'POST',
@@ -203,26 +246,26 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
           loanType: loanTypeSlug,
           loanLabel,
           mobileNumber: formData.mobileNumber,
+          email: formData.email,
           day: formData.day,
           month: formData.month,
           year: formData.year,
           sourceOfIncome: formData.sourceOfIncome,
+          employerName: formData.employerName,
+          pincode: formData.pincode,
+          city: formData.city,
           loanAmount: searchParams.get('amount') || '',
           tenure: searchParams.get('tenure') || '',
           tenureUnit: searchParams.get('tenureUnit') || 'Yr',
           consentPersonalData: formData.consentPersonalData,
           consentPersonalizedOffers: formData.consentPersonalizedOffers,
           consentPerfios: formData.consentPerfios,
-          panCard: panCardBase64 ? {
-            data: panCardBase64,
-            filename: formData.panCard!.name,
-            contentType: formData.panCard!.type
-          } : null,
-          aadhaarCard: aadhaarCardBase64 ? {
-            data: aadhaarCardBase64,
-            filename: formData.aadhaarCard!.name,
-            contentType: formData.aadhaarCard!.type
-          } : null,
+          panCard: panCardAtt,
+          aadhaarCard: aadhaarCardAtt,
+          payslip: payslipAtt,
+          bankStatement: bankStatementAtt,
+          additionalDoc: additionalDocAtt,
+          addressProof: addressProofAtt,
         }),
       })
 
@@ -236,150 +279,6 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
       }
     } catch (error) {
       console.error('Error submitting bank application:', error)
-      alert('There was an error submitting your application. Please try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleHdfcSinglePageSubmit = async (data: Record<string, unknown>) => {
-    setIsSubmitting(true)
-    try {
-      const response = await fetch('/api/bank-application', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          bankId: 'hdfc',
-          bankName: bank.name,
-          loanType: loanTypeSlug,
-          loanLabel: data.loanLabel || loanLabel,
-          mobileNumber: data.mobileNumber,
-          day: data.day,
-          month: data.month,
-          year: data.year,
-          sourceOfIncome: data.sourceOfIncome,
-          consentPersonalData: data.consentPersonalData,
-          consentPersonalizedOffers: data.consentPersonalizedOffers,
-          consentEligibility: data.consentEligibility,
-          pan: data.pan,
-          firstName: data.firstName,
-          middleName: data.middleName,
-          lastName: data.lastName,
-          gender: data.gender,
-          personalEmail: data.personalEmail,
-          addressLine1: data.addressLine1,
-          addressLine2: data.addressLine2,
-          addressLine3: data.addressLine3,
-          pincode: data.pincode,
-          city: data.city,
-          state: data.state,
-          residenceType: data.residenceType,
-          addressDeclaration: data.addressDeclaration,
-          employerName: data.employerName,
-          monthlyIncome: data.monthlyIncome,
-          monthlyEmis: data.monthlyEmis,
-          workEmail: data.workEmail,
-        }),
-      })
-      const resData = await response.json()
-      if (response.ok) {
-        setAppliedData(data)
-        setIsApplied(true)
-      } else {
-        alert(resData.error || 'There was an error submitting your application. Please try again.')
-      }
-    } catch (err) {
-      console.error('Error submitting HDFC application:', err)
-      alert('There was an error submitting your application. Please try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleYesSinglePageSubmit = async (data: Record<string, unknown>) => {
-    setIsSubmitting(true)
-    try {
-      const response = await fetch('/api/bank-application', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          bankId: 'yes',
-          bankName: bank.name,
-          loanType: loanTypeSlug,
-          loanLabel: data.loanLabel || loanLabel,
-          name: data.name,
-          pan: data.pan,
-          isYesBankCustomer: data.isYesBankCustomer,
-        }),
-      })
-      const resData = await response.json()
-      if (response.ok) {
-        setAppliedData(data)
-        setIsApplied(true)
-      } else {
-        alert(resData.error || 'There was an error submitting your application. Please try again.')
-      }
-    } catch (err) {
-      console.error('Error submitting Yes Bank application:', err)
-      alert('There was an error submitting your application. Please try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleAxisSinglePageSubmit = async (data: Record<string, unknown>) => {
-    setIsSubmitting(true)
-    try {
-      const response = await fetch('/api/bank-application', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          bankId: 'axis',
-          bankName: bank.name,
-          loanType: loanTypeSlug,
-          loanLabel: data.loanLabel || loanLabel,
-          ...data,
-        }),
-      })
-      const resData = await response.json()
-      if (response.ok) {
-        setAppliedData(data)
-        setIsApplied(true)
-      } else {
-        alert(resData.error || 'There was an error submitting your application. Please try again.')
-      }
-    } catch (err) {
-      console.error('Error submitting Axis application:', err)
-      alert('There was an error submitting your application. Please try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  const handleKotakSinglePageSubmit = async (data: Record<string, unknown>) => {
-    setIsSubmitting(true)
-    try {
-      const response = await fetch('/api/bank-application', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          bankId: 'kotak',
-          bankName: bank.name,
-          loanType: loanTypeSlug,
-          loanLabel: data.loanLabel || loanLabel,
-          mobileNumber: data.mobileNumber,
-          ...data,
-        }),
-      })
-      const resData = await response.json()
-      if (response.ok) {
-        setAppliedData(data)
-        setIsApplied(true)
-      } else {
-        alert(resData.error || 'There was an error submitting your application. Please try again.')
-      }
-    } catch (err) {
-      console.error('Error submitting Kotak application:', err)
       alert('There was an error submitting your application. Please try again.')
     } finally {
       setIsSubmitting(false)
@@ -433,307 +332,56 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
     }
   }, [bankId, bank.primaryColor])
 
-  // Check if bank has a custom header banner image
-  const bankHeaderImages: Record<string, string> = {
-    hdfc: '/assets/images/hdfc_form.png',
-  }
-  const hasHeaderImage = bankHeaderImages[bankId]
-  const layout = getBankLayoutConfig(bankId)
   const themeClass = getBankThemeClass(bankId)
-
-  /* HDFC: single-page form (all important fields on one page) */
-  if (bankId === 'hdfc') {
-    return (
-      <div className={`bank-app-page-wrapper ${themeClass}`} style={{ position: 'relative', minHeight: '100vh' }}>
-        {isApplied && appliedData && (
-          <div className="application-success-overlay">
-            <div className="success-content-overlay">
-              <div className="success-message-box">
-                <div className="success-icon-large">✓</div>
-                <h2 className="success-title">Applied</h2>
-                <p className="success-message">Our team will reach out to you shortly</p>
-              </div>
-              <div className="application-details-overlay">
-                <h3 className="details-title">Application Details</h3>
-                <div className="details-grid">
-                  <div className="detail-item">
-                    <span className="detail-label">Mobile Number:</span>
-                    <span className="detail-value">+91 {String(appliedData.mobileNumber || '')}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Date of Birth:</span>
-                    <span className="detail-value">{String(appliedData.day)}/{String(appliedData.month)}/{String(appliedData.year)}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Name:</span>
-                    <span className="detail-value">{[appliedData.firstName, appliedData.middleName, appliedData.lastName].filter(Boolean).map(String).join(' ')}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Source of Income:</span>
-                    <span className="detail-value">{String(appliedData.sourceOfIncome) === 'salaried' ? 'Salaried' : 'Self Employed / Professionals / Business'}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {!isApplied && (
-          <HDFCSinglePageForm
-            bank={bank}
-            loanLabel={loanLabel}
-            onSubmit={handleHdfcSinglePageSubmit}
-            isSubmitting={isSubmitting}
-          />
-        )}
-      </div>
-    )
-  }
-
-  if (bankId === 'yes') {
-    return (
-      <div className={`bank-app-page-wrapper ${themeClass}`} style={{ position: 'relative', minHeight: '100vh' }}>
-        {isApplied && appliedData && (
-          <div className="application-success-overlay">
-            <div className="success-content-overlay">
-              <div className="success-message-box">
-                <div className="success-icon-large">✓</div>
-                <h2 className="success-title">Applied</h2>
-                <p className="success-message">Our team will reach out to you shortly</p>
-              </div>
-              <div className="application-details-overlay">
-                <h3 className="details-title">Application Details</h3>
-                <div className="details-grid">
-                  <div className="detail-item">
-                    <span className="detail-label">Name:</span>
-                    <span className="detail-value">{String(appliedData.name || '')}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">PAN:</span>
-                    <span className="detail-value">{String(appliedData.pan || '')}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {!isApplied && (
-          <YesBankSinglePageForm bank={bank} loanLabel={loanLabel} onSubmit={handleYesSinglePageSubmit} isSubmitting={isSubmitting} />
-        )}
-      </div>
-    )
-  }
-
-  if (bankId === 'axis') {
-    return (
-      <div className={`bank-app-page-wrapper ${themeClass}`} style={{ position: 'relative', minHeight: '100vh' }}>
-        {isApplied && appliedData && (
-          <div className="application-success-overlay">
-            <div className="success-content-overlay">
-              <div className="success-message-box">
-                <div className="success-icon-large">✓</div>
-                <h2 className="success-title">Applied</h2>
-                <p className="success-message">Our team will reach out to you shortly</p>
-              </div>
-              <div className="application-details-overlay">
-                <h3 className="details-title">Application Details</h3>
-                <div className="details-grid">
-                  <div className="detail-item">
-                    <span className="detail-label">Name:</span>
-                    <span className="detail-value">{String(appliedData.nameAsPerPan || '')}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Company:</span>
-                    <span className="detail-value">{String(appliedData.companyName || '')}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {!isApplied && (
-          <AxisSinglePageForm bank={bank} loanLabel={loanLabel} onSubmit={handleAxisSinglePageSubmit} isSubmitting={isSubmitting} />
-        )}
-      </div>
-    )
-  }
-
-  if (bankId === 'kotak') {
-    return (
-      <div className={`bank-app-page-wrapper ${themeClass}`} style={{ position: 'relative', minHeight: '100vh' }}>
-        {isApplied && appliedData && (
-          <div className="application-success-overlay">
-            <div className="success-content-overlay">
-              <div className="success-message-box">
-                <div className="success-icon-large">✓</div>
-                <h2 className="success-title">Applied</h2>
-                <p className="success-message">Our team will reach out to you shortly</p>
-              </div>
-              <div className="application-details-overlay">
-                <h3 className="details-title">Application Details</h3>
-                <div className="details-grid">
-                  <div className="detail-item">
-                    <span className="detail-label">Name:</span>
-                    <span className="detail-value">{String(appliedData.fullName || '')}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Mobile:</span>
-                    <span className="detail-value">+91 {String(appliedData.mobileNumber || '')}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-        {!isApplied && (
-          <KotakSinglePageForm bank={bank} loanLabel={loanLabel} onSubmit={handleKotakSinglePageSubmit} isSubmitting={isSubmitting} />
-        )}
-      </div>
-    )
-  }
 
   return (
     <div
       className={`bank-app-page-wrapper ${themeClass}`}
       style={{
         marginTop: 0,
-        paddingTop: layout.hasFixedHeader ? '85px' : 0,
         position: 'relative',
-        minHeight: layout.hasFixedHeader ? '100vh' : undefined
+        minHeight: '100vh'
       }}
     >
-      {/* Axis: fixed header only */}
-      {bankId === 'axis' && <AxisBankHeader />}
-
-      {/* HDFC: optional header image or full hero */}
-      {bankId === 'hdfc' && hasHeaderImage && (
-        <div className="bank-hero bank-hero-hdfc-image" style={{ position: isApplied ? 'fixed' : 'relative', top: 0, left: 0, right: 0, zIndex: 1 }}>
-          <Image src={bankHeaderImages.hdfc} alt={`${bank.name} ${loanLabel} Offer`} width={1920} height={400} className="hdfc-banner-image" priority style={{ width: '100%', height: 'auto', opacity: isApplied ? 0.3 : 1 }} />
-        </div>
-      )}
-      {bankId === 'hdfc' && !hasHeaderImage && (
-        <div className="bank-hero bank-hero-hdfc">
-          <div className="bank-hero-bar" style={{ backgroundColor: bank.color }}>
-            <div className="bank-hero-bar-inner">
-              <Image src={bank.logo} alt={bank.name} width={150} height={50} className="bank-hero-logo" />
-            </div>
+      {/* Bank Header Bar */}
+      <div className="bank-apply-header" style={{ background: `linear-gradient(135deg, ${bank.color}, ${bank.primaryColor})` }}>
+        <div className="bank-apply-header-inner">
+          <div className="bank-apply-header-left">
+            <Image src="/assets/images/Logo-Helloans.png" alt="Zinee Group" width={110} height={38} className="bank-hero-logo zinee-logo" />
+            <span className="bank-apply-header-handshake">🤝</span>
+            {bank.logo ? (
+              <Image src={bank.logo} alt={bank.name} width={110} height={38} className="bank-hero-logo bank-partner-logo" />
+            ) : (
+              <span className="bank-hero-logo bank-partner-logo-fallback" style={{ width: 110, height: 38, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(255,255,255,0.2)', borderRadius: 8, fontSize: 22, fontWeight: 700, color: '#fff' }}>{bank.name.charAt(0)}</span>
+            )}
           </div>
-          <div className="bank-app-banner">
-            <div className="banner-content">
-              <div className="banner-text-section">
-                <h1 className="banner-headline">
-                  <span className="banner-text-dark">Hey there !</span><br />
-                  <span className="banner-text-dark">Your </span>
-                  <span className="highlight-red" style={{ color: bank.primaryColor }}>{loanLabel} Offer</span>
-                  <span className="banner-text-dark"> is waiting inside.</span>
-                </h1>
-                <div className="banner-features-box">
-                  <div className="banner-feature-item"><svg className="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Quick Funds</span></div>
-                  <div className="banner-feature-divider"></div>
-                  <div className="banner-feature-item"><svg className="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><circle cx="10" cy="13" r="2" fill="#E31837"/><line x1="8" y1="13" x2="12" y2="13" stroke="#E31837" strokeWidth="2"/></svg><span>No Physical Documentation</span></div>
-                  <div className="banner-feature-divider"></div>
-                  <div className="banner-feature-item"><svg className="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Fast Loan Process</span></div>
-                </div>
+          <div className="bank-apply-header-right">
+            <div className="bank-apply-header-features">
+              <div className="bank-apply-feature">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>Quick Approval</span>
               </div>
-              <div className="banner-image-section">
-                <div className="banner-person-image">
-                  <div className="person-illustration">
-                    <div className="person-head">👨</div>
-                    <div className="person-phone">
-                      <div className="phone-screen">
-                        <div className="phone-logo-small">HDFC</div>
-                        <div className="phone-checkmark">✓</div>
-                        <div className="phone-text">Loan Approved</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="bank-apply-feature">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+                <span>Minimal Docs</span>
+              </div>
+              <div className="bank-apply-feature">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>100% Secure</span>
               </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
 
-      {/* ICICI: bank bar with logo + name only */}
-      {bankId === 'icici' && (
-        <div className="bank-hero bank-hero-icici">
-          <div className="bank-hero-bar bank-hero-bar-icici">
-            <div className="bank-hero-bar-inner">
-              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
-              <span className="bank-hero-brand-text">ICICI BANK</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* IndusInd: bank bar with logo + name only */}
-      {bankId === 'indusind' && (
-        <div className="bank-hero bank-hero-indusind">
-          <div className="bank-hero-bar bank-hero-bar-indusind">
-            <div className="bank-hero-bar-inner">
-              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
-              <span className="bank-hero-brand-text">INDUSIND BANK</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* YES Bank: bank bar with logo + name only */}
-      {bankId === 'yes' && (
-        <div className="bank-hero bank-hero-yes">
-          <div className="bank-hero-bar bank-hero-bar-yes">
-            <div className="bank-hero-bar-inner">
-              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
-              <span className="bank-hero-brand-text">YES BANK</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* IDFC: bank bar with logo + name only */}
-      {bankId === 'idfc' && (
-        <div className="bank-hero bank-hero-idfc">
-          <div className="bank-hero-bar bank-hero-bar-idfc">
-            <div className="bank-hero-bar-inner">
-              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
-              <span className="bank-hero-brand-text">IDFC FIRST BANK</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Kotak: bank bar with logo + name only */}
-      {bankId === 'kotak' && (
-        <div className="bank-hero bank-hero-kotak">
-          <div className="bank-hero-bar bank-hero-bar-kotak">
-            <div className="bank-hero-bar-inner">
-              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
-              <span className="bank-hero-brand-text">KOTAK MAHINDRA BANK</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Bajaj / AU / Aditya Birla: bank bar (for overdraft etc.) */}
-      {(bankId === 'bajaj' || bankId === 'au' || bankId === 'adityabirla') && (
-        <div className="bank-hero bank-hero-icici">
-          <div className="bank-hero-bar bank-hero-bar-icici" style={{ background: bank.primaryColor }}>
-            <div className="bank-hero-bar-inner">
-              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
-              <span className="bank-hero-brand-text">{bank.name.toUpperCase()}</span>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Success Overlay (IDFC: "Application submitted" + Thank you at bottom) */}
+      {/* Success Overlay */}
       {isApplied && (
         <div className="application-success-overlay">
           <div className="success-content-overlay">
             <div className="success-message-box">
-              <div className="success-icon-large">✓</div>
-              <h2 className="success-title">{bankId === 'idfc' ? 'Application submitted' : 'Applied'}</h2>
-              <p className="success-message">{bankId === 'idfc' ? 'Our team will reach out to you shortly.' : 'Our team will reach out to you shortly'}</p>
-              {bankId === 'idfc' && <p className="success-thank-you">Thank you</p>}
+              <div className="success-icon-large">&#10003;</div>
+              <h2 className="success-title">Application Submitted</h2>
+              <p className="success-message">Our team will reach out to you shortly</p>
             </div>
             <div className="application-details-overlay">
               <h3 className="details-title">Application Details</h3>
@@ -750,16 +398,34 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
                   <span className="detail-label">Source of Income:</span>
                   <span className="detail-value">{formData.sourceOfIncome === 'salaried' ? 'Salaried' : 'Self Employed / Professionals / Business'}</span>
                 </div>
+                {formData.email && (
+                  <div className="detail-item">
+                    <span className="detail-label">Email:</span>
+                    <span className="detail-value">{formData.email}</span>
+                  </div>
+                )}
+                {formData.employerName && (
+                  <div className="detail-item">
+                    <span className="detail-label">Employer:</span>
+                    <span className="detail-value">{formData.employerName}</span>
+                  </div>
+                )}
+                {formData.city && (
+                  <div className="detail-item">
+                    <span className="detail-label">City:</span>
+                    <span className="detail-value">{formData.city}{formData.pincode ? ` - ${formData.pincode}` : ''}</span>
+                  </div>
+                )}
                 {formData.panCard && (
                   <div className="detail-item">
                     <span className="detail-label">PAN Card:</span>
-                    <span className="detail-value">✓ Uploaded ({formData.panCard.name})</span>
+                    <span className="detail-value">Uploaded ({formData.panCard.name})</span>
                   </div>
                 )}
                 {formData.aadhaarCard && (
                   <div className="detail-item">
                     <span className="detail-label">Aadhaar Card:</span>
-                    <span className="detail-value">✓ Uploaded ({formData.aadhaarCard.name})</span>
+                    <span className="detail-value">Uploaded ({formData.aadhaarCard.name})</span>
                   </div>
                 )}
               </div>
@@ -768,781 +434,375 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
         </div>
       )}
 
-      {/* Main Form Card - layout class per bank for distinct form styling */}
+      {/* Main Form */}
       {!isApplied && (
         <div className={`bank-app-form-container bank-form-layout bank-form-layout-${bankId}`}>
           <div className="bank-app-form-card">
-            <>
-              <h2 className="form-welcome-title">Apply for {loanLabel} – {bank.name}</h2>
-              <p className="form-welcome-subtitle">Welcome! Check your {loanLabel} offer</p>
+            <div className="form-card-header">
+              <h2 className="form-welcome-title">Apply for {formTitleLabel}</h2>
+              <p className="form-welcome-subtitle">Complete the form below to check your eligibility</p>
+            </div>
 
-                <form onSubmit={handleSubmit} className="bank-app-form">
-                  {/* Mobile Number */}
-                  <div className="form-field-group">
-                    <label className="form-field-label">Your registered mobile number</label>
-                    <div className="mobile-input-wrapper">
-                      <span className="country-code">+91</span>
-                      <input
-                        type="tel"
-                        name="mobileNumber"
-                        className="form-input-mobile"
-                        placeholder="Enter 10-digit number"
-                        value={formData.mobileNumber}
-                        onChange={(e) => {
-                          handleChange(e)
-                          setMobileVerified(false)
-                        }}
-                        maxLength={10}
-                        required
-                      />
-                    </div>
-                    <OtpVerification
-                      mobile={formData.mobileNumber}
-                      onVerified={() => setMobileVerified(true)}
-                      verified={mobileVerified}
-                    />
-                    <p className="form-hint-text">Please have it handy to verify OTP</p>
-                  </div>
-
-                  {/* Date of Birth */}
-                  <div className="form-field-group">
-                    <label className="form-field-label">Your Date of Birth</label>
-                    <div className="dob-inputs">
-                      <input
-                        type="text"
-                        name="day"
-                        className="dob-input"
-                        placeholder="DD"
-                        value={formData.day}
-                        onChange={handleChange}
-                        maxLength={2}
-                        required
-                      />
-                      <input
-                        type="text"
-                        name="month"
-                        className="dob-input"
-                        placeholder="MM"
-                        value={formData.month}
-                        onChange={handleChange}
-                        maxLength={2}
-                        required
-                      />
-                      <input
-                        type="text"
-                        name="year"
-                        className="dob-input"
-                        placeholder="YYYY"
-                        value={formData.year}
-                        onChange={handleChange}
-                        maxLength={4}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  {/* PAN Number */}
-                  <div className="form-field-group">
-                    <label className="form-field-label">PAN Number</label>
-                    <input
-                      type="text"
-                      name="panNo"
-                      className="form-input form-input-pan"
-                      placeholder="e.g. ABCDE1234F"
-                      value={formData.panNo}
-                      onChange={handleChange}
-                      maxLength={10}
-                      required
-                    />
-                    <p className="form-hint-text">5 letters, 4 digits, 1 letter (e.g. ABCDE1234F)</p>
-                  </div>
-
-                  {/* Source of Income */}
-                  <div className="form-field-group">
-                    <label className="form-field-label">Your source of income</label>
-                    <div className="radio-group-bank">
-                      <label className={`radio-option-bank ${formData.sourceOfIncome === 'salaried' ? 'selected' : ''}`}>
-                        <input
-                          type="radio"
-                          name="sourceOfIncome"
-                          value="salaried"
-                          checked={formData.sourceOfIncome === 'salaried'}
-                          onChange={handleChange}
-                          required
-                        />
-                        <div className="radio-content">
-                          <span className="radio-label">Salaried</span>
-                          {formData.sourceOfIncome === 'salaried' && (
-                            <div className="info-box-yellow">
-                              Income verification or salary proof maybe required for processing loan request
-                            </div>
-                          )}
-                        </div>
-                      </label>
-                      <label className={`radio-option-bank ${formData.sourceOfIncome === 'self-employed' ? 'selected' : ''}`}>
-                        <input
-                          type="radio"
-                          name="sourceOfIncome"
-                          value="self-employed"
-                          checked={formData.sourceOfIncome === 'self-employed'}
-                          onChange={handleChange}
-                        />
-                        <div className="radio-content">
-                          <span className="radio-label">Self Employed / Professionals / Business</span>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
-
-                  {/* PAN Card Upload */}
-                  <div className="form-field-group">
-                    <label className="form-field-label">Upload PAN Card</label>
-                    <div className="file-upload-wrapper">
-                      <input
-                        type="file"
-                        id="panCard"
-                        accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
-                        onChange={(e) => handleFileChange(e, 'panCard')}
-                        className="file-input-hidden"
-                      />
-                      <label htmlFor="panCard" className="file-upload-label">
-                        <span className="file-upload-icon">📄</span>
-                        <span className="file-upload-text">
-                          {formData.panCard ? formData.panCard.name : 'Choose file (JPG, JPEG, PNG, WEBP, GIF - Max 5MB)'}
-                        </span>
-                      </label>
-                      {panPreview && (
-                        <div className="file-preview-container">
-                          <img src={panPreview} alt="PAN Card Preview" className="file-preview-image" />
-                          <button
-                            type="button"
-                            onClick={() => removeFile('panCard')}
-                            className="file-remove-button"
-                          >
-                            ✕ Remove
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                    <p className="form-hint-text">Accepted formats: JPG, JPEG, PNG, WEBP, GIF (Max 5MB)</p>
-                  </div>
-
-                  {/* Aadhaar Card Upload */}
-                  <div className="form-field-group">
-                    <label className="form-field-label">Upload Aadhaar Card</label>
-                    <div className="file-upload-wrapper">
-                      <input
-                        type="file"
-                        id="aadhaarCard"
-                        accept="image/jpeg,image/jpg,image/png,image/webp,image/gif"
-                        onChange={(e) => handleFileChange(e, 'aadhaarCard')}
-                        className="file-input-hidden"
-                      />
-                      <label htmlFor="aadhaarCard" className="file-upload-label">
-                        <span className="file-upload-icon">📄</span>
-                        <span className="file-upload-text">
-                          {formData.aadhaarCard ? formData.aadhaarCard.name : 'Choose file (JPG, JPEG, PNG, WEBP, GIF - Max 5MB)'}
-                        </span>
-                      </label>
-                      {aadhaarPreview && (
-                        <div className="file-preview-container">
-                          <img src={aadhaarPreview} alt="Aadhaar Card Preview" className="file-preview-image" />
-                          <button
-                            type="button"
-                            onClick={() => removeFile('aadhaarCard')}
-                            className="file-remove-button"
-                          >
-                            ✕ Remove
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                    <p className="form-hint-text">Accepted formats: JPG, JPEG, PNG, WEBP, GIF (Max 5MB)</p>
-                  </div>
-
-                  {/* Consent Checkboxes */}
-                  <div className="consent-group">
-                    <label className="consent-checkbox-label">
-                      <input
-                        type="checkbox"
-                        name="consentPersonalData"
-                        checked={formData.consentPersonalData}
-                        onChange={handleChange}
-                        required
-                      />
-                      <span><span className="required-asterisk">*</span> I hereby consent to collection and processing of my data for availing this loan and relevant services in the manner described in the notice <a href="#" className="consent-link-text" style={{ color: bank.primaryColor }}>here</a></span>
-                    </label>
-                    <label className="consent-checkbox-label">
-                      <input
-                        type="checkbox"
-                        name="consentPerfios"
-                        checked={formData.consentPerfios}
-                        onChange={handleChange}
-                        required
-                      />
-                      <span><span className="required-asterisk">*</span> I have read, understood, and hereby accept the <a href="#" className="consent-link-text" style={{ color: bank.primaryColor }}>Privacy Policy</a> of {bank.name} Ltd. I/we hereby give the consent in relation to Requested Products. I Agree to <a href="#" className="consent-link-text" style={{ color: bank.primaryColor }}>Perfios T&C</a></span>
-                    </label>
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    className={`eligibility-button ${!canProceed ? 'disabled' : ''}`}
-                    disabled={!canProceed || isSubmitting}
-                    style={canProceed ? {
-                      background: bank.primaryColor,
-                      boxShadow: `0 4px 12px ${bank.primaryColor}40`
-                    } : {}}
-                  >
-                    {isSubmitting ? 'Submitting...' : 'Apply Now'}
-                  </button>
-
-                  {/* Footer Text */}
-                  <p className="form-footer-text">
-                    For full details read our <a href="#" className="footer-link" style={{ color: bank.primaryColor }}>Terms & Conditions</a> and <a href="#" className="footer-link" style={{ color: bank.primaryColor }}>Privacy Policy</a>
-                  </p>
-                </form>
-            </>
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-// PNB Form Structure Component
-function PNBFormStructure({
-  formData,
-  handleChange,
-  handleSubmit,
-  bank,
-  activePrimaryTab,
-  setActivePrimaryTab,
-  activeSecondaryTab,
-  setActiveSecondaryTab,
-  canProceed,
-  isSubmitting,
-}: {
-  formData: any
-  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
-  handleSubmit: (e: React.FormEvent) => void
-  bank: any
-  activePrimaryTab: string
-  setActivePrimaryTab: (tab: string) => void
-  activeSecondaryTab: string
-  setActiveSecondaryTab: (tab: string) => void
-  canProceed: boolean
-  isSubmitting: boolean
-}) {
-  const handleAddressCopy = (type: 'permanent' | 'present') => {
-    if (type === 'permanent') {
-      if (formData.sameAsPresentAddress) {
-        // Copy present address to permanent
-        // This would need to be handled in the parent component
-      }
-    } else {
-      if (formData.sameAsPermanentAddress) {
-        // Copy permanent address to present
-        // This would need to be handled in the parent component
-      }
-    }
-  }
-
-  return (
-    <div className="pnb-form-wrapper">
-      {/* Primary Tabs */}
-      <div className="pnb-primary-tabs">
-        <button
-          type="button"
-          className={`pnb-primary-tab ${activePrimaryTab === 'personal' ? 'active' : ''}`}
-          onClick={() => setActivePrimaryTab('personal')}
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-            <path d="M14 2v6h6"></path>
-            <circle cx="12" cy="13" r="2"></circle>
-          </svg>
-          Personal Details
-        </button>
-        <button
-          type="button"
-          className={`pnb-primary-tab ${activePrimaryTab === 'employment' ? 'active' : ''}`}
-          onClick={() => setActivePrimaryTab('employment')}
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-            <circle cx="12" cy="7" r="4"></circle>
-          </svg>
-          Employment Details
-        </button>
-        <button
-          type="button"
-          className={`pnb-primary-tab ${activePrimaryTab === 'asset' ? 'active' : ''}`}
-          onClick={() => setActivePrimaryTab('asset')}
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-          </svg>
-          Asset Details
-        </button>
-      </div>
-
-      {/* Secondary Tabs - Only show for Personal Details */}
-      {activePrimaryTab === 'personal' && (
-        <div className="pnb-secondary-tabs">
-          <button
-            type="button"
-            className={`pnb-secondary-tab ${activeSecondaryTab === 'personal' ? 'active' : ''}`}
-            onClick={() => setActiveSecondaryTab('personal')}
-          >
-            Personal Details
-          </button>
-          <button
-            type="button"
-            className={`pnb-secondary-tab ${activeSecondaryTab === 'address' ? 'active' : ''}`}
-            onClick={() => setActiveSecondaryTab('address')}
-          >
-            Address Details
-          </button>
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="pnb-form">
-        {activePrimaryTab === 'personal' && activeSecondaryTab === 'personal' && (
-          <div className="pnb-form-content">
-            <div className="pnb-mandatory-note">The fields with * are mandatory.</div>
-
-            <div className="pnb-form-two-column">
-              {/* Left Column */}
-              <div className="pnb-form-column">
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Are you an existing PNB customer *</label>
-                  <div className="pnb-radio-group">
-                    <label className="pnb-radio-label">
-                      <input
-                        type="radio"
-                        name="existingCustomer"
-                        value="yes"
-                        checked={formData.existingCustomer === 'yes'}
-                        onChange={handleChange}
-                        required
-                      />
-                      <span>Yes</span>
-                    </label>
-                    <label className="pnb-radio-label">
-                      <input
-                        type="radio"
-                        name="existingCustomer"
-                        value="no"
-                        checked={formData.existingCustomer === 'no'}
-                        onChange={handleChange}
-                        required
-                      />
-                      <span>No</span>
-                    </label>
-                  </div>
+            <form onSubmit={handleSubmit} className="bank-app-form">
+              {/* Section: Verification */}
+              <div className="form-section">
+                <div className="form-section-label">
+                  <span className="form-section-number">1</span>
+                  <span>Verification</span>
                 </div>
 
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Referred by</label>
-                  <select
-                    name="referredBy"
-                    value={formData.referredBy}
-                    onChange={handleChange}
-                    className="pnb-form-select"
-                  >
-                    <option value="">- SELECT -</option>
-                    <option value="friend">Friend</option>
-                    <option value="relative">Relative</option>
-                    <option value="colleague">Colleague</option>
-                    <option value="advertisement">Advertisement</option>
-                  </select>
-                </div>
-
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Loan Purpose *</label>
-                  <select
-                    name="loanPurpose"
-                    value={formData.loanPurpose}
-                    onChange={handleChange}
-                    className="pnb-form-select"
-                    required
-                  >
-                    <option value="">- SELECT -</option>
-                    <option value="medical">Medical</option>
-                    <option value="education">Education</option>
-                    <option value="wedding">Wedding</option>
-                    <option value="home-renovation">Home Renovation</option>
-                    <option value="debt-consolidation">Debt Consolidation</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Loan Amount *</label>
-                  <input
-                    type="text"
-                    name="loanAmount"
-                    value={formData.loanAmount}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    placeholder="Enter loan amount"
-                    required
-                  />
-                </div>
-
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Gender *</label>
-                  <select
-                    name="gender"
-                    value={formData.gender}
-                    onChange={handleChange}
-                    className="pnb-form-select"
-                    required
-                  >
-                    <option value="">- SELECT -</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Marital Status *</label>
-                  <select
-                    name="maritalStatus"
-                    value={formData.maritalStatus}
-                    onChange={handleChange}
-                    className="pnb-form-select"
-                    required
-                  >
-                    <option value="">- SELECT -</option>
-                    <option value="single">Single</option>
-                    <option value="married">Married</option>
-                    <option value="divorced">Divorced</option>
-                    <option value="widowed">Widowed</option>
-                  </select>
-                </div>
-
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Mobile No *</label>
-                  <div className="pnb-mobile-wrapper">
+                <div className="form-field-group">
+                  <label className="form-field-label">Mobile Number <span className="required-asterisk">*</span></label>
+                  <div className="mobile-input-wrapper">
+                    <span className="country-code">+91</span>
                     <input
                       type="tel"
                       name="mobileNumber"
+                      className="form-input-mobile"
+                      placeholder="Enter 10-digit number"
                       value={formData.mobileNumber}
-                      onChange={handleChange}
-                      className="pnb-form-input"
-                      placeholder="Enter mobile number"
+                      onChange={(e) => {
+                        handleChange(e)
+                        setMobileVerified(false)
+                      }}
                       maxLength={10}
                       required
                     />
-                    <button type="button" className="pnb-verify-button">Verify</button>
                   </div>
+                  <OtpVerification
+                    mobile={formData.mobileNumber}
+                    onVerified={() => setMobileVerified(true)}
+                    verified={mobileVerified}
+                  />
                 </div>
 
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Email *</label>
+                <div className="form-field-group">
+                  <label className="form-field-label">Email</label>
                   <input
                     type="email"
                     name="email"
+                    className="form-input"
+                    placeholder="e.g. name@example.com"
                     value={formData.email}
                     onChange={handleChange}
-                    className="pnb-form-input"
-                    placeholder="Enter email address"
-                    required
                   />
-                  <a href="#" className="pnb-privacy-link">Privacy policy</a>
                 </div>
               </div>
 
-              {/* Right Column */}
-              <div className="pnb-form-column">
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Loan Type *</label>
-                  <input
-                    type="text"
-                    value="PERSONAL LOAN"
-                    className="pnb-form-input pnb-readonly"
-                    readOnly
-                  />
+              {/* Section: Personal Details */}
+              <div className="form-section">
+                <div className="form-section-label">
+                  <span className="form-section-number">2</span>
+                  <span>Personal Details</span>
                 </div>
 
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Name *</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    placeholder="Enter full name"
-                    required
-                  />
+                <div className="form-field-group">
+                  <label className="form-field-label">Date of Birth <span className="required-asterisk">*</span></label>
+                  <div className="dob-inputs">
+                    <input type="text" name="day" className={`dob-input ${dobError ? 'dob-input-error' : ''}`} placeholder="DD" value={formData.day} onChange={handleChange} maxLength={2} required />
+                    <input type="text" name="month" className={`dob-input ${dobError ? 'dob-input-error' : ''}`} placeholder="MM" value={formData.month} onChange={handleChange} maxLength={2} required />
+                    <input type="text" name="year" className={`dob-input ${dobError ? 'dob-input-error' : ''}`} placeholder="YYYY" value={formData.year} onChange={handleChange} maxLength={4} required />
+                  </div>
+                  {dobError && <p className="form-error-text">{dobError}</p>}
                 </div>
 
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Date of Birth *</label>
-                  <input
-                    type="text"
-                    name="dob"
-                    value={`${formData.day || 'DD'}/${formData.month || 'MM'}/${formData.year || 'YYYY'}`}
-                    onChange={(e) => {
-                      const value = e.target.value.replace(/\D/g, '')
-                      if (value.length <= 8) {
-                        const day = value.slice(0, 2)
-                        const month = value.slice(2, 4)
-                        const year = value.slice(4, 8)
-                        handleChange({ target: { name: 'day', value: day } } as any)
-                        handleChange({ target: { name: 'month', value: month } } as any)
-                        handleChange({ target: { name: 'year', value: year } } as any)
-                      }
-                    }}
-                    className="pnb-form-input"
-                    placeholder="DD/MM/YYYY"
-                    maxLength={10}
-                    required
-                  />
-                </div>
-
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Residential Status *</label>
-                  <select
-                    name="residentialStatus"
-                    value={formData.residentialStatus}
-                    onChange={handleChange}
-                    className="pnb-form-select"
-                    required
-                  >
-                    <option value="">- SELECT -</option>
-                    <option value="resident-indian">Resident Indian</option>
-                    <option value="nri">NRI</option>
-                    <option value="pio">PIO</option>
-                  </select>
-                </div>
-
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">
-                    <input
-                      type="checkbox"
-                      name="consentPersonalData"
-                      checked={formData.consentPersonalData}
-                      onChange={handleChange}
-                      required
-                    />
-                    <span className="pnb-consent-text">
-                      I authorise PNB and its representatives to call me or sms me with reference to my application, this consent will override any registration for dnd/ndnc. I have read and acknowledged pnb bank's data privacy notice
-                    </span>
-                  </label>
-                </div>
-
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">PAN No *</label>
+                <div className="form-field-group">
+                  <label className="form-field-label">PAN Number <span className="required-asterisk">*</span></label>
                   <input
                     type="text"
                     name="panNo"
+                    className="form-input form-input-pan"
+                    placeholder="e.g. ABCDE1234F"
                     value={formData.panNo}
                     onChange={handleChange}
-                    className="pnb-form-input"
-                    placeholder="Enter PAN number"
                     maxLength={10}
+                    style={{ textTransform: 'uppercase' }}
                     required
                   />
+                  <p className="form-hint-text">Format: 5 letters, 4 digits, 1 letter</p>
                 </div>
-              </div>
-            </div>
-          </div>
-        )}
 
-        {activePrimaryTab === 'personal' && activeSecondaryTab === 'address' && (
-          <div className="pnb-form-content">
-            <div className="pnb-address-section">
-              <div className="pnb-address-column">
-                <h3 className="pnb-address-title">Permanent Address</h3>
-                <label className="pnb-checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="sameAsPresentAddress"
-                    checked={formData.sameAsPresentAddress}
-                    onChange={handleChange}
-                  />
-                  <span>Same as Present address</span>
-                </label>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Address Line 1 *</label>
-                  <input
-                    type="text"
-                    name="permanentAddressLine1"
-                    value={formData.permanentAddressLine1}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    required
-                  />
+                <div className="form-field-group">
+                  <label className="form-field-label">Source of Income <span className="required-asterisk">*</span></label>
+                  <div className="radio-group-bank">
+                    <label className={`radio-option-bank ${formData.sourceOfIncome === 'salaried' ? 'selected' : ''}`}>
+                      <input type="radio" name="sourceOfIncome" value="salaried" checked={formData.sourceOfIncome === 'salaried'} onChange={handleChange} required />
+                      <div className="radio-content">
+                        <span className="radio-label">Salaried</span>
+                        {formData.sourceOfIncome === 'salaried' && (
+                          <div className="info-box-yellow">Salary proof may be required for processing</div>
+                        )}
+                      </div>
+                    </label>
+                    <label className={`radio-option-bank ${formData.sourceOfIncome === 'self-employed' ? 'selected' : ''}`}>
+                      <input type="radio" name="sourceOfIncome" value="self-employed" checked={formData.sourceOfIncome === 'self-employed'} onChange={handleChange} />
+                      <div className="radio-content">
+                        <span className="radio-label">Self Employed / Business</span>
+                      </div>
+                    </label>
+                  </div>
                 </div>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Address Line 2 *</label>
+
+                <div className="form-field-group">
+                  <label className="form-field-label">Employer Name</label>
                   <input
                     type="text"
-                    name="permanentAddressLine2"
-                    value={formData.permanentAddressLine2}
+                    name="employerName"
+                    className="form-input"
+                    placeholder="e.g. Tata Consultancy Services"
+                    value={formData.employerName}
                     onChange={handleChange}
-                    className="pnb-form-input"
-                    required
-                  />
-                </div>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">District *</label>
-                  <input
-                    type="text"
-                    name="permanentDistrict"
-                    value={formData.permanentDistrict}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    required
-                  />
-                </div>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">City *</label>
-                  <input
-                    type="text"
-                    name="permanentCity"
-                    value={formData.permanentCity}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    required
-                  />
-                </div>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">State *</label>
-                  <input
-                    type="text"
-                    name="permanentState"
-                    value={formData.permanentState}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    required
-                  />
-                </div>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Pincode *</label>
-                  <input
-                    type="text"
-                    name="permanentPincode"
-                    value={formData.permanentPincode}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    maxLength={6}
-                    required
                   />
                 </div>
               </div>
 
-              <div className="pnb-address-column">
-                <h3 className="pnb-address-title">Present Address</h3>
-                <label className="pnb-checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="sameAsPermanentAddress"
-                    checked={formData.sameAsPermanentAddress}
-                    onChange={handleChange}
-                  />
-                  <span>Same as Permanent address</span>
-                </label>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Address Line 1 *</label>
-                  <input
-                    type="text"
-                    name="presentAddressLine1"
-                    value={formData.presentAddressLine1}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    required
-                  />
+              {/* Section 3A: KYC Documents */}
+              <div className="form-section">
+                <div className="form-section-label">
+                  <span className="form-section-number">3A</span>
+                  <span>KYC Documents</span>
                 </div>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Address Line 2 *</label>
-                  <input
-                    type="text"
-                    name="presentAddressLine2"
-                    value={formData.presentAddressLine2}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    required
-                  />
-                </div>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">District *</label>
-                  <input
-                    type="text"
-                    name="presentDistrict"
-                    value={formData.presentDistrict}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    required
-                  />
-                </div>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">City *</label>
-                  <input
-                    type="text"
-                    name="presentCity"
-                    value={formData.presentCity}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    required
-                  />
-                </div>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">State *</label>
-                  <input
-                    type="text"
-                    name="presentState"
-                    value={formData.presentState}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    required
-                  />
-                </div>
-                <div className="pnb-form-field">
-                  <label className="pnb-form-label">Pincode *</label>
-                  <input
-                    type="text"
-                    name="presentPincode"
-                    value={formData.presentPincode}
-                    onChange={handleChange}
-                    className="pnb-form-input"
-                    maxLength={6}
-                    required
-                  />
+
+                <div className="form-uploads-row">
+                  <div className="form-field-group form-field-half">
+                    <label className="form-field-label">PAN Card <span className="required-asterisk">*</span></label>
+                    <div className="file-upload-wrapper">
+                      <input type="file" id="panCard" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif" onChange={(e) => handleDocUpload(e, 'panCard')} className="file-input-hidden" />
+                      {panPreview ? (
+                        <div className="file-preview-container">
+                          <img src={panPreview} alt="PAN Card Preview" className="file-preview-image" />
+                          <button type="button" onClick={() => removeDoc('panCard')} className="file-remove-button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Remove
+                          </button>
+                        </div>
+                      ) : (
+                        <label htmlFor="panCard" className="file-upload-label">
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                          <span className="file-upload-text">Upload PAN Card</span>
+                          <span className="file-upload-hint">JPG, PNG, WEBP (Max 2MB)</span>
+                        </label>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="form-field-group form-field-half">
+                    <label className="form-field-label">Aadhaar Card <span className="required-asterisk">*</span></label>
+                    <div className="file-upload-wrapper">
+                      <input type="file" id="aadhaarCard" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif" onChange={(e) => handleDocUpload(e, 'aadhaarCard')} className="file-input-hidden" />
+                      {aadhaarPreview ? (
+                        <div className="file-preview-container">
+                          <img src={aadhaarPreview} alt="Aadhaar Card Preview" className="file-preview-image" />
+                          <button type="button" onClick={() => removeDoc('aadhaarCard')} className="file-remove-button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Remove
+                          </button>
+                        </div>
+                      ) : (
+                        <label htmlFor="aadhaarCard" className="file-upload-label">
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                          <span className="file-upload-text">Upload Aadhaar Card</span>
+                          <span className="file-upload-hint">JPG, PNG, WEBP (Max 2MB)</span>
+                        </label>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        )}
 
-        {activePrimaryTab === 'employment' && (
-          <div className="pnb-form-content">
-            <p className="pnb-placeholder-text">Employment Details section - To be implemented</p>
-          </div>
-        )}
+              {/* Section 3B: Income Documents */}
+              <div className="form-section">
+                <div className="form-section-label">
+                  <span className="form-section-number">3B</span>
+                  <span>Income Documents</span>
+                </div>
 
-        {activePrimaryTab === 'asset' && (
-          <div className="pnb-form-content">
-            <p className="pnb-placeholder-text">Asset Details section - To be implemented</p>
-          </div>
-        )}
+                <div className="form-uploads-row">
+                  <div className="form-field-group form-field-half">
+                    <label className="form-field-label">Payslip <span className="required-asterisk">*</span></label>
+                    <div className="file-upload-wrapper">
+                      <input type="file" id="payslip" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,application/pdf" onChange={(e) => handleDocUpload(e, 'payslip', true)} className="file-input-hidden" />
+                      {formData.payslip ? (
+                        <div className="file-preview-container">
+                          {filePreviews.payslip ? (
+                            <img src={filePreviews.payslip} alt="Payslip Preview" className="file-preview-image" />
+                          ) : (
+                            <div className="file-preview-pdf">
+                              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                              <span className="file-preview-name">{formData.payslip.name}</span>
+                            </div>
+                          )}
+                          <button type="button" onClick={() => removeDoc('payslip')} className="file-remove-button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Remove
+                          </button>
+                        </div>
+                      ) : (
+                        <label htmlFor="payslip" className="file-upload-label">
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                          <span className="file-upload-text">Upload Payslip</span>
+                          <span className="file-upload-hint">JPG, PNG, PDF (Max 2MB)</span>
+                        </label>
+                      )}
+                    </div>
+                  </div>
 
-        <div className="pnb-form-actions">
-          <button
-            type="submit"
-            className={`pnb-submit-button ${!canProceed ? 'disabled' : ''}`}
-            disabled={!canProceed || isSubmitting}
-          >
-            {isSubmitting ? 'Submitting...' : 'Submit'}
-          </button>
+                  <div className="form-field-group form-field-half">
+                    <label className="form-field-label">Bank Statement (PDF) <span className="required-asterisk">*</span></label>
+                    <div className="file-upload-wrapper">
+                      <input type="file" id="bankStatement" accept="application/pdf,image/jpeg,image/jpg,image/png,image/webp" onChange={(e) => handleDocUpload(e, 'bankStatement', true)} className="file-input-hidden" />
+                      {formData.bankStatement ? (
+                        <div className="file-preview-container">
+                          {filePreviews.bankStatement ? (
+                            <img src={filePreviews.bankStatement} alt="Bank Statement Preview" className="file-preview-image" />
+                          ) : (
+                            <div className="file-preview-pdf">
+                              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                              <span className="file-preview-name">{formData.bankStatement.name}</span>
+                            </div>
+                          )}
+                          <button type="button" onClick={() => removeDoc('bankStatement')} className="file-remove-button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            Remove
+                          </button>
+                        </div>
+                      ) : (
+                        <label htmlFor="bankStatement" className="file-upload-label">
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                          <span className="file-upload-text">Upload Bank Statement</span>
+                          <span className="file-upload-hint">PDF, JPG, PNG (Max 2MB)</span>
+                        </label>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="form-field-group">
+                  <label className="form-field-label">Additional Documents <span className="form-optional-tag">(Optional)</span></label>
+                  <p className="form-hint-text" style={{ marginTop: '-2px', marginBottom: '8px' }}>Documents such as Form 16 / 26 AS, Previous Loan Statement, Repayment Schedule can be uploaded here</p>
+                  <div className="file-upload-wrapper">
+                    <input type="file" id="additionalDoc" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,application/pdf" onChange={(e) => handleDocUpload(e, 'additionalDoc', true)} className="file-input-hidden" />
+                    {formData.additionalDoc ? (
+                      <div className="file-preview-container">
+                        {filePreviews.additionalDoc ? (
+                          <img src={filePreviews.additionalDoc} alt="Additional Document Preview" className="file-preview-image" />
+                        ) : (
+                          <div className="file-preview-pdf">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            <span className="file-preview-name">{formData.additionalDoc.name}</span>
+                          </div>
+                        )}
+                        <button type="button" onClick={() => removeDoc('additionalDoc')} className="file-remove-button">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                          Remove
+                        </button>
+                      </div>
+                    ) : (
+                      <label htmlFor="additionalDoc" className="file-upload-label">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span className="file-upload-text">Upload Additional Document</span>
+                        <span className="file-upload-hint">JPG, PNG, PDF (Max 2MB)</span>
+                      </label>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Section: Current Address Proof */}
+              <div className="form-section">
+                <div className="form-section-label">
+                  <span className="form-section-number">4</span>
+                  <span>Current Address Proof</span>
+                </div>
+
+                <div className="form-uploads-row">
+                  <div className="form-field-group form-field-half">
+                    <label className="form-field-label">Pincode</label>
+                    <input
+                      type="text"
+                      name="pincode"
+                      className="form-input"
+                      placeholder="e.g. 110018"
+                      value={formData.pincode}
+                      onChange={handleChange}
+                      maxLength={6}
+                    />
+                  </div>
+                  <div className="form-field-group form-field-half">
+                    <label className="form-field-label">City</label>
+                    <input
+                      type="text"
+                      name="city"
+                      className="form-input"
+                      placeholder="e.g. New Delhi"
+                      value={formData.city}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-field-group">
+                  <label className="form-field-label">Address Proof <span className="required-asterisk">*</span></label>
+                  <p className="form-hint-text" style={{ marginTop: '-2px', marginBottom: '8px' }}>Upload any one: Aadhaar Card, Rent Agreement, Electricity Bill, Voter ID, or Passport</p>
+                  <div className="file-upload-wrapper">
+                    <input type="file" id="addressProof" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,application/pdf" onChange={(e) => handleDocUpload(e, 'addressProof', true)} className="file-input-hidden" />
+                    {formData.addressProof ? (
+                      <div className="file-preview-container">
+                        {filePreviews.addressProof ? (
+                          <img src={filePreviews.addressProof} alt="Address Proof Preview" className="file-preview-image" />
+                        ) : (
+                          <div className="file-preview-pdf">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            <span className="file-preview-name">{formData.addressProof.name}</span>
+                          </div>
+                        )}
+                        <button type="button" onClick={() => removeDoc('addressProof')} className="file-remove-button">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                          Remove
+                        </button>
+                      </div>
+                    ) : (
+                      <label htmlFor="addressProof" className="file-upload-label">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <span className="file-upload-text">Upload Address Proof</span>
+                        <span className="file-upload-hint">JPG, PNG, PDF (Max 2MB)</span>
+                      </label>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Section: Consent & Submit */}
+              <div className="form-section">
+                <div className="consent-group">
+                  <label className="consent-checkbox-label">
+                    <input type="checkbox" name="consentPersonalData" checked={formData.consentPersonalData} onChange={handleChange} required />
+                    <span><span className="required-asterisk">*</span> I consent to collection and processing of my data for this loan application as described in the notice.</span>
+                  </label>
+                  <label className="consent-checkbox-label">
+                    <input type="checkbox" name="consentPerfios" checked={formData.consentPerfios} onChange={handleChange} required />
+                    <span><span className="required-asterisk">*</span> I accept the Privacy Policy of {bank.name} and agree to Perfios T&C.</span>
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  className={`eligibility-button ${!canProceed ? 'disabled' : ''}`}
+                  disabled={!canProceed || isSubmitting}
+                  style={canProceed ? { background: `linear-gradient(135deg, ${bank.color}, ${bank.primaryColor})`, boxShadow: `0 6px 20px ${bank.primaryColor}35` } : {}}
+                >
+                  {isSubmitting ? 'Submitting...' : 'Apply Now'}
+                </button>
+
+                <p className="form-footer-text">
+                  By applying, you agree to our <a href="#" className="footer-link" style={{ color: bank.primaryColor }}>Terms</a> &amp; <a href="#" className="footer-link" style={{ color: bank.primaryColor }}>Privacy Policy</a>
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
+      )}
     </div>
   )
 }
+

@@ -14,7 +14,14 @@ export default function EmiCalculatorPage() {
         <main className="loan-page-main">
           <div className="loan-page-container">
             <div className="loan-page-header">
-              <h1>{t('emi.pageTitle')}</h1>
+              <h1>
+                {(() => {
+                  const title = t('emi.pageTitle')
+                  const idx = title.indexOf(' ')
+                  if (idx === -1) return <span className="shimmer-text">{title}</span>
+                  return <><span className="shimmer-text">{title.substring(0, idx)}</span>{title.substring(idx)}</>
+                })()}
+              </h1>
               <p>{t('emi.pageDesc')}</p>
             </div>
             <EmiCalculatorWithComparison />

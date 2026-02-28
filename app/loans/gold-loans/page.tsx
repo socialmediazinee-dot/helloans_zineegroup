@@ -16,7 +16,7 @@ export default function GoldLoansPage() {
             <main className="loan-page-main">
                 <div className="loan-page-container">
                     <div className="loan-page-header">
-                        <h1>Gold Loans</h1>
+                        <h1><span className="loan-title-shimmer">Gold</span> Loans</h1>
                         <p>Your gold can do more for you. Get quick and secure loans against your gold assets.</p>
                     </div>
 

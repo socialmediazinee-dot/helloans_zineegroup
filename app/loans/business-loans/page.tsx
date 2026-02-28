@@ -19,7 +19,7 @@ export default function BusinessLoansPage() {
       <main className="loan-page-main">
         <div className="loan-page-container">
           <div className="loan-page-header">
-            <h1>Business Loans</h1>
+            <h1><span className="loan-title-shimmer">Business</span> Loans</h1>
             <p>Business loan enables you to expand your business and network. It provides financial stability in your business.</p>
           </div>
 

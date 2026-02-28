@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, useMemo, type ReactNode } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import RupeeIcon from '@/components/RupeeIcon'
 import styles from './OfferCards.module.css'
 
 const SPEED_MS = 28
@@ -16,8 +17,10 @@ export default function OfferCards() {
     () => [
       {
         id: '1',
-        mainLine1: '₹1100',
+        icon: '💰',
+        mainLine1: <><RupeeIcon size={22} />1100</>,
         mainLine2: 'CASHBACK',
+        accent: 'gold',
         reveal: {
           line1: t('features.offer1BackLine1'),
           line2: t('features.offer1BackLine2'),
@@ -26,8 +29,10 @@ export default function OfferCards() {
       },
       {
         id: '2',
-        mainLine1: '₹3100',
+        icon: '🎁',
+        mainLine1: <><RupeeIcon size={22} />3100</>,
         mainLine2: 'CASHBACK',
+        accent: 'blue',
         reveal: {
           line1: t('features.offer2BackLine1'),
           line2: t('features.offer2BackLine2'),
@@ -36,8 +41,10 @@ export default function OfferCards() {
       },
       {
         id: '3',
+        icon: '🤝',
         mainLine1: 'Helloans',
         mainLine2: 'Promise',
+        accent: 'green',
         reveal: {
           line1: t('features.promiseBackLine1'),
           line2: t('features.promiseBackLine2'),
@@ -98,14 +105,19 @@ export default function OfferCards() {
         {cards.map((card) => (
           <div
             key={card.id}
-            className={styles.card}
+            className={`${styles.card} ${styles[`accent_${card.accent}`] || ''}`}
             onMouseEnter={() => setHoveredId(card.id)}
             onMouseLeave={handleLeave}
           >
             <div className={styles.border} />
+            <div className={styles.cornerDot} />
+            <div className={styles.cornerDotBR} />
 
             <div className={styles.content}>
               <div className={styles.mainBlock}>
+                {card.icon && (
+                  <span className={styles.cardIcon}>{card.icon}</span>
+                )}
                 <span className={styles.mainLine1}>{card.mainLine1}</span>
                 <span className={styles.mainLine2}>{card.mainLine2}</span>
               </div>

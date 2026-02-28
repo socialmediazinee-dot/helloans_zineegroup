@@ -17,17 +17,17 @@ const loanTypes: Array<{
   spriteRow: number
 }> = [
     { name: 'Personal Loans', slug: 'personal-loans', image: '/assets/icons/personal-loan.png', spriteCol: 0, spriteRow: 0 },
-    { name: 'Business Loans', slug: 'business-loans', image: '/assets/icons/business-loan.png', spriteCol: 1, spriteRow: 0 },
-    { name: 'Overdraft', slug: 'overdraft', image: '/assets/icons/overdraft.png', spriteCol: 2, spriteRow: 0 },
-    { name: 'Secure Loans', slug: 'secure-loans', image: '/assets/icons/secured-loans.png', spriteCol: 3, spriteRow: 0 },
-    { name: 'Instant Loan', slug: 'instant-loan', image: '/assets/icons/instant-loan.png', spriteCol: 2, spriteRow: 2 },
-    { name: 'Balance Transfer', slug: 'balance-transfer', image: '/assets/icons/balance-transfer.png', spriteCol: 0, spriteRow: 1 },
-    { name: 'Professional Loans', slug: 'professional-loans', image: '/assets/icons/professional-loans.png', spriteCol: 1, spriteRow: 1 },
-    { name: 'Credit Cards', slug: 'credit-cards', image: '/assets/icons/credit-card.png', spriteCol: 2, spriteRow: 1 },
-    { name: 'Home Loans', slug: 'home-loans', image: '/assets/icons/home-loans.png', spriteCol: 3, spriteRow: 1 },
-    { name: 'Gold Loans', slug: 'gold-loans', image: '/assets/icons/gold-loans.png', spriteCol: 0, spriteRow: 2 },
-    { name: 'Education Loans', slug: 'education-loans', image: '/assets/icons/education-loans.png', spriteCol: 1, spriteRow: 2 },
-    { name: 'Insurance', slug: 'insurance', image: '/assets/icons/insurance.png', spriteCol: 3, spriteRow: 2 },
+    { name: 'Business Loans', slug: 'business-loans', image: '/assets/icons/business-loan.jpeg', spriteCol: 1, spriteRow: 0 },
+    { name: 'Overdraft', slug: 'overdraft', image: '/assets/icons/overdraft.jpeg', spriteCol: 2, spriteRow: 0 },
+    { name: 'Secure Loans', slug: 'secure-loans', image: '/assets/icons/secured-loans.jpeg', spriteCol: 3, spriteRow: 0 },
+    { name: 'Instant Loan', slug: 'instant-loan', image: '/assets/icons/instant-loan.jpeg', spriteCol: 2, spriteRow: 2 },
+    { name: 'Balance Transfer', slug: 'balance-transfer', image: '/assets/icons/balance-transfer.jpeg', spriteCol: 0, spriteRow: 1 },
+    { name: 'Professional Loans', slug: 'professional-loans', image: '/assets/icons/professional-loans.jpeg', spriteCol: 1, spriteRow: 1 },
+    { name: 'Credit Cards', slug: 'credit-cards', image: '/assets/icons/credit-card.jpeg', spriteCol: 2, spriteRow: 1 },
+    { name: 'Home Loans', slug: 'home-loans', image: '/assets/icons/home-loans.jpeg', spriteCol: 3, spriteRow: 1 },
+    { name: 'Gold Loans', slug: 'gold-loans', image: '/assets/icons/gold-loans.jpeg', spriteCol: 0, spriteRow: 2 },
+    { name: 'Education Loans', slug: 'education-loans', image: '/assets/icons/education-loans.jpeg', spriteCol: 1, spriteRow: 2 },
+    { name: 'Insurance', slug: 'insurance', image: '/assets/icons/insurance.jpeg', spriteCol: 3, spriteRow: 2 },
   ]
 
 const translationKeyMap: Record<string, string> = {

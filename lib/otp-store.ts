@@ -1,25 +1,36 @@
 /**
- * In-memory OTP store with TTL. For production at scale, replace with Redis.
- * Keys: normalized mobile (10 digits). Value: { otp, expiresAt } or { sessionId, expiresAt } for 2Factor.
+ * In-memory OTP store with TTL and attempt tracking.
+ * For production at scale, replace with Redis.
  */
-const store = new Map<string, { otp?: string; sessionId?: string; expiresAt: number }>()
-const TTL_MS = 10 * 60 * 1000 // 10 minutes
+const store = new Map<string, { otp?: string; sessionId?: string; expiresAt: number; attempts: number }>()
+const TTL_MS = 10 * 60 * 1000
+const MAX_ATTEMPTS = 5
+const MAX_STORE_SIZE = 10_000
 
 function normalizeMobile(mobile: string): string {
   return String(mobile).replace(/\D/g, '').slice(-10)
 }
 
-export function setOtp(mobile: string, otp: string): void {
-  const key = normalizeMobile(mobile)
-  if (key.length !== 10) return
-  store.set(key, { otp, expiresAt: Date.now() + TTL_MS })
+function evictExpired() {
+  if (store.size < MAX_STORE_SIZE) return
+  const now = Date.now()
+  store.forEach((entry, key) => {
+    if (now > entry.expiresAt) store.delete(key)
+  })
 }
 
-/** Store 2Factor.in session ID for a mobile (used when verifying via 2Factor API). */
-export function setSessionId(mobile: string, sessionId: string): void {
+export function setOtp(mobile: string, otp: string): void {
+  evictExpired()
   const key = normalizeMobile(mobile)
   if (key.length !== 10) return
-  store.set(key, { sessionId, expiresAt: Date.now() + TTL_MS })
+  store.set(key, { otp, expiresAt: Date.now() + TTL_MS, attempts: 0 })
+}
+
+export function setSessionId(mobile: string, sessionId: string): void {
+  evictExpired()
+  const key = normalizeMobile(mobile)
+  if (key.length !== 10) return
+  store.set(key, { sessionId, expiresAt: Date.now() + TTL_MS, attempts: 0 })
 }
 
 export function getOtp(mobile: string): string | null {
@@ -42,12 +53,10 @@ export function getSessionId(mobile: string): string | null {
   return entry.sessionId
 }
 
-/** Normalize OTP to digits only for comparison (handles spaces when pasting). */
 function normalizeOtp(otp: string): string {
   return String(otp).replace(/\D/g, '').slice(0, 6)
 }
 
-/** Verify and consume OTP only on success. Wrong code does not delete so user can retry. */
 export function consumeOtp(mobile: string, otp: string): boolean {
   const key = normalizeMobile(mobile)
   const entry = store.get(key)
@@ -55,15 +64,19 @@ export function consumeOtp(mobile: string, otp: string): boolean {
     store.delete(key)
     return false
   }
+  if (entry.attempts >= MAX_ATTEMPTS) {
+    store.delete(key)
+    return false
+  }
   const inputOtp = normalizeOtp(otp)
   if (inputOtp.length !== 6 || entry.otp !== inputOtp) {
+    entry.attempts++
     return false
   }
   store.delete(key)
   return true
 }
 
-/** Remove session after successful 2Factor verify. */
 export function consumeSessionId(mobile: string): void {
   store.delete(normalizeMobile(mobile))
 }

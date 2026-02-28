@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter, Poppins } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from '@/contexts/LanguageContext'
-import { DarkModeProvider } from '@/contexts/DarkModeContext'
+import { BankRatesProvider } from '@/contexts/BankRatesContext'
 import ChatBotWrapper from '@/components/ChatBotWrapper'
 
 const inter = Inter({
@@ -37,15 +37,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${poppins.variable}`}>
-        <DarkModeProvider>
-          <LanguageProvider>
+        <LanguageProvider>
+          <BankRatesProvider>
             {/* Vector Background Container - Available on all pages */}
             <div className="vector-background" id="vectorBackground"></div>
             {children}
             {/* Floating ChatBot - no bottom toggle; WhatsApp hidden on /testemailout */}
             <ChatBotWrapper />
-          </LanguageProvider>
-        </DarkModeProvider>
+          </BankRatesProvider>
+        </LanguageProvider>
       </body>
     </html>
   )

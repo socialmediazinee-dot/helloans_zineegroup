@@ -16,11 +16,11 @@ export default function InsurancePage() {
             <main className="loan-page-main">
                 <div className="loan-page-container">
                     <div className="loan-page-header">
-                        <h1>Insurance</h1>
+                        <h1><span className="loan-title-shimmer">Insurance</span></h1>
                         <p>Secure your health and family's future with the best insurance policies available.</p>
                     </div>
 
-                    <BankList offers={bankOffers['insurance']} categoryTitle="Top Insurance Offers" />
+                    <BankList offers={bankOffers['insurance']} categoryTitle="Top Insurance Offers" loanCategory="insurance" />
                 </div>
             </main>
             <Footer />

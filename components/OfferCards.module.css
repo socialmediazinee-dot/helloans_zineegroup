@@ -1,7 +1,7 @@
-/* Offer cards – main text in 2 lines (blue glass + black), rest revealed on hover with typewriter */
+/* Offer cards – vibrant tiles with accent colors and decorative elements */
 .section {
   margin-bottom: 70px;
-  padding: 60px 0 50px;
+  padding: 24px 0 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,8 +13,22 @@
   font-family: var(--font-poppins), sans-serif;
   font-size: 1.75rem;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   text-align: center;
+  display: inline-block;
+  position: relative;
+}
+
+.title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #a78bfa 0%, #c4b5fd 100%);
+  border-radius: 2px;
 }
 
 .subtitle {
@@ -27,74 +41,200 @@
 .container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
   flex-wrap: wrap;
   gap: 32px;
   max-width: 1400px;
   margin: 0 auto;
 }
 
+/* ── Base card ─────────────────────────────────── */
 .card {
   width: 300px;
-  min-height: 200px;
-  background: #95c4df;
-  color: #1e293b;
+  min-height: 220px;
   position: relative;
-  border-radius: 10px;
+  border-radius: 18px;
   overflow: hidden;
-  transition: all 0.5s ease-in-out;
-  border: 1px solid rgba(30, 64, 175, 0.12);
-  box-shadow: 0 8px 24px rgba(30, 64, 175, 0.08);
+  transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  background: linear-gradient(145deg, #dbeafe 0%, #a5c8f0 50%, #7fb3e0 100%);
+  border: 1.5px solid rgba(59, 130, 246, 0.18);
+  box-shadow:
+    0 4px 16px rgba(30, 64, 175, 0.08),
+    0 1px 3px rgba(30, 64, 175, 0.06);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .card:hover {
-  border-radius: 0;
-  transform: scale(1.05);
-  border-color: rgba(124, 165, 28, 0.25);
-  box-shadow: 0 16px 32px rgba(30, 64, 175, 0.15);
+  transform: translateY(-6px) scale(1.03);
+  box-shadow:
+    0 20px 40px rgba(30, 64, 175, 0.15),
+    0 8px 16px rgba(30, 64, 175, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
 }
 
+/* ── Accent variants ─────────────────────────────── */
+.accent_gold {
+  background: linear-gradient(145deg, #fef3c7 0%, #fcd34d 40%, #f59e0b 100%);
+  border-color: rgba(245, 158, 11, 0.2);
+  box-shadow:
+    0 4px 16px rgba(245, 158, 11, 0.1),
+    0 1px 3px rgba(245, 158, 11, 0.06);
+}
 
+.accent_gold:hover {
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow:
+    0 20px 40px rgba(245, 158, 11, 0.18),
+    0 8px 16px rgba(245, 158, 11, 0.1);
+}
+
+.accent_blue {
+  background: linear-gradient(145deg, #dbeafe 0%, #93c5fd 40%, #3b82f6 100%);
+  border-color: rgba(59, 130, 246, 0.2);
+  box-shadow:
+    0 4px 16px rgba(59, 130, 246, 0.1),
+    0 1px 3px rgba(59, 130, 246, 0.06);
+}
+
+.accent_blue:hover {
+  border-color: rgba(59, 130, 246, 0.35);
+  box-shadow:
+    0 20px 40px rgba(59, 130, 246, 0.18),
+    0 8px 16px rgba(59, 130, 246, 0.1);
+}
+
+.accent_green {
+  background: linear-gradient(145deg, #d1fae5 0%, #6ee7b7 40%, #10b981 100%);
+  border-color: rgba(16, 185, 129, 0.2);
+  box-shadow:
+    0 4px 16px rgba(16, 185, 129, 0.1),
+    0 1px 3px rgba(16, 185, 129, 0.06);
+}
+
+.accent_green:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow:
+    0 20px 40px rgba(16, 185, 129, 0.18),
+    0 8px 16px rgba(16, 185, 129, 0.1);
+}
+
+/* ── Decorative corner dots ─────────────────────── */
+.cornerDot,
+.cornerDotBR {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 2;
+  transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cornerDot {
+  top: 14px;
+  left: 14px;
+}
+
+.cornerDotBR {
+  bottom: 14px;
+  right: 14px;
+}
+
+.card:hover .cornerDot,
+.card:hover .cornerDotBR {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Inner border on hover ──────────────────────── */
+.border {
+  position: absolute;
+  inset: 8px;
+  border: 2px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 12px;
+  opacity: 0;
+  transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 2;
+}
 
 .card:hover .border {
-  inset: 12px;
   opacity: 1;
-  transform: rotate(0);
+  inset: 10px;
 }
 
+/* ── Content ────────────────────────────────────── */
 .content {
   position: relative;
   padding: 28px 24px 24px;
-  min-height: 200px;
+  min-height: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 3;
 }
 
 .mainBlock {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  transition: opacity 0.4s ease-in-out;
+  gap: 10px;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
 }
 
+.card:hover .mainBlock {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+}
+
+/* ── Icon with bounce ────────────────────────────── */
+.cardIcon {
+  font-size: clamp(2.4rem, 5vw, 3rem);
+  line-height: 1;
+  display: inline-block;
+  animation: iconFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes iconFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ── Main text lines ─────────────────────────────── */
 .mainLine1 {
   font-family: var(--font-poppins), sans-serif;
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
   font-weight: 800;
-  color: #1e40af;
+  color: #1e293b;
   line-height: 1.2;
-  padding: 8px 16px;
+  padding: 8px 20px;
   border-radius: 12px;
-  background: rgba(59, 130, 246, 0.12);
+  background: rgba(255, 255, 255, 0.35);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   position: relative;
   overflow: hidden;
+  letter-spacing: -0.02em;
 }
 
 .mainLine1::after {
@@ -107,7 +247,7 @@
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.5),
     transparent
   );
   animation: offerGlassShimmer 2.5s ease-in-out infinite;
@@ -120,14 +260,17 @@
 
 .mainLine2 {
   font-family: var(--font-poppins), sans-serif;
-  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(1.3rem, 3.5vw, 1.6rem);
   font-weight: 800;
   color: #0f172a;
   line-height: 1.2;
   margin: 0;
   text-align: center;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
+/* ── Reveal block (hover overlay) ─────────────── */
 .revealBlock {
   position: absolute;
   inset: 0;
@@ -136,11 +279,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #159bef;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
   pointer-events: none;
+  z-index: 4;
+  border-radius: 18px;
 }
 
 .card:hover .revealBlock {
@@ -149,18 +296,14 @@
   pointer-events: auto;
 }
 
-.card:hover .mainBlock {
-  opacity: 0;
-  pointer-events: none;
-}
-
+/* ── Typewriter ─────────────────────────────────── */
 .typewriter {
   font-family: var(--font-poppins), sans-serif;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 600;
   color: #1e293b;
   text-align: center;
-  line-height: 1.55;
+  line-height: 1.6;
   white-space: pre-line;
   min-height: 4.5em;
 }
@@ -172,16 +315,15 @@
 .cursor {
   display: inline-block;
   font-weight: 300;
-  color: #1e40af;
+  color: #3b82f6;
   animation: offerBlink 0.7s step-end infinite;
 }
 
 @keyframes offerBlink {
-  50% {
-    opacity: 0;
-  }
+  50% { opacity: 0; }
 }
 
+/* ── Responsive ─────────────────────────────────── */
 @media (max-width: 1024px) {
   .container {
     gap: 24px;
@@ -198,7 +340,15 @@
     flex-direction: column;
   }
 
+  .card {
+    width: 280px;
+  }
+
   .card:hover {
-    transform: scale(1.02);
+    transform: translateY(-4px) scale(1.01);
+  }
+
+  .cardIcon {
+    animation: none;
   }
 }

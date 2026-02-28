@@ -1,14 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { rateLimit } from '@/lib/rate-limit'
+import { truncate } from '@/lib/sanitize'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: NextRequest) {
     try {
-        const body = await request.json()
-        const { name, companyName, email, phone, city, message } = body
+        const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+        const { allowed } = rateLimit(ip, { maxRequests: 5, windowMs: 60_000 })
+        if (!allowed) {
+            return NextResponse.json({ error: 'Too many requests. Please wait a minute.' }, { status: 429 })
+        }
 
-        // Validate required fields
+        const body = await request.json()
+        const name = truncate(body.name, 200)
+        const companyName = truncate(body.companyName, 300)
+        const email = truncate(body.email, 200)
+        const phone = truncate(body.phone, 20)
+        const city = truncate(body.city, 200)
+        const message = truncate(body.message, 5000)
+
         if (!name || !companyName || !email || !phone || !city || !message) {
             return NextResponse.json(
                 { error: 'Missing required fields' },
@@ -67,10 +79,9 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
                 text: emailBody,
             })
         } catch (emailError) {
-            console.error('Error sending email:', emailError)
+            console.error('Partner email error:', emailError instanceof Error ? emailError.message : 'unknown')
         }
 
-        // Send confirmation email to user
         try {
             await resend.emails.send({
                 from: fromEmail,
@@ -79,7 +90,7 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
                 text: `Hi ${name},\n\nThank you for your interest in partnering with us. We have received your application and will review it and contact you within 48 hours.\n\n— Zineegroup Team`,
             })
         } catch (e) {
-            console.error('Confirmation email error:', e)
+            console.error('Confirmation email error:', e instanceof Error ? e.message : 'unknown')
         }
 
         return NextResponse.json(
@@ -87,9 +98,9 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
             { status: 200 }
         )
     } catch (error) {
-        console.error('Error processing partner application:', error)
+        console.error('Partner application error:', error instanceof Error ? error.message : 'unknown')
         return NextResponse.json(
-            { error: 'Internal server error. Please try again later.' },
+            { error: 'Something went wrong. Please try again later.' },
             { status: 500 }
         )
     }

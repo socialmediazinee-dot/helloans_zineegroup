@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import RupeeIcon from '@/components/RupeeIcon'
 
 const RESIDENCE_TYPES = [
   { value: '', label: 'Select One' },
@@ -81,7 +82,6 @@ export default function HDFCSinglePageForm({
     formData.firstName.trim() &&
     formData.lastName.trim() &&
     formData.gender &&
-    formData.personalEmail.trim() &&
     formData.addressLine1.trim() &&
     formData.pincode.length >= 6 &&
     formData.city.trim() &&
@@ -212,7 +212,6 @@ export default function HDFCSinglePageForm({
                   onChange={handleChange}
                   placeholder="Enter Details"
                   className="hdfc-single-input"
-                  required
                 />
               </div>
             </div>
@@ -336,7 +335,7 @@ export default function HDFCSinglePageForm({
                 <div className="hdfc-single-field">
                   <label className="hdfc-single-label">Your monthly net income (salary)</label>
                   <div className="hdfc-single-rupee-wrap">
-                    <span className="hdfc-single-rupee">₹</span>
+                    <span className="hdfc-single-rupee"><RupeeIcon size={16} /></span>
                     <input
                       type="text"
                       name="monthlyIncome"
@@ -352,7 +351,7 @@ export default function HDFCSinglePageForm({
                 <div className="hdfc-single-field">
                   <label className="hdfc-single-label">Your ongoing monthly EMIs (if any)</label>
                   <div className="hdfc-single-rupee-wrap">
-                    <span className="hdfc-single-rupee">₹</span>
+                    <span className="hdfc-single-rupee"><RupeeIcon size={16} /></span>
                     <input
                       type="text"
                       name="monthlyEmis"

@@ -17,7 +17,7 @@ export default function OverdraftPage() {
             <main className="loan-page-main">
                 <div className="loan-page-container">
                     <div className="loan-page-header">
-                        <h1>Overdraft</h1>
+                        <h1><span className="loan-title-shimmer">Overdraft</span></h1>
                         <p>An overdraft allows you to withdraw more money than you have in your account, providing flexible short-term funding.</p>
                     </div>
 
