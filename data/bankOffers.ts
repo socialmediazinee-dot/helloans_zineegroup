@@ -32,7 +32,7 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
             bankName: 'ICICI Bank',
             link: '#',
             internalApplySlug: 'icici',
-            logo: '/assets/images/partners/icici.jpg',
+            logo: '/assets/images/partners/icici.svg',
             brandColor: '#b6401e',
         },
         {
@@ -46,7 +46,7 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
             bankName: 'YES Bank',
             link: '#',
             internalApplySlug: 'yes',
-            logo: '/assets/images/partners/yes.png',
+            logo: '/assets/images/partners/yes.svg',
             brandColor: '#1e4f9c',
         },
         {
@@ -67,7 +67,7 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
             bankName: 'HDFC Bank',
             link: '#',
             internalApplySlug: 'hdfc',
-            logo: '/assets/images/HDFC.png',
+            logo: '/assets/images/HDFC.svg',
             brandColor: '#004c8f',
         },
         {
@@ -123,12 +123,12 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
     ],
     // Business Loans: 7 banks + 6 NBFCs
     'business-loans': [
-        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.svg', brandColor: '#b6401e' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
-        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.svg', brandColor: '#1e4f9c' },
         { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
         { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
-        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.svg', brandColor: '#004c8f' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
         {
             bankName: 'Bajaj Finserv',
@@ -231,13 +231,13 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
     ],
     // Home Loans: 7 banks + 6 NBFCs
     'home-loans': [
-        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
-        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.svg', brandColor: '#004c8f' },
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.svg', brandColor: '#b6401e' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
         { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
         { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
-        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.svg', brandColor: '#1e4f9c' },
         { bankName: 'Bajaj Finserv', link: '#', internalApplySlug: 'bajaj', logo: '/assets/images/partners/bajaj.png', brandColor: '#0076b8' },
         { bankName: 'Tata Capital', link: '#', internalApplySlug: 'tata', logo: '/assets/images/partners/tata.png', brandColor: '#2b8fcb' },
         { bankName: 'Aditya Birla Capital', link: '#', internalApplySlug: 'adityabirla', logo: '/assets/images/partners/abfl.webp', brandColor: '#a02030' },
@@ -249,7 +249,7 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
     'gold-loans': [
         { bankName: 'Punjab National Bank', link: '#', internalApplySlug: 'pnb', logo: '/assets/images/PNB.png', brandColor: '#0b3d91' },
         { bankName: 'State Bank of India', link: '#', internalApplySlug: 'sbi', logo: '/assets/images/SBI.png', brandColor: '#22409a' },
-        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.svg', brandColor: '#004c8f' },
         { bankName: 'Canara Bank', link: '#', internalApplySlug: 'canara', logo: '/assets/images/CB.png', brandColor: '#fbb034' },
         { bankName: 'Bank of Baroda', link: '#', internalApplySlug: 'bob', logo: '/assets/images/BOB.png', brandColor: '#f26522' },
         {
@@ -263,8 +263,8 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
         { bankName: 'Punjab National Bank', link: '#', internalApplySlug: 'pnb', logo: '/assets/images/PNB.png', brandColor: '#0b3d91' },
         { bankName: 'State Bank of India', link: '#', internalApplySlug: 'sbi', logo: '/assets/images/SBI.png', brandColor: '#22409a' },
         { bankName: 'Bank of Baroda', link: '#', internalApplySlug: 'bob', logo: '/assets/images/BOB.png', brandColor: '#f26522' },
-        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
-        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.svg', brandColor: '#004c8f' },
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.svg', brandColor: '#b6401e' },
     ],
     // Credit cards: only the 14 partners from Instant Credit Cards carousel (InstantLoanSlide)
     'credit-cards': [
@@ -323,7 +323,7 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
         {
             bankName: 'ICICI Bank',
             link: 'https://icicicc.mymoneymantra.com?sms=false&btb=true&utm_source=icicc&utm_medium=mmm&utm_campaign=icicc-mmm-941530',
-            logo: '/assets/images/partners/icici.jpg',
+            logo: '/assets/images/partners/icici.svg',
             brandColor: '#b6401e',
         },
         {
@@ -338,20 +338,20 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
     ],
     // Insurance: Top 5 banks (by bancassurance commission)
     'insurance': [
-        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
-        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.svg', brandColor: '#004c8f' },
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.svg', brandColor: '#b6401e' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
         { bankName: 'State Bank of India', link: '#', internalApplySlug: 'sbi', logo: '/assets/images/SBI.png', brandColor: '#22409a' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
     ],
     // Overdraft: 7 banks + 6 NBFCs
     'overdraft': [
-        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.svg', brandColor: '#b6401e' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
-        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.svg', brandColor: '#1e4f9c' },
         { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
         { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
-        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.svg', brandColor: '#004c8f' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
         { bankName: 'Bajaj Finserv', link: '#', internalApplySlug: 'bajaj', logo: '/assets/images/partners/bajaj.png', brandColor: '#0076b8' },
         { bankName: 'Tata Capital', link: '#', internalApplySlug: 'tata', logo: '/assets/images/partners/tata.png', brandColor: '#2b8fcb' },
@@ -362,12 +362,12 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
     ],
     // Secure Loans: 7 banks + 6 NBFCs
     'secure-loans': [
-        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.svg', brandColor: '#b6401e' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
-        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.svg', brandColor: '#1e4f9c' },
         { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
         { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
-        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.svg', brandColor: '#004c8f' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
         { bankName: 'Bajaj Finserv', link: '#', internalApplySlug: 'bajaj', logo: '/assets/images/partners/bajaj.png', brandColor: '#0076b8' },
         { bankName: 'Tata Capital', link: '#', internalApplySlug: 'tata', logo: '/assets/images/partners/tata.png', brandColor: '#2b8fcb' },
@@ -378,22 +378,22 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
     ],
     // Used Car Loan: only 7 banks (all self-created) – removed random-link NBFCs
     'used-car-loan': [
-        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.svg', brandColor: '#b6401e' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
-        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.svg', brandColor: '#1e4f9c' },
         { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
         { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
-        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.svg', brandColor: '#004c8f' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
     ],
     // Balance Transfer: 7 banks + 6 NBFCs
     'balance-transfer': [
-        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.svg', brandColor: '#b6401e' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
-        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.svg', brandColor: '#1e4f9c' },
         { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
         { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
-        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.svg', brandColor: '#004c8f' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
         { bankName: 'Bajaj Finserv', link: '#', internalApplySlug: 'bajaj', logo: '/assets/images/partners/bajaj.png', brandColor: '#0076b8' },
         { bankName: 'Tata Capital', link: '#', internalApplySlug: 'tata', logo: '/assets/images/partners/tata.png', brandColor: '#2b8fcb' },
@@ -404,12 +404,12 @@ export const bankOffers: Record<OfferCategory, BankOffer[]> = {
     ],
     // Professional Loans: 7 banks + 6 NBFCs
     'professional-loans': [
-        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.jpg', brandColor: '#b6401e' },
+        { bankName: 'ICICI Bank', link: '#', internalApplySlug: 'icici', logo: '/assets/images/partners/icici.svg', brandColor: '#b6401e' },
         { bankName: 'IndusInd Bank', link: '#', internalApplySlug: 'indusind', logo: '/assets/images/partners/indusind.jpeg', brandColor: '#C4122E' },
-        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.png', brandColor: '#1e4f9c' },
+        { bankName: 'YES Bank', link: '#', internalApplySlug: 'yes', logo: '/assets/images/partners/yes.svg', brandColor: '#1e4f9c' },
         { bankName: 'IDFC First Bank', link: '#', internalApplySlug: 'idfc', logo: '/assets/images/partners/idfc.webp', brandColor: '#7a003c' },
         { bankName: 'Kotak Mahindra Bank', link: '#', internalApplySlug: 'kotak', logo: '/assets/images/Kotak-1.png', brandColor: '#d71920' },
-        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.png', brandColor: '#004c8f' },
+        { bankName: 'HDFC Bank', link: '#', internalApplySlug: 'hdfc', logo: '/assets/images/HDFC.svg', brandColor: '#004c8f' },
         { bankName: 'Axis Bank', link: '#', internalApplySlug: 'axis', logo: '/assets/images/AX.png', brandColor: '#7b0046' },
         { bankName: 'Bajaj Finserv', link: '#', internalApplySlug: 'bajaj', logo: '/assets/images/partners/bajaj.png', brandColor: '#0076b8' },
         { bankName: 'Tata Capital', link: '#', internalApplySlug: 'tata', logo: '/assets/images/partners/tata.png', brandColor: '#2b8fcb' },

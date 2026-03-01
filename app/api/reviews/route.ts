@@ -3,10 +3,9 @@ import { Resend } from 'resend'
 import { rateLimit } from '@/lib/rate-limit'
 import { truncate } from '@/lib/sanitize'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(request: NextRequest) {
   try {
+    const resend = new Resend(process.env.RESEND_API_KEY)
     const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
     const { allowed } = rateLimit(ip, { maxRequests: 5, windowMs: 60_000 })
     if (!allowed) {

@@ -18,7 +18,7 @@ export const businessBanks: BusinessBank[] = [
   {
     id: 'hdfc',
     name: 'HDFC Bank',
-    logo: '/assets/images/HDFC.png',
+    logo: '/assets/images/HDFC.svg',
     interestRate: 11.5,
     processingFee: 'Up to 2.5% of loan amount',
     minAmount: 100000,
@@ -50,7 +50,7 @@ export const businessBanks: BusinessBank[] = [
   {
     id: 'icici',
     name: 'ICICI Bank',
-    logo: '/assets/images/partners/icici.jpg',
+    logo: '/assets/images/partners/icici.svg',
     interestRate: 12.25,
     processingFee: 'Up to 2% of loan amount',
     minAmount: 100000,

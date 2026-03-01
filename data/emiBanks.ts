@@ -18,7 +18,7 @@ export const emiBanks: EmiBank[] = [
   {
     id: 'hdfc',
     name: 'HDFC Bank',
-    logo: '/assets/images/HDFC.png',
+    logo: '/assets/images/HDFC.svg',
     interestRate: 10.5,
     processingFee: 'Up to 2.5% of loan amount',
     minAmount: 50000,
@@ -48,7 +48,7 @@ export const emiBanks: EmiBank[] = [
   {
     id: 'icici',
     name: 'ICICI Bank',
-    logo: '/assets/images/partners/icici.jpg',
+    logo: '/assets/images/partners/icici.svg',
     interestRate: 10.99,
     processingFee: 'Up to 2.25% of loan amount',
     minAmount: 50000,

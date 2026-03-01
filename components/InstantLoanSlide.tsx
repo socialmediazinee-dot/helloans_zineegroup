@@ -42,7 +42,7 @@ export default function InstantLoanSlide() {
         { name: 'Scapia', url: 'https://scapia.mymoneymantra.com?sms=false&btb=true&utm_source=scacc&utm_medium=mmm&utm_campaign=scacc-mmm-941530', logo: '/assets/images/partners/scapia.jpg' },
         { name: 'Magnifi', url: 'https://magnifi.mymoneymantra.com?sms=false&btb=true&utm_source=mficc&utm_medium=mmm&utm_campaign=mficc-mmm-941530', logo: '/assets/images/partners/magnifi.png' },
         { name: 'IndusInd', url: 'https://ccindus.mymoneymantra.com?sms=false&btb=true&utm_source=induscc&utm_medium=mmm&utm_campaign=induscc-mmm-941530', logo: '/assets/images/partners/indusind.jpeg' },
-        { name: 'ICICI Bank', url: 'https://icicicc.mymoneymantra.com?sms=false&btb=true&utm_source=icicc&utm_medium=mmm&utm_campaign=icicc-mmm-941530', logo: '/assets/images/partners/icici.jpg' },
+        { name: 'ICICI Bank', url: 'https://icicicc.mymoneymantra.com?sms=false&btb=true&utm_source=icicc&utm_medium=mmm&utm_campaign=icicc-mmm-941530', logo: '/assets/images/partners/icici.svg' },
         { name: 'LIC Axis', url: 'https://licaxiscc.mymoneymantra.com?sms=false&btb=true&utm_source=axslic&utm_medium=mmm&utm_campaign=axslic-mmm-941530', logo: '/assets/images/licaxis-bank.jpg' },
         { name: 'Magnet', url: 'https://magnetcard.mymoneymantra.com/?sms=false&btb=true&utm_source=mfdcc&utm_medium=mmm&utm_campaign=mfdcc-mmm-941530', logo: null },
     ]

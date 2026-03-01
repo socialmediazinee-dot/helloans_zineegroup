@@ -24,7 +24,7 @@ export default function Carousel() {
         { name: 'Kotak Mahindra', slug: 'kotak', logo: '/assets/banks/kotak.svg', link: 'https://kotakbank.mymoneymantra.com?sms=false&btb=true&utm_source=kotak&utm_medium=mmm&utm_campaign=kotak-mmm-941530', color: '#EC1C24' },
         { name: 'L&T Finance', slug: 'lnt', logo: '/assets/banks/l_and_t.png', link: 'https://lntfinance.mymoneymantra.com?sms=false&btb=true&utm_source=lnt&utm_medium=mmm&utm_campaign=lnt-mmm-941530', color: '#FFC20E' },
         { name: 'Tata Capital', slug: 'tata', logo: '/assets/banks/tata.jpg', link: 'https://tatacapitalbl.mymoneymantra.com/?sms=false&btb=true&utm_source=tatabl&utm_medium=mmm&utm_campaign=tatabl-mmm-941530', color: '#1F5FA1' },
-        { name: 'Yes Bank', slug: 'yes', logo: '/assets/banks/yes-bank-logo-png.png', link: 'https://popcard.mymoneymantra.com?sms=false&btb=true&utm_source=yescc&utm_medium=mmm&utm_campaign=yescc-mmm-941530', color: '#2E5C9A' },
+        { name: 'Yes Bank', slug: 'yes', logo: '/assets/images/partners/yes.svg', link: 'https://popcard.mymoneymantra.com?sms=false&btb=true&utm_source=yescc&utm_medium=mmm&utm_campaign=yescc-mmm-941530', color: '#2E5C9A' },
       ]
     },
     {
@@ -33,7 +33,7 @@ export default function Carousel() {
       title: 'CREDIT CARDS',
       subtitle: 'Best Credit Card Offers',
       banks: [
-        { name: 'YES Bank', slug: 'yes', logo: '/assets/banks/yes-bank-logo-png.png', color: '#006BB4', link: 'https://popcard.mymoneymantra.com?sms=false&btb=true&utm_source=yescc&utm_medium=mmm&utm_campaign=yescc-mmm-941530' },
+        { name: 'YES Bank', slug: 'yes', logo: '/assets/images/partners/yes.svg', color: '#006BB4', link: 'https://popcard.mymoneymantra.com?sms=false&btb=true&utm_source=yescc&utm_medium=mmm&utm_campaign=yescc-mmm-941530' },
         { name: 'Bank of Baroda', slug: 'bob', color: '#FF6600', link: 'https://bobcard.mymoneymantra.com?sms=false&btb=true&utm_source=bobcc&utm_medium=mmm&utm_campaign=bobcc-mmm-941530' },
         { name: 'Federal Bank', slug: 'federal', color: '#0066CC', link: 'https://federalcc.mymoneymantra.com?sms=false&btb=true&utm_source=fedcc&utm_medium=mmm&utm_campaign=fedcc-mmm-941530' },
         { name: 'SBI Card', slug: 'sbi', color: '#288CC8', link: 'https://sbicard.mymoneymantra.com?sms=false&btb=true&utm_source=sbcc&utm_medium=mmm&utm_campaign=sbcc-mmm-941530' },

@@ -7,11 +7,11 @@ import { useRef, useEffect, useCallback } from 'react'
 const partners = [
   { image: '/assets/images/CB.png', alt: 'Canara Bank', color: '#2563eb' },
   { image: '/assets/images/AX.png', alt: 'Axis Bank', color: '#7b0046' },
-  { image: '/assets/images/HDFC.png', alt: 'HDFC Bank', color: '#004c8f' },
+  { image: '/assets/images/HDFC.svg', alt: 'HDFC Bank', color: '#004c8f' },
   { image: '/assets/images/Kotak-1.png', alt: 'Kotak Mahindra Bank', color: '#d71920' },
   { image: '/assets/images/BOB.png', alt: 'Bank of Baroda', color: '#f97316' },
   { image: '/assets/images/SBI.png', alt: 'SBI', color: '#2563eb' },
-  { image: '/assets/images/partners/icici.jpg', alt: 'ICICI Bank', color: '#b6401e' },
+  { image: '/assets/images/partners/icici.svg', alt: 'ICICI Bank', color: '#b6401e' },
   { image: '/assets/images/partners/indusind.jpeg', alt: 'IndusInd Bank', color: '#C4122E' },
   { image: '/assets/images/partners/idfc.webp', alt: 'IDFC First Bank', color: '#7a003c' },
   { image: '/assets/images/partners/bajaj.png', alt: 'Bajaj Finserv', color: '#0076b8' },

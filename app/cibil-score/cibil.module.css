@@ -1,22 +1,22 @@
-/* Page Container - site-wide 20% larger text, black text */
+/* Page Container - clear fixed header; site-wide 20% larger text, black text */
 .pageContainer {
     min-height: 100vh;
     background-color: #f8fafc;
     display: flex;
     flex-direction: column;
-    padding-top: 10px;
+    padding-top: 100px;
     font-size: 1.2em;
     color: #000;
 }
 
-/* Hero Section - first component on CIBIL page: pull up by 10% viewport */
+/* Hero Section - aligned with form; minimal top gap from header */
 .heroSection {
     position: relative;
     width: 100%;
     background-color: #f8fafc;
-    padding: 4rem 1rem;
+    padding: 1rem 1rem;
     overflow: hidden;
-    margin-top: 16vh;
+    margin-top: 100;
 }
 
 .heroBackground {
@@ -76,6 +76,7 @@
 
 .heroContent {
     text-align: left;
+    margin-top: -18vh;
 }
 
 .badge {
@@ -166,6 +167,7 @@
 /* Form Card */
 .formWrapper {
     position: relative;
+    margin-top: 10vh;
 }
 
 .formDeco {
