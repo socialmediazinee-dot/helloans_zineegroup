@@ -13,40 +13,45 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Too many requests. Please wait a minute.' }, { status: 429 })
     }
 
-    const body = await request.json()
-    const name = truncate(body.name, 200)
-    const email = truncate(body.email, 200)
-    const phone = truncate(body.phone, 20)
-    const city = truncate(body.city, 200)
-    const pincode = truncate(body.pincode, 10)
-    const message = truncate(body.message, 5000)
+    const formData = await request.formData()
 
-    if (!name || !email || !phone || !message || !city || !pincode) {
+    const name = truncate(formData.get('name') as string, 200)
+    const email = truncate(formData.get('email') as string, 200)
+    const phone = truncate(formData.get('phone') as string, 20)
+    const panNumber = truncate(formData.get('panNumber') as string, 10)
+    const city = truncate(formData.get('city') as string, 200)
+    const pincode = truncate(formData.get('pincode') as string, 10)
+    const loanType = truncate(formData.get('loanType') as string, 100)
+    const loanAmount = truncate(formData.get('loanAmount') as string, 20)
+    const employmentType = truncate(formData.get('employmentType') as string, 100)
+    const monthlyIncome = truncate(formData.get('monthlyIncome') as string, 20)
+    const message = truncate(formData.get('message') as string, 5000)
+
+    if (!name || !phone || !city || !pincode || !loanType || !loanAmount || !employmentType || !monthlyIncome) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
       )
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      )
+    if (email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(email)) {
+        return NextResponse.json(
+          { error: 'Invalid email format' },
+          { status: 400 }
+        )
+      }
     }
 
-    // Validate phone number (basic validation for Indian numbers)
     const cleanPhone = phone.replace(/\D/g, '')
-    if (cleanPhone.length < 10 || cleanPhone.length > 10) {
+    if (cleanPhone.length !== 10) {
       return NextResponse.json(
         { error: 'Invalid phone number. Please enter a valid 10-digit phone number.' },
         { status: 400 }
       )
     }
 
-    // Validate pincode (6 digits)
     const pincodeRegex = /^\d{6}$/
     if (!pincodeRegex.test(pincode)) {
       return NextResponse.json(
@@ -55,51 +60,69 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Email configuration (NOTIFY_EMAIL = one inbox for all form submissions)
     const recipientEmail = process.env.NOTIFY_EMAIL || process.env.LOAN_EMAIL || 'info@zineegroup.com'
     const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev'
     const subject = `New Loan Application from ${name}`
 
-    // Create email body
-    const emailBody = `
-New Loan Application
+    const formattedAmount = loanAmount ? '₹ ' + Number(loanAmount).toLocaleString('en-IN') : 'N/A'
+    const formattedIncome = monthlyIncome ? '₹ ' + Number(monthlyIncome).toLocaleString('en-IN') : 'N/A'
+    const submittedAt = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
 
-Personal Information:
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-City: ${city}
-Pincode: ${pincode}
+    const emailBody = [
+      'New Loan Application',
+      '',
+      `Full Name        : ${name}`,
+      `Email            : ${email || 'Not provided'}`,
+      `Phone            : ${phone} (OTP Verified)`,
+      `PAN Number       : ${panNumber || 'Not provided'}`,
+      `City             : ${city}`,
+      `Pincode          : ${pincode}`,
+      '',
+      `Loan Type        : ${loanType}`,
+      `Loan Amount      : ${formattedAmount}`,
+      `Employment Type  : ${employmentType}`,
+      `Monthly Income   : ${formattedIncome}`,
+      '',
+      `Message          : ${message || 'None'}`,
+      '',
+      '---',
+      `Submitted at: ${submittedAt}`,
+      'Phone number was verified via OTP.',
+    ].join('\n')
 
-Loan Requirements:
-${message}
-
----
-This loan application was submitted through the website application form.
-Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
-    `.trim()
-
-    // Send email to business
-    try {
-      await resend.emails.send({
-        from: fromEmail,
-        to: recipientEmail,
-        subject: subject,
-        text: emailBody,
-      })
-    } catch (emailError) {
-      console.error('Loan email error:', emailError instanceof Error ? emailError.message : 'unknown')
+    // Build attachments from uploaded files
+    const attachments: { filename: string; content: Buffer }[] = []
+    const files = formData.getAll('documents')
+    for (const file of files) {
+      if (file instanceof File && file.size > 0) {
+        const buffer = Buffer.from(await file.arrayBuffer())
+        attachments.push({ filename: file.name, content: buffer })
+      }
     }
 
     try {
       await resend.emails.send({
         from: fromEmail,
-        to: email,
-        subject: 'We received your loan application – Zineegroup',
-        text: `Hi ${name},\n\nThank you for your loan application. We have received your details and our team will contact you within 24 hours.\n\n— Zineegroup Team`,
+        to: recipientEmail,
+        subject,
+        text: emailBody,
+        attachments: attachments.length > 0 ? attachments : undefined,
       })
-    } catch (e) {
-      console.error('Confirmation email error:', e instanceof Error ? e.message : 'unknown')
+    } catch (emailError) {
+      console.error('Loan email error:', emailError instanceof Error ? emailError.message : 'unknown')
+    }
+
+    if (email) {
+      try {
+        await resend.emails.send({
+          from: fromEmail,
+          to: email,
+          subject: 'We received your loan application – Zineegroup',
+          text: `Hi ${name},\n\nThank you for your loan application. We have received your details and our team will contact you within 24 hours.\n\n— Zineegroup Team`,
+        })
+      } catch (e) {
+        console.error('Confirmation email error:', e instanceof Error ? e.message : 'unknown')
+      }
     }
 
     return NextResponse.json(

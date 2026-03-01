@@ -384,6 +384,63 @@ export default function CibilScorePage() {
           </div>
         </section>
 
+        {/* CIBIL Info Content */}
+        <section className={styles.infoSection}>
+          <div className={styles.infoContainer}>
+            <div className={styles.infoIntro}>
+              <h2 className={styles.sectionTitle}>
+                <span className={styles.textShimmer}>CIBIL</span> — India&apos;s Credit Bureau
+              </h2>
+              <div className={styles.infoDivider}></div>
+              <p className={styles.infoIntroText}>
+                CIBIL is India&apos;s credit information repository, licensed by the Reserve Bank of India. It maintains credit records of individuals and businesses by collecting data from banks, NBFCs, and other financial institutions. Based on this data, a <strong>CIBIL Score</strong> and a detailed <strong>Credit Information Report (CIR)</strong> is generated that lenders use to evaluate creditworthiness.
+              </p>
+              <p className={styles.infoIntroText} style={{ marginTop: '1rem' }}>
+                The CIBIL Score is a <strong>three-digit number ranging from 300 to 900</strong> that represents your credit health. A higher score indicates responsible credit behavior and increases the likelihood of loan or credit card approval at better interest rates.
+              </p>
+            </div>
+
+            <div className={styles.infoGrid}>
+              {/* Repayment History */}
+              <div className={styles.infoCard}>
+                <div className={`${styles.infoCardIcon} ${styles.infoCardIconAmber}`}>
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                </div>
+                <h3 className={styles.infoCardTitle}>Repayment History</h3>
+                <p className={styles.infoCardText}>
+                  This is the most important factor. Paying EMIs and credit card dues on time positively impacts the score, while late payments, defaults, or settlements reduce it significantly.
+                </p>
+              </div>
+
+              {/* New Credit & Hard Inquiries */}
+              <div className={styles.infoCard}>
+                <div className={`${styles.infoCardIcon} ${styles.infoCardIconPurple}`}>
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                </div>
+                <h3 className={styles.infoCardTitle}>New Credit & Hard Inquiries</h3>
+                <p className={styles.infoCardText}>
+                  Applying for multiple loans or credit cards with &ldquo;Positive Borrowing&rdquo; during inquiries results in a matured CIBIL score. &ldquo;No borrowing&rdquo; after inquiries has a negative impact on CIBIL.
+                </p>
+              </div>
+
+              {/* Data Reporting - full width */}
+              <div className={`${styles.infoCard} ${styles.infoCardFull}`}>
+                <div className={`${styles.infoCardIcon} ${styles.infoCardIconSlate}`}>
+                  <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+                </div>
+                <h3 className={styles.infoCardTitle}>Data Reporting & Updates</h3>
+                <p className={styles.infoCardText}>
+                  Banks and financial institutions report credit data to CIBIL on a monthly basis. Any changes in repayment behavior typically reflect in the report within <strong>15–30 days</strong>. Regular monitoring helps identify errors and track your financial progress.
+                </p>
+              </div>
+            </div>
+
+            <div className={styles.infoNote}>
+              Regular monitoring of your CIBIL score helps identify errors early and track your financial progress over time.
+            </div>
+          </div>
+        </section>
+
         {/* Knowledge Hub - Accordion */}
         <section className={styles.section}>
           <div className={styles.accordionContainer}>

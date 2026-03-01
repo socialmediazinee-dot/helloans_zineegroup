@@ -1,4 +1,3 @@
-import LoanCalculator from '@/components/LoanCalculator'
 import BankList from '@/components/BankList'
 import { bankOffers } from '@/data/bankOffers'
 import Header from '@/components/Header'
@@ -25,13 +24,6 @@ export default function SecureLoansPage() {
             offers={bankOffers['secure-loans']}
             categoryTitle="Banks & NBFCs offering Secure Loans"
             loanCategory="secure-loans"
-          />
-
-          <LoanCalculator
-            loanType="Secure Loan"
-            defaultInterestRate={8.5}
-            minAmount={500000}
-            maxAmount={20000000}
           />
         </div>
       </main>

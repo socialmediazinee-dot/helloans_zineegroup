@@ -22,19 +22,19 @@ export default function Home() {
                 </div>
               </ScrollRevealSection>
 
-              <ScrollRevealSection delay={20}>
+              <ScrollRevealSection delay={0}>
                 <LoanTiles />
               </ScrollRevealSection>
 
-              <ScrollRevealSection delay={80}>
+              <ScrollRevealSection delay={0}>
                 <OfferCards />
               </ScrollRevealSection>
 
-              <ScrollRevealSection delay={120}>
+              <ScrollRevealSection delay={0}>
                 <Testimonials />
               </ScrollRevealSection>
 
-              <ScrollRevealSection delay={120}>
+              <ScrollRevealSection delay={0}>
                 <Partners />
               </ScrollRevealSection>
             </div>

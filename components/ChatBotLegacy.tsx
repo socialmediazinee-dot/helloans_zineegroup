@@ -385,12 +385,6 @@ function ChatBotLegacy({
           ],
           timestamp: new Date(),
         }
-        // Log to console
-        console.log('Contact Form Submission:', {
-          name: contactData.name,
-          number: contactData.number,
-          timestamp: new Date().toISOString(),
-        })
         break
     }
 

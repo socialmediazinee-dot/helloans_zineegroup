@@ -247,6 +247,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
           loanLabel,
           mobileNumber: formData.mobileNumber,
           email: formData.email,
+          panNo: formData.panNo,
           day: formData.day,
           month: formData.month,
           year: formData.year,
@@ -273,7 +274,6 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
 
       if (response.ok) {
         setIsApplied(true)
-        console.log('Application submitted successfully:', data)
       } else {
         alert(data.error || 'There was an error submitting your application. Please try again.')
       }

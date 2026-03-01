@@ -1,4 +1,3 @@
-import LoanCalculator from '@/components/LoanCalculator'
 import { businessLoanPartners } from '@/data/loanPartners'
 import BankList from '@/components/BankList'
 import { bankOffers } from '@/data/bankOffers'
@@ -24,14 +23,6 @@ export default function BusinessLoansPage() {
           </div>
 
           <BankList offers={bankOffers['business-loans']} categoryTitle="Top Business Loan Offers" loanCategory="business-loans" />
-
-          <LoanCalculator
-            loanType="Business Loan"
-            defaultInterestRate={12.5}
-            minAmount={100000}
-            maxAmount={10000000}
-            defaultBanks={[]}
-          />
         </div>
       </main>
       <Footer />

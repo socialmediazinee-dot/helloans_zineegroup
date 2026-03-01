@@ -767,3 +767,172 @@
     margin-bottom: 0.5rem;
     display: inline-block;
 }
+
+/* CIBIL Info Content Section */
+.infoSection {
+    padding: 5rem 1rem;
+    background: #ffffff;
+}
+
+.infoContainer {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.infoIntro {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.infoIntroText {
+    font-size: 1.15rem;
+    color: #334155;
+    line-height: 1.8;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.scoreBreakdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    max-width: 480px;
+    margin: 1.5rem auto;
+}
+
+@media (max-width: 480px) {
+    .scoreBreakdown {
+        grid-template-columns: 1fr;
+    }
+}
+
+.scoreTier {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 1rem;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.scoreTierExcellent { background: #f0fdf4; color: #15803d; border: 1px solid #dcfce7; }
+.scoreTierGood { background: #eff6ff; color: #1d4ed8; border: 1px solid #dbeafe; }
+.scoreTierFair { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
+.scoreTierRisky { background: #fef2f2; color: #b91c1c; border: 1px solid #fee2e2; }
+
+.scoreTierDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .infoGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.infoCard {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.infoCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.infoCardFull {
+    grid-column: 1 / -1;
+}
+
+.infoCardIcon {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: #fff;
+}
+
+.infoCardIconBlue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.infoCardIconGreen { background: linear-gradient(135deg, #22c55e, #16a34a); }
+.infoCardIconAmber { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.infoCardIconPurple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+.infoCardIconSlate { background: linear-gradient(135deg, #64748b, #475569); }
+
+.infoCardTitle {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.75rem;
+}
+
+.infoCardList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.infoCardList li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #334155;
+    line-height: 1.5;
+}
+
+.infoCardList li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #3b82f6;
+    flex-shrink: 0;
+    margin-top: 0.5rem;
+}
+
+.infoCardText {
+    font-size: 0.95rem;
+    color: #334155;
+    line-height: 1.7;
+}
+
+.infoDivider {
+    width: 60px;
+    height: 4px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    margin: 0 auto 1.5rem;
+}
+
+.infoNote {
+    margin-top: 2.5rem;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+    border: 1px solid #dbeafe;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #1e40af;
+    font-weight: 500;
+    line-height: 1.6;
+}

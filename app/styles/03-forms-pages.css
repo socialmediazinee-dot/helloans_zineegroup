@@ -1575,21 +1575,22 @@
 }
 
 .form-section-header {
-    margin: 30px 0 20px 0;
-    padding-bottom: 12px;
+    margin: 8px 0 -10px 0;
+    padding-bottom: 10px;
     border-bottom: 2px solid #e2e8f0;
 }
 
 .form-section-header:first-child {
-    margin-top: 0;
+    margin-top: -4px;
 }
 
 .form-section-title {
     font-family: var(--font-poppins), sans-serif;
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 700;
     color: #1e40af;
     margin: 0;
+    padding-left: 0;
 }
 
 .form-select {
@@ -1658,6 +1659,21 @@
 .form-input::placeholder,
 .form-textarea::placeholder {
     color: #94a3b8;
+}
+
+.form-file-input {
+    padding: 12px 16px;
+    border: 2px dashed #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+    cursor: pointer;
+    font-size: 14px;
+    color: #475569;
+}
+
+.form-file-input:hover {
+    border-color: #8b5cf6;
+    background: #faf5ff;
 }
 
 .form-submit-button {
@@ -2478,6 +2494,168 @@
 @media (max-width: 768px) {
     .chatbot-container-embedded {
         min-height: 60vh;
+    }
+}
+
+/* ── Apply-for-Loan: Step Indicator ── */
+.loan-step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin: 0 auto 28px;
+    max-width: 360px;
+}
+.loan-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.45;
+    transition: opacity 0.2s;
+}
+.loan-step.active {
+    opacity: 1;
+}
+.loan-step-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+    transition: background 0.2s, color 0.2s;
+}
+.loan-step.active .loan-step-circle {
+    background: #1e40af;
+    color: #fff;
+}
+.loan-step.completed .loan-step-circle {
+    background: #059669;
+    color: #fff;
+}
+.loan-step-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+    white-space: nowrap;
+}
+.loan-step.active .loan-step-label {
+    color: #1e293b;
+}
+.loan-step-line {
+    flex: 1;
+    height: 2px;
+    background: #e2e8f0;
+    min-width: 60px;
+    margin: 0 12px;
+    margin-bottom: 22px;
+}
+
+/* ── Form Select (dropdown) ── */
+.form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+/* ── Currency icon as text ── */
+.form-icon-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    flex-shrink: 0;
+}
+
+/* ── Form hint (currency preview under amount fields) ── */
+.apply-for-loan-page-container .form-hint {
+    display: block;
+    font-size: 12px;
+    color: #059669;
+    font-weight: 600;
+    margin-top: 4px;
+    padding-left: 2px;
+}
+
+/* ── Form section subtitle ── */
+.form-section-subtitle {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 2px;
+    font-weight: 400;
+}
+
+/* ── Form button row (back + submit) ── */
+.loan-form-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+.form-back-button {
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    border: 2px solid #e2e8f0;
+    background: transparent;
+    color: #64748b;
+    transition: all 0.2s;
+}
+.form-back-button:hover {
+    border-color: #1e40af;
+    color: #1e40af;
+}
+.loan-form-buttons .form-submit-button {
+    flex: 1;
+}
+
+/* ── OTP block inside loan form ── */
+.loan-otp-block {
+    margin-top: 8px;
+}
+
+/* ── OTP reminder text ── */
+.form-otp-reminder {
+    text-align: center;
+    font-size: 13px;
+    color: #e67e22;
+    font-weight: 500;
+    margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+    .loan-step-indicator {
+        max-width: 280px;
+    }
+    .loan-step-label {
+        font-size: 11px;
+    }
+    .loan-step-circle {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+    .loan-form-buttons {
+        flex-direction: column;
+    }
+    .form-back-button {
+        order: 2;
+    }
+    .loan-form-buttons .form-submit-button {
+        order: 1;
     }
 }
 

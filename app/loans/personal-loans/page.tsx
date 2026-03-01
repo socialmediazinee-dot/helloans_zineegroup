@@ -1,5 +1,4 @@
 import { personalLoanPartners } from '@/data/loanPartners'
-import LoanCalculator from '@/components/LoanCalculator'
 import BankList from '@/components/BankList'
 import { bankOffers } from '@/data/bankOffers'
 
@@ -24,14 +23,6 @@ export default function PersonalLoansPage() {
           </div>
 
           <BankList offers={bankOffers['personal-loans']} categoryTitle="Top Personal Loan Offers" loanCategory="personal-loans" />
-
-          <LoanCalculator
-            loanType="Personal Loan"
-            defaultInterestRate={10.5}
-            minAmount={50000}
-            maxAmount={5000000}
-            defaultBanks={[]}
-          />
         </div>
       </main>
       <Footer />

@@ -1,4 +1,3 @@
-import LoanCalculator from '@/components/LoanCalculator'
 import BankList from '@/components/BankList'
 import { bankOffers } from '@/data/bankOffers'
 import Header from '@/components/Header'
@@ -25,13 +24,6 @@ export default function InstantLoanPage() {
             offers={bankOffers['instant-loan']}
             categoryTitle="Banks & NBFCs offering Instant Loan"
             loanCategory="instant-loan"
-          />
-
-          <LoanCalculator
-            loanType="Instant Loan"
-            defaultInterestRate={12.0}
-            minAmount={50000}
-            maxAmount={2000000}
           />
         </div>
       </main>

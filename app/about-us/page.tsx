@@ -3,6 +3,7 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function AboutUsPage() {
@@ -41,6 +42,18 @@ export default function AboutUsPage() {
                       {t('about.intro3')}
                     </p>
                   </div>
+                </div>
+
+                {/* Leadership Team */}
+                <div className="about-team-section">
+                  <Image
+                    src="/assets/images/team.png"
+                    alt="Helloans Leadership Team — Ajit Singh (Founder & CEO), S. Kumar Swain (Business Head), Mohit Soni (Vice President), Hemali Rekhi (Asst. Vice President), Ankita Yadav (Senior Floor Manager), Satyajeet Gupta (Floor Manager)"
+                    width={1024}
+                    height={600}
+                    className="about-team-image"
+                    priority
+                  />
                 </div>
 
                 {/* Why Choose Us Section */}

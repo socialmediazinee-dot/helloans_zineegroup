@@ -11,15 +11,14 @@ body {
     line-height: 1.6;
     color: #000;
     background-color: #f0f9ff;
-    /* Very light neon blue background */
     padding-top: 128px;
-    /* Space for fixed headers (ticker 40px + main-header ~88px) */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
-    /* Prevent horizontal scroll */
     width: 100%;
     max-width: 100vw;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 /* Amorph (glassmorphism) effect for important text elements
@@ -312,6 +311,7 @@ p, li, td, th, label,
     padding: 0 12px;
     flex-wrap: nowrap;
     min-height: 72px;
+    overflow: visible;
 }
 
 .main-header-scrolled {
@@ -442,7 +442,7 @@ html[lang="hi"] .logo {
 }
 
 /* Desktop: Always visible, no clipping so pill edges stay clean */
-@media (min-width: 769px) {
+@media (min-width: 1201px) {
     .main-nav {
         display: flex !important;
         max-height: none !important;
@@ -465,7 +465,7 @@ html[lang="hi"] .logo {
 }
 
 /* Allow nav pill to scroll horizontally if content overflows */
-@media (min-width: 769px) {
+@media (min-width: 1201px) {
     .main-nav-pill {
         overflow-x: auto;
         overflow-y: hidden;
@@ -483,98 +483,108 @@ html[lang="hi"] .logo {
     }
 }
 
-/* Optimize header for medium desktop so nav + actions fit */
-@media (max-width: 1200px) and (min-width: 769px) {
+/* Optimize header for wide desktop so nav + actions fit */
+@media (max-width: 1400px) and (min-width: 1201px) {
     .main-header .container {
-        padding: 0 10px;
-        gap: 6px;
+        padding: 0 8px;
+        gap: 4px;
     }
 
     .logo img {
-        height: 66px;
+        height: 50px;
     }
 
     .main-nav {
-        margin: 0 6px !important;
+        margin: 0 4px !important;
     }
 
     .main-nav-pill {
-        gap: 8px;
-        padding: 6px 10px;
+        gap: 2px;
+        padding: 5px 6px;
     }
 
     .nav-link {
-        padding: 6px 8px;
-        font-size: 15px;
+        padding: 5px 6px;
+        font-size: 13px;
     }
 
     .nav-link-label {
-        font-size: 15px;
+        font-size: 13px;
+    }
+
+    .nav-link-apply-now {
+        font-size: 0.95em;
+        padding: 6px 10px;
     }
 
     .header-actions {
-        gap: 6px;
+        gap: 4px;
     }
 
     .language-switcher-button {
-        padding: 6px 8px;
-        min-width: 72px;
-        gap: 4px;
-        font-size: 12px;
+        padding: 5px 6px;
+        min-width: 64px;
+        gap: 3px;
+        font-size: 11px;
+    }
+
+    .language-switcher-text {
+        font-size: 11px;
     }
 
     .language-switcher-icon {
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
     }
 
     .language-switcher-chevron {
-        width: 12px;
-        height: 12px;
+        width: 10px;
+        height: 10px;
     }
 
     .login-dropdown-button {
-        padding: 6px 8px;
-        min-width: 72px;
-        gap: 4px;
-        font-size: 12px;
+        padding: 5px 6px;
+        min-width: 64px;
+        gap: 3px;
+        font-size: 11px;
     }
 
     .login-dropdown-icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .login-dropdown-chevron {
+        width: 10px;
+        height: 10px;
+    }
+
+    .login-dropdown-text {
+        font-size: 11px;
+    }
+
+    .theme-toggle {
+        width: 34px;
+        height: 34px;
+    }
+
+    .theme-icon {
         width: 16px;
         height: 16px;
     }
 
-    .login-dropdown-chevron {
-        width: 12px;
-        height: 12px;
-    }
-
-    .login-dropdown-text {
-        font-size: 12px;
-    }
-
-    .theme-toggle {
-        width: 38px;
-        height: 38px;
-    }
-
-    .theme-icon {
-        width: 18px;
-        height: 18px;
-    }
-
     .header-actions .chatbot-toggle {
-        height: 38px;
-        padding: 0 12px;
-        min-width: 38px;
+        height: 34px;
+        padding: 0 8px;
+        min-width: 34px;
     }
 
     .header-actions .chatbot-toggle svg {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
     }
 }
+
 
 /* Menu bar: 3D glass pill – only the pill is visible; nav wrapper is transparent */
 /* Pill opacity: light = rgba(255,255,255,0.1) (10%), dark = rgba(30,41,59,0.5) (50%) */
@@ -803,6 +813,8 @@ html[lang="hi"] .logo {
     white-space: nowrap;
     font-size: inherit;
     font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* Apply Now in menu bar: two lines, caps, same size */

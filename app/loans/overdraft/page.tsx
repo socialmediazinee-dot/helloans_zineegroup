@@ -1,4 +1,3 @@
-import LoanCalculator from '@/components/LoanCalculator'
 import BankList from '@/components/BankList'
 import { bankOffers } from '@/data/bankOffers'
 import Header from '@/components/Header'
@@ -10,7 +9,20 @@ export const metadata: Metadata = {
     description: 'Calculate your overdraft interest and limits. Get instant liquidity for your financial needs.',
 }
 
+const NBFC_NAMES = new Set([
+    'Bajaj Finserv',
+    'Tata Capital',
+    'Aditya Birla Capital',
+    'Cholamandalam',
+    'Poonawalla Fincorp',
+    'Piramal Capital',
+])
+
 export default function OverdraftPage() {
+    const allOffers = bankOffers['overdraft']
+    const salariedOffers = allOffers.filter((o) => NBFC_NAMES.has(o.bankName))
+    const selfEmployedOffers = allOffers
+
     return (
         <>
             <Header />
@@ -22,16 +34,15 @@ export default function OverdraftPage() {
                     </div>
 
                     <BankList
-                        offers={bankOffers['overdraft']}
-                        categoryTitle="Overdraft Offers"
+                        offers={salariedOffers}
+                        categoryTitle="Salaried Overdraft Offers"
                         loanCategory="overdraft"
                     />
 
-                    <LoanCalculator
-                        loanType="Overdraft"
-                        defaultInterestRate={12.0}
-                        minAmount={50000}
-                        maxAmount={5000000}
+                    <BankList
+                        offers={selfEmployedOffers}
+                        categoryTitle="Self-Employed Overdraft"
+                        loanCategory="overdraft"
                     />
                 </div>
             </main>

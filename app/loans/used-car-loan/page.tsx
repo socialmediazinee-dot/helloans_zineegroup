@@ -1,4 +1,3 @@
-import LoanCalculator from '@/components/LoanCalculator'
 import BankList from '@/components/BankList'
 import { bankOffers } from '@/data/bankOffers'
 import Header from '@/components/Header'
@@ -25,13 +24,6 @@ export default function UsedCarLoanPage() {
             offers={bankOffers['used-car-loan']}
             categoryTitle="Banks & NBFCs offering Used Car Loan"
             loanCategory="used-car-loan"
-          />
-
-          <LoanCalculator
-            loanType="Used Car Loan"
-            defaultInterestRate={11.0}
-            minAmount={100000}
-            maxAmount={2000000}
           />
         </div>
       </main>

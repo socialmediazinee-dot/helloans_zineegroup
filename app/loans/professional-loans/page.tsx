@@ -1,4 +1,3 @@
-import LoanCalculator from '@/components/LoanCalculator'
 import BankList from '@/components/BankList'
 import { bankOffers } from '@/data/bankOffers'
 import Header from '@/components/Header'
@@ -25,13 +24,6 @@ export default function ProfessionalLoansPage() {
             offers={bankOffers['professional-loans']}
             categoryTitle="Professional Loan Offers"
             loanCategory="professional-loans"
-          />
-
-          <LoanCalculator
-            loanType="Professional Loan"
-            defaultInterestRate={11.0}
-            minAmount={100000}
-            maxAmount={5000000}
           />
         </div>
       </main>

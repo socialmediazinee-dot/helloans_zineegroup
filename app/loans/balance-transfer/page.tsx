@@ -1,4 +1,3 @@
-import LoanCalculator from '@/components/LoanCalculator'
 import BankList from '@/components/BankList'
 import { bankOffers } from '@/data/bankOffers'
 import Header from '@/components/Header'
@@ -25,13 +24,6 @@ export default function BalanceTransferPage() {
             offers={bankOffers['balance-transfer']}
             categoryTitle="Balance Transfer Offers"
             loanCategory="balance-transfer"
-          />
-
-          <LoanCalculator
-            loanType="Balance Transfer Loan"
-            defaultInterestRate={9.5}
-            minAmount={100000}
-            maxAmount={5000000}
           />
         </div>
       </main>
