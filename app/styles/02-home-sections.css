@@ -1,12 +1,12 @@
 
-/* Hero Section - first component on Home: pull up by 10% viewport */
+/* Hero Section - gap between promo strip and hero */
 .hero-carousel-wrapper {
-    margin-top: 20vh;
+    margin-top: 16px;
 }
 
 @media (max-width: 768px) {
     .hero-carousel-wrapper {
-        margin-top: 20vh;
+        margin-top: 12px;
     }
 }
 

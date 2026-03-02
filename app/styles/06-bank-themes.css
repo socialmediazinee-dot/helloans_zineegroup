@@ -2653,6 +2653,158 @@ body:has(.bank-app-page-wrapper) {
 }
 
 /* --- Professional EMI Calculator Styles --- */
+/* ── EMI Header: Title Row with Compare Button ── */
+.emi-page-header-with-btn {
+    text-align: center;
+}
+
+.emi-header-title-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.emi-header-title-row h1 {
+    margin-bottom: 0;
+}
+
+.emi-header-title-row .emi-header-compare-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.emi-header-compare-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #6b8e23 0%, #4a6e10 60%, #3d5c0e 100%);
+    color: #fff;
+    font-family: var(--font-poppins), sans-serif;
+    font-size: 14px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+        0 4px 16px rgba(107, 142, 35, 0.3),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    flex-shrink: 0;
+    z-index: 12;
+}
+
+.emi-header-compare-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.emi-header-compare-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.5s ease, height 0.5s ease;
+    pointer-events: none;
+}
+
+.emi-header-compare-btn:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+.emi-header-compare-btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 24px rgba(107, 142, 35, 0.4),
+        0 2px 6px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #7da32e 0%, #5a7e18 60%, #4a6e10 100%);
+}
+
+.emi-header-compare-btn:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: 0 2px 8px rgba(107, 142, 35, 0.3);
+}
+
+.emi-header-compare-btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.emi-header-compare-btn-text {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.emi-header-compare-btn-text strong {
+    display: block;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.emi-header-compare-btn-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: emi-compare-bounce 1.8s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+@keyframes emi-compare-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+}
+
+@media (max-width: 600px) {
+    .emi-header-title-row {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .emi-header-title-row .emi-header-compare-btn {
+        position: static;
+        transform: none;
+        padding: 12px 22px;
+    }
+
+    .emi-header-compare-btn-text strong {
+        font-size: 15px;
+    }
+}
+
 .emi-calc-wrapper {
     background: #ffffff;
     border-radius: 24px;

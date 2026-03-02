@@ -1,4 +1,5 @@
 import Header from '@/components/Header'
+import PromoStrip from '@/components/PromoStrip'
 import Hero from '@/components/Hero'
 import LoanTiles from '@/components/LoanTiles'
 import OfferCards from '@/components/OfferCards'
@@ -16,6 +17,7 @@ export default function Home() {
           <aside className="sidebar left-sidebar"></aside>
           <section className="main-content">
             <div className="content-wrapper">
+              <PromoStrip />
               <ScrollRevealSection delay={0} className="no-blur">
                 <div className="hero-carousel-wrapper">
                   <Hero />

@@ -359,9 +359,9 @@ export default function LoanCalculator({
                   <Pie
                     data={pieData}
                     cx="50%"
-                    cy="40%"
-                    innerRadius={30}
-                    outerRadius={55}
+                    cy="45%"
+                    innerRadius={40}
+                    outerRadius={75}
                     paddingAngle={5}
                     dataKey="value"
                   >
@@ -373,7 +373,7 @@ export default function LoanCalculator({
                   <Legend
                     verticalAlign="bottom"
                     iconSize={10}
-                    wrapperStyle={{ fontSize: '12px', paddingTop: '8px' }}
+                    wrapperStyle={{ fontSize: '12px', paddingTop: '0px' }}
                   />
                 </PieChart>
               </ResponsiveContainer>

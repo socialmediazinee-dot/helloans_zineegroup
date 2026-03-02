@@ -6,11 +6,11 @@ import Image from 'next/image'
 import { BankOffer } from '@/data/bankOffers'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-export type LoanCategorySlug = 'personal-loans' | 'business-loans' | 'instant-loan' | 'credit-cards' | 'home-loans' | 'gold-loans' | 'education-loans' | 'insurance' | 'overdraft' | 'secure-loans' | 'used-car-loan' | 'balance-transfer' | 'professional-loans'
+export type LoanCategorySlug = 'personal-loans' | 'business-loans' | 'instant-loan' | 'credit-cards' | 'home-loans' | 'gold-loans' | 'education-loans' | 'insurance' | 'overdraft' | 'overdraft-salaried' | 'overdraft-self-employed' | 'secure-loans' | 'used-car-loan' | 'balance-transfer' | 'professional-loans'
 
 interface BankListProps {
     offers: BankOffer[]
-    categoryTitle: string
+    categoryTitle: React.ReactNode
     loanCategory?: LoanCategorySlug
 }
 

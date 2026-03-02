@@ -35,14 +35,14 @@ export default function OverdraftPage() {
 
                     <BankList
                         offers={salariedOffers}
-                        categoryTitle="Salaried Overdraft Offers"
-                        loanCategory="overdraft"
+                        categoryTitle={<><span className="loan-title-shimmer">Salaried</span> Overdraft Offers</>}
+                        loanCategory="overdraft-salaried"
                     />
 
                     <BankList
                         offers={selfEmployedOffers}
-                        categoryTitle="Self-Employed Overdraft"
-                        loanCategory="overdraft"
+                        categoryTitle={<><span className="loan-title-shimmer">Self-Employed</span> Overdraft</>}
+                        loanCategory="overdraft-self-employed"
                     />
                 </div>
             </main>
