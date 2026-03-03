@@ -20,7 +20,11 @@ export default function AboutUsPage() {
               <div className="about-page-container">
                 {/* Header Section */}
                 <div className="about-header">
-                  <h1 className="about-title">{t('about.title')}</h1>
+                  <h1 className="about-title">
+                    <span className="highlight-box">
+                      <span className="highlight-shimmer">{t('about.title')}</span>
+                    </span>
+                  </h1>
                   <p className="about-subtitle">{t('about.subtitle')}</p>
                   <div className="about-header-buttons">
                     <Link href="/gallery" className="about-header-button">
