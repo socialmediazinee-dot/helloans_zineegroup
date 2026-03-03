@@ -2591,6 +2591,21 @@
     transform: none;
 }
 
+/* Email verification inside write-a-review column */
+.write-review-form-card .otp-verification-send {
+    background: linear-gradient(135deg, #1e40af, #2563eb);
+    color: #ffffff;
+}
+
+.write-review-form-card .otp-verification-send:hover:not(:disabled) {
+    background: linear-gradient(135deg, #1e3a8a, #1d4ed8);
+}
+
+.write-review-form-card .otp-verification-send:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 .submit-message {
     padding: 12px 16px;
     border-radius: 10px;
