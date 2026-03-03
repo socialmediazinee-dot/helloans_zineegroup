@@ -445,6 +445,11 @@
     margin-bottom: 1rem;
 }
 
+/* Center-align section titles inside the detailed info section */
+.infoSection .sectionTitle {
+    text-align: center;
+}
+
 .glassCard {
     max-width: 800px;
     margin: 0 auto;

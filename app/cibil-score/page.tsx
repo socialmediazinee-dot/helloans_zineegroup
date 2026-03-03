@@ -73,33 +73,43 @@ export default function CibilScorePage() {
 
   const knowledgeHubData = [
     {
-      title: "Golden Rules (RBI & CIBIL)",
+      title: "Faster loan and credit card approvals",
       content: (
-        <ul style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}>
-          <li><strong>Payment Discipline (35% Weight):</strong> Pay EMIs and credit card bills on time. Even a single missed payment can impact your score significantly.</li>
-          <li><strong>Credit Utilization Ratio (30% Weight):</strong> Keep your credit usage below 30% of your total limit. (e.g., If limit is ₹1 Lakh, use &lt; ₹30,000).</li>
-          <li><strong>Credit Mix (10% Weight):</strong> Maintain a healthy balance of secured (Home/Auto Loan) and unsecured (Credit Card/Personal Loan) credit.</li>
-        </ul>
+        <p>
+          Lenders are more comfortable approving applications quickly when they see a strong CIBIL score, because it signals disciplined repayment behaviour.
+        </p>
       )
     },
     {
-      title: "New RBI Guidelines (2026)",
+      title: "Lower interest rates",
       content: (
-        <ul style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}>
-          <li><strong>Faster Updates:</strong> Banks now report to bureaus every 15 days (bi-monthly), so clearing dues reflects faster!</li>
-          <li><strong>Real-Time Alerts:</strong> You will receive SMS/Email alerts whenever your credit report is accessed.</li>
-          <li><strong>Right to Correction:</strong> Credit bureaus must resolve grievances within 30 days or pay a penalty.</li>
-        </ul>
+        <p>
+          A higher score usually qualifies you for better interest rates, which can significantly reduce your total interest outgo over the life of the loan.
+        </p>
       )
     },
     {
-      title: "Pro Tips for a 750+ Score",
+      title: "Higher credit limits",
       content: (
-        <ul style={{ listStyleType: 'disc', paddingLeft: '1.25rem' }}>
-          <li><strong>Don't Close Old Cards:</strong> The length of your credit history matters (15% Weight). Keep old cards active for a longer history.</li>
-          <li><strong>Monitor Co-signed Loans:</strong> If you are a guarantor, the borrower's default affects <em>your</em> score.</li>
-          <li><strong>Avoid "Hungry" Behavior:</strong> Multiple loan applications in a short time lead to "Hard Inquiries" which lower your score.</li>
-        </ul>
+        <p>
+          Banks are more willing to extend higher credit limits on cards and overdraft facilities when your credit profile is strong and stable.
+        </p>
+      )
+    },
+    {
+      title: "Access to premium credit cards",
+      content: (
+        <p>
+          Many premium and reward-heavy credit cards are only offered to customers with strong scores, giving you access to better perks and benefits.
+        </p>
+      )
+    },
+    {
+      title: "Better negotiating power with banks",
+      content: (
+        <p>
+          With a high CIBIL score, you can often negotiate better terms—such as lower processing fees, flexible tenure, or reduced interest rates.
+        </p>
       )
     }
   ]
@@ -363,16 +373,24 @@ export default function CibilScorePage() {
         <section className={styles.sectionAlt}>
           <div className={styles.container}>
             <div className={styles.sectionHeader}>
-              <h2 className={styles.sectionTitle}>{t('cibil.creditScoreRange') || 'What is the range of the Credit Score?'}</h2>
+              <h2 className={styles.sectionTitle}>
+                {t('cibil.creditScoreRange')
+                  ? t('cibil.creditScoreRange')
+                  : (
+                    <>
+                      What is the range of the <span className={styles.textShimmer}>Credit Score</span>?
+                    </>
+                  )}
+              </h2>
               <p className={styles.subheadline} style={{ margin: '0 auto' }}>A higher score opens doors to better financial opportunities.</p>
             </div>
 
             <div className={styles.scoreRangeContainer}>
               {[
-                { range: '300-549', label: 'Poor', classSuffix: 'Poor' },
-                { range: '550-649', label: 'Average', classSuffix: 'Average' },
-                { range: '650-749', label: 'Good', classSuffix: 'Good' },
-                { range: '750-900', label: 'Excellent', classSuffix: 'Excellent' }
+                { range: 'Below 650', label: 'Poor', classSuffix: 'Poor' },
+                { range: '650-699', label: 'Average', classSuffix: 'Average' },
+                { range: '700-749', label: 'Good', classSuffix: 'Good' },
+                { range: '750+', label: 'Excellent', classSuffix: 'Excellent' }
               ].map((tier, idx) => (
                 <div key={idx} className={`${styles.rangeCard} ${styles['range' + tier.classSuffix]}`}>
                   <div className={`${styles.rangeLabel} ${styles['label' + tier.classSuffix]}`}>{tier.label}</div>
@@ -409,6 +427,12 @@ export default function CibilScorePage() {
                   CIBIL is India&apos;s credit information repository, licensed by the Reserve Bank of India. It maintains credit records of individuals and businesses by collecting data from banks, NBFCs and other financial institutions. Based on this data, CIBIL Score and a detailed Credit Information Report (CIR) is generated that lenders use to evaluate creditworthiness.
                 </p>
               </div>
+            </div>
+
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>
+                Key Components of the <span className={styles.textShimmer}>CIBIL Score</span>!
+              </h2>
             </div>
 
             <div className={styles.infoGrid}>
@@ -456,9 +480,7 @@ export default function CibilScorePage() {
         <section className={styles.section}>
           <div className={styles.accordionContainer}>
             <div className={styles.sectionHeader}>
-              <div className={`${styles.expertAdvice} ${styles.textShimmer}`}>Expert Advice</div>
-              <h2 className={styles.sectionTitle} style={{ marginTop: '0' }}>Master Your Credit Score</h2>
-              <p className={styles.subheadline} style={{ margin: '1rem auto 0' }}>Essential guidelines from RBI and banking experts to keep your financial health in check.</p>
+              <div className={`${styles.expertAdvice} ${styles.textShimmer}`}>Benefits of a High CIBIL Score</div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
