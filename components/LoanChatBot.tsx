@@ -521,7 +521,12 @@ function LoanChatBotInner({
   useEffect(() => {
     if (!hasInteracted.current) return
     requestAnimationFrame(() => {
-      lastUserMsgRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      const container = messagesContainerRef.current
+      if (!container) return
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: 'smooth',
+      })
     })
   }, [messages])
 

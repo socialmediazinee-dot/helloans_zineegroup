@@ -389,15 +389,26 @@ export default function CibilScorePage() {
           <div className={styles.infoContainer}>
             <div className={styles.infoIntro}>
               <h2 className={styles.sectionTitle}>
-                <span className={styles.textShimmer}>CIBIL</span> — India&apos;s Credit Bureau
+                What is a <span className={styles.textShimmer}>CIBIL Score</span>?
               </h2>
               <div className={styles.infoDivider}></div>
-              <p className={styles.infoIntroText}>
-                CIBIL is India&apos;s credit information repository, licensed by the Reserve Bank of India. It maintains credit records of individuals and businesses by collecting data from banks, NBFCs, and other financial institutions. Based on this data, a <strong>CIBIL Score</strong> and a detailed <strong>Credit Information Report (CIR)</strong> is generated that lenders use to evaluate creditworthiness.
-              </p>
-              <p className={styles.infoIntroText} style={{ marginTop: '1rem' }}>
-                The CIBIL Score is a <strong>three-digit number ranging from 300 to 900</strong> that represents your credit health. A higher score indicates responsible credit behavior and increases the likelihood of loan or credit card approval at better interest rates.
-              </p>
+              <div className={styles.infoIntroText}>
+                <p>
+                  The <strong>CIBIL Score</strong> is a <strong>three-digit number ranging from 300 to 900</strong> that represents an individual&apos;s credit health.
+                </p>
+                <ul style={{ listStyleType: 'disc', paddingLeft: '1.25rem', marginTop: '0.75rem' }}>
+                  <li><strong>750 and above – Excellent:</strong> High approval chances</li>
+                  <li><strong>700–749 – Good</strong></li>
+                  <li><strong>650–699 – Fair</strong></li>
+                  <li><strong>Below 650 – Risky:</strong> Higher risk for lenders</li>
+                </ul>
+                <p style={{ marginTop: '1rem' }}>
+                  A higher score indicates responsible credit behavior and increases the likelihood of loan or credit card approval at better interest rates.
+                </p>
+                <p style={{ marginTop: '0.75rem' }}>
+                  CIBIL is India&apos;s credit information repository, licensed by the Reserve Bank of India. It maintains credit records of individuals and businesses by collecting data from banks, NBFCs and other financial institutions. Based on this data, CIBIL Score and a detailed Credit Information Report (CIR) is generated that lenders use to evaluate creditworthiness.
+                </p>
+              </div>
             </div>
 
             <div className={styles.infoGrid}>
@@ -419,7 +430,7 @@ export default function CibilScorePage() {
                 </div>
                 <h3 className={styles.infoCardTitle}>New Credit & Hard Inquiries</h3>
                 <p className={styles.infoCardText}>
-                  Applying for multiple loans or credit cards with &ldquo;Positive Borrowing&rdquo; during inquiries results in a matured CIBIL score. &ldquo;No borrowing&rdquo; after inquiries has a negative impact on CIBIL.
+                  Applying for multiple loans or credit cards, with a &lsquo;Positive Borrowing&rsquo; during inquiries results in a matured CIBIL score. &lsquo;No borrowing&rsquo; after inquiries has a negative impact to CIBIL.
                 </p>
               </div>
 
@@ -430,7 +441,7 @@ export default function CibilScorePage() {
                 </div>
                 <h3 className={styles.infoCardTitle}>Data Reporting & Updates</h3>
                 <p className={styles.infoCardText}>
-                  Banks and financial institutions report credit data to CIBIL on a monthly basis. Any changes in repayment behavior typically reflect in the report within <strong>15–30 days</strong>. Regular monitoring helps identify errors and track your financial progress.
+                  Banks and financial institutions report credit data to CIBIL on a monthly basis. Any changes in repayment behavior typically reflect in the report within <strong>15–30 days</strong>.
                 </p>
               </div>
             </div>
