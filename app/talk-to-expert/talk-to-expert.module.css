@@ -18,6 +18,12 @@
   box-sizing: border-box;
 }
 
+@media (max-width: 768px) {
+  .wrap {
+    padding-top: 8px;
+  }
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -280,12 +286,15 @@
 .chatCardInner :global(.lc-container) {
   font-size: 0.7rem;
 }
+
 .chatCardInner :global(.lc-header-title) {
   font-size: 0.8rem;
 }
+
 .chatCardInner :global(.lc-header-sub) {
   font-size: 0.65rem;
 }
+
 .chatCardInner :global(.lc-message-body),
 .chatCardInner :global(.lc-message-title),
 .chatCardInner :global(.lc-message-text),
@@ -296,6 +305,7 @@
 .chatCardInner :global(.lc-input) {
   font-size: 0.7rem;
 }
+
 .chatCardInner :global(.lc-input::placeholder) {
   font-size: 0.65rem;
 }

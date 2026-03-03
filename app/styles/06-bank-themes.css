@@ -1,8 +1,14 @@
 /* ============================================
    BANK HERO LAYOUTS (ICICI, INDUSIND, YES, IDFC, KOTAK, HDFC)
    ============================================ */
-.bank-hero { position: relative; }
-.bank-hero-bar { padding: 14px 24px; }
+.bank-hero {
+    position: relative;
+}
+
+.bank-hero-bar {
+    padding: 14px 24px;
+}
+
 .bank-hero-bar-inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -10,7 +16,13 @@
     align-items: center;
     gap: 14px;
 }
-.bank-hero-logo { height: 48px; width: auto; object-fit: contain; }
+
+.bank-hero-logo {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+}
+
 .bank-hero-brand-text {
     color: #fff;
     font-size: 18px;
@@ -18,12 +30,14 @@
     letter-spacing: 1.5px;
     font-family: var(--font-poppins), sans-serif;
 }
+
 .bank-hero-tagline-strip {
     padding: 28px 24px 32px;
     text-align: center;
     max-width: 700px;
     margin: 0 auto;
 }
+
 .bank-hero-tagline-title {
     font-family: var(--font-poppins), sans-serif;
     font-size: 26px;
@@ -31,6 +45,7 @@
     margin: 0 0 8px 0;
     line-height: 1.3;
 }
+
 .bank-hero-tagline-sub {
     font-size: 15px;
     margin: 0;
@@ -135,7 +150,7 @@
     padding-bottom: 0;
 }
 
-.form-section + .form-section {
+.form-section+.form-section {
     border-top: 1px solid #f1f5f9;
     padding-top: 24px;
 }
@@ -178,15 +193,15 @@
     align-items: stretch;
 }
 
-.form-uploads-row + .form-uploads-row {
+.form-uploads-row+.form-uploads-row {
     margin-top: 14px;
 }
 
-.form-uploads-row + .form-field-group {
+.form-uploads-row+.form-field-group {
     margin-top: 16px;
 }
 
-.form-uploads-row > .form-field-group {
+.form-uploads-row>.form-field-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -334,167 +349,522 @@
 }
 
 /* ICICI hero */
-.bank-hero-bar-icici { background: linear-gradient(135deg, #E85D04 0%, #f07a2b 100%); }
-.bank-hero-tagline-icici { background: #fff7ed; }
-.bank-hero-tagline-icici .bank-hero-tagline-title { color: #c2410c; }
-.bank-hero-tagline-icici .bank-hero-tagline-sub { color: #475569; }
+.bank-hero-bar-icici {
+    background: linear-gradient(135deg, #E85D04 0%, #f07a2b 100%);
+}
+
+.bank-hero-tagline-icici {
+    background: #fff7ed;
+}
+
+.bank-hero-tagline-icici .bank-hero-tagline-title {
+    color: #c2410c;
+}
+
+.bank-hero-tagline-icici .bank-hero-tagline-sub {
+    color: #475569;
+}
 
 /* IndusInd hero */
-.bank-hero-bar-indusind { background: #C4122E; }
-.bank-hero-tagline-indusind { background: #fff5f6; }
-.bank-hero-tagline-indusind .bank-hero-tagline-title { color: #C4122E; }
-.bank-hero-tagline-indusind .bank-hero-tagline-sub { color: #64748b; }
+.bank-hero-bar-indusind {
+    background: #C4122E;
+}
+
+.bank-hero-tagline-indusind {
+    background: #fff5f6;
+}
+
+.bank-hero-tagline-indusind .bank-hero-tagline-title {
+    color: #C4122E;
+}
+
+.bank-hero-tagline-indusind .bank-hero-tagline-sub {
+    color: #64748b;
+}
 
 /* YES Bank hero */
-.bank-hero-bar-yes { background: #132744; }
-.bank-hero-tagline-yes { background: #f8fafc; }
-.bank-hero-tagline-yes .bank-hero-tagline-title { color: #132744; }
-.bank-hero-tagline-yes .bank-hero-tagline-sub { color: #64748b; }
+.bank-hero-bar-yes {
+    background: #132744;
+}
+
+.bank-hero-tagline-yes {
+    background: #f8fafc;
+}
+
+.bank-hero-tagline-yes .bank-hero-tagline-title {
+    color: #132744;
+}
+
+.bank-hero-tagline-yes .bank-hero-tagline-sub {
+    color: #64748b;
+}
 
 /* IDFC hero */
-.bank-hero-bar-idfc { background: #E31837; }
-.bank-hero-tagline-idfc { background: #fff5f6; }
-.bank-hero-tagline-idfc .bank-hero-tagline-title { color: #1e293b; }
-.bank-hero-tagline-idfc .bank-hero-tagline-sub { color: #64748b; }
+.bank-hero-bar-idfc {
+    background: #E31837;
+}
+
+.bank-hero-tagline-idfc {
+    background: #fff5f6;
+}
+
+.bank-hero-tagline-idfc .bank-hero-tagline-title {
+    color: #1e293b;
+}
+
+.bank-hero-tagline-idfc .bank-hero-tagline-sub {
+    color: #64748b;
+}
 
 /* Kotak hero */
-.bank-hero-bar-kotak { background: linear-gradient(135deg, #00AEEF 0%, #0088cc 100%); }
-.bank-hero-tagline-kotak { background: #ecfdff; }
-.bank-hero-tagline-kotak .bank-hero-tagline-title { color: #0369a1; }
-.bank-hero-tagline-kotak .bank-hero-tagline-sub { color: #64748b; }
+.bank-hero-bar-kotak {
+    background: linear-gradient(135deg, #00AEEF 0%, #0088cc 100%);
+}
 
-.bank-hero-hdfc-image .hdfc-banner-image { width: 100%; height: auto; display: block; object-fit: cover; }
+.bank-hero-tagline-kotak {
+    background: #ecfdff;
+}
+
+.bank-hero-tagline-kotak .bank-hero-tagline-title {
+    color: #0369a1;
+}
+
+.bank-hero-tagline-kotak .bank-hero-tagline-sub {
+    color: #64748b;
+}
+
+.bank-hero-hdfc-image .hdfc-banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
 
 /* ============================================
    ICICI BANK THEME
    ============================================ */
-.bank-app-page-wrapper.icici-bank-theme { background: #fff7ed !important; min-height: 100vh; }
-body:has(.bank-app-page-wrapper.icici-bank-theme) { background: #fff7ed !important; }
-.bank-app-page-wrapper.icici-bank-theme .bank-app-form-container { background: transparent !important; }
+.bank-app-page-wrapper.icici-bank-theme {
+    background: #fff7ed !important;
+    min-height: 100vh;
+}
+
+body:has(.bank-app-page-wrapper.icici-bank-theme) {
+    background: #fff7ed !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
 .bank-app-page-wrapper.icici-bank-theme .bank-app-form-card {
     border: none !important;
     border-radius: 18px !important;
     box-shadow: 0 2px 16px rgba(232, 93, 4, 0.08), 0 8px 40px rgba(0, 0, 0, 0.05) !important;
     background: #fff !important;
 }
-.bank-app-page-wrapper.icici-bank-theme .form-welcome-title { color: #1e293b !important; }
-.bank-app-page-wrapper.icici-bank-theme .form-welcome-subtitle { color: #64748b !important; }
-.bank-app-page-wrapper.icici-bank-theme .form-card-header { border-bottom-color: #fde8d0 !important; }
-.bank-app-page-wrapper.icici-bank-theme .form-section + .form-section { border-top-color: #fde8d0 !important; }
-.bank-app-page-wrapper.icici-bank-theme .form-field-label { color: #374151 !important; }
-.bank-app-page-wrapper.icici-bank-theme .form-section-number { background: #fff7ed !important; color: #E85D04 !important; }
-.bank-app-page-wrapper.icici-bank-theme .file-upload-label:hover { border-color: #E85D04 !important; background: #fff7ed !important; }
-.bank-app-page-wrapper.icici-bank-theme .file-upload-label:hover svg { color: #E85D04 !important; }
-.bank-app-page-wrapper.icici-bank-theme .radio-option-bank.selected { border-color: #E85D04 !important; background: #fff7ed !important; }
-.bank-app-page-wrapper.icici-bank-theme .radio-option-bank:hover { border-color: #E85D04 !important; }
-.bank-app-page-wrapper.icici-bank-theme .eligibility-button:not(.disabled) { background: #E85D04 !important; border: none !important; }
-.bank-app-page-wrapper.icici-bank-theme .eligibility-button:not(.disabled):hover { background: #c94f03 !important; box-shadow: 0 4px 12px rgba(232, 93, 4, 0.35) !important; }
-.bank-app-page-wrapper.icici-bank-theme .country-code { background: #fff7ed !important; color: #c2410c !important; border-right: 2px solid #E85D04 !important; }
-.bank-app-page-wrapper.icici-bank-theme .mobile-input-wrapper:focus-within { border-color: #E85D04 !important; box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.15) !important; }
-.bank-app-page-wrapper.icici-bank-theme .dob-input:focus { border-color: #E85D04 !important; box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.15) !important; }
-.bank-app-page-wrapper.icici-bank-theme .file-upload-label:hover { border-color: #E85D04 !important; background: #fff7ed !important; }
-.bank-app-page-wrapper.icici-bank-theme .consent-checkbox-label input[type="checkbox"] { accent-color: #E85D04 !important; }
-.bank-app-page-wrapper.icici-bank-theme .form-alternative-link, .bank-app-page-wrapper.icici-bank-theme .consent-link-text, .bank-app-page-wrapper.icici-bank-theme .footer-link { color: #E85D04 !important; }
+
+.bank-app-page-wrapper.icici-bank-theme .form-welcome-title {
+    color: #1e293b !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .form-welcome-subtitle {
+    color: #64748b !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .form-card-header {
+    border-bottom-color: #fde8d0 !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .form-section+.form-section {
+    border-top-color: #fde8d0 !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .form-field-label {
+    color: #374151 !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .form-section-number {
+    background: #fff7ed !important;
+    color: #E85D04 !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .file-upload-label:hover {
+    border-color: #E85D04 !important;
+    background: #fff7ed !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .file-upload-label:hover svg {
+    color: #E85D04 !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .radio-option-bank.selected {
+    border-color: #E85D04 !important;
+    background: #fff7ed !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .radio-option-bank:hover {
+    border-color: #E85D04 !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .eligibility-button:not(.disabled) {
+    background: #E85D04 !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .eligibility-button:not(.disabled):hover {
+    background: #c94f03 !important;
+    box-shadow: 0 4px 12px rgba(232, 93, 4, 0.35) !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .country-code {
+    background: #fff7ed !important;
+    color: #c2410c !important;
+    border-right: 2px solid #E85D04 !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #E85D04 !important;
+    box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.15) !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .dob-input:focus {
+    border-color: #E85D04 !important;
+    box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.15) !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .file-upload-label:hover {
+    border-color: #E85D04 !important;
+    background: #fff7ed !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #E85D04 !important;
+}
+
+.bank-app-page-wrapper.icici-bank-theme .form-alternative-link,
+.bank-app-page-wrapper.icici-bank-theme .consent-link-text,
+.bank-app-page-wrapper.icici-bank-theme .footer-link {
+    color: #E85D04 !important;
+}
 
 /* ============================================
    INDUSIND BANK THEME
    ============================================ */
-.bank-app-page-wrapper.indusind-bank-theme { background: #fff5f6 !important; min-height: 100vh; }
-body:has(.bank-app-page-wrapper.indusind-bank-theme) { background: #fff5f6 !important; }
-.bank-app-page-wrapper.indusind-bank-theme .bank-app-form-container { background: transparent !important; }
+.bank-app-page-wrapper.indusind-bank-theme {
+    background: #fff5f6 !important;
+    min-height: 100vh;
+}
+
+body:has(.bank-app-page-wrapper.indusind-bank-theme) {
+    background: #fff5f6 !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
 .bank-app-page-wrapper.indusind-bank-theme .bank-app-form-card {
     border: 2px solid #C4122E !important;
     border-radius: 12px !important;
     box-shadow: 0 6px 24px rgba(196, 18, 46, 0.12) !important;
     background: #fff !important;
 }
-.bank-app-page-wrapper.indusind-bank-theme .form-welcome-title { color: #C4122E !important; }
-.bank-app-page-wrapper.indusind-bank-theme .form-field-label { color: #C4122E !important; }
-.bank-app-page-wrapper.indusind-bank-theme .radio-option-bank.selected { border-color: #C4122E !important; background: #fef2f2 !important; }
-.bank-app-page-wrapper.indusind-bank-theme .radio-option-bank:hover { border-color: #C4122E !important; }
-.bank-app-page-wrapper.indusind-bank-theme .eligibility-button:not(.disabled) { background: #C4122E !important; border: none !important; }
-.bank-app-page-wrapper.indusind-bank-theme .eligibility-button:not(.disabled):hover { background: #a00f26 !important; box-shadow: 0 4px 12px rgba(196, 18, 46, 0.4) !important; }
-.bank-app-page-wrapper.indusind-bank-theme .country-code { background: #fef2f2 !important; color: #C4122E !important; border-right: 2px solid #C4122E !important; }
-.bank-app-page-wrapper.indusind-bank-theme .mobile-input-wrapper:focus-within { border-color: #C4122E !important; box-shadow: 0 0 0 3px rgba(196, 18, 46, 0.15) !important; }
-.bank-app-page-wrapper.indusind-bank-theme .dob-input:focus { border-color: #C4122E !important; }
-.bank-app-page-wrapper.indusind-bank-theme .file-upload-label:hover { border-color: #C4122E !important; background: #fef2f2 !important; }
-.bank-app-page-wrapper.indusind-bank-theme .consent-checkbox-label input[type="checkbox"] { accent-color: #C4122E !important; }
-.bank-app-page-wrapper.indusind-bank-theme .form-alternative-link, .bank-app-page-wrapper.indusind-bank-theme .consent-link-text, .bank-app-page-wrapper.indusind-bank-theme .footer-link { color: #C4122E !important; }
+
+.bank-app-page-wrapper.indusind-bank-theme .form-welcome-title {
+    color: #C4122E !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .form-field-label {
+    color: #C4122E !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .radio-option-bank.selected {
+    border-color: #C4122E !important;
+    background: #fef2f2 !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .radio-option-bank:hover {
+    border-color: #C4122E !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .eligibility-button:not(.disabled) {
+    background: #C4122E !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .eligibility-button:not(.disabled):hover {
+    background: #a00f26 !important;
+    box-shadow: 0 4px 12px rgba(196, 18, 46, 0.4) !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .country-code {
+    background: #fef2f2 !important;
+    color: #C4122E !important;
+    border-right: 2px solid #C4122E !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #C4122E !important;
+    box-shadow: 0 0 0 3px rgba(196, 18, 46, 0.15) !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .dob-input:focus {
+    border-color: #C4122E !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .file-upload-label:hover {
+    border-color: #C4122E !important;
+    background: #fef2f2 !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #C4122E !important;
+}
+
+.bank-app-page-wrapper.indusind-bank-theme .form-alternative-link,
+.bank-app-page-wrapper.indusind-bank-theme .consent-link-text,
+.bank-app-page-wrapper.indusind-bank-theme .footer-link {
+    color: #C4122E !important;
+}
 
 /* ============================================
    YES BANK THEME
    ============================================ */
-.bank-app-page-wrapper.yes-bank-theme { background: #f1f5f9 !important; min-height: 100vh; }
-body:has(.bank-app-page-wrapper.yes-bank-theme) { background: #f1f5f9 !important; }
-.bank-app-page-wrapper.yes-bank-theme .bank-app-form-container { background: transparent !important; }
+.bank-app-page-wrapper.yes-bank-theme {
+    background: #f1f5f9 !important;
+    min-height: 100vh;
+}
+
+body:has(.bank-app-page-wrapper.yes-bank-theme) {
+    background: #f1f5f9 !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
 .bank-app-page-wrapper.yes-bank-theme .bank-app-form-card {
     border-left: 4px solid #C4122E !important;
     border-radius: 12px !important;
     box-shadow: 0 6px 24px rgba(19, 39, 68, 0.1) !important;
     background: #fff !important;
 }
-.bank-app-page-wrapper.yes-bank-theme .form-welcome-title { color: #132744 !important; }
-.bank-app-page-wrapper.yes-bank-theme .form-field-label { color: #132744 !important; }
-.bank-app-page-wrapper.yes-bank-theme .radio-option-bank.selected { border-color: #C4122E !important; background: #fef2f2 !important; }
-.bank-app-page-wrapper.yes-bank-theme .radio-option-bank:hover { border-color: #C4122E !important; }
-.bank-app-page-wrapper.yes-bank-theme .eligibility-button:not(.disabled) { background: #C4122E !important; border: none !important; }
-.bank-app-page-wrapper.yes-bank-theme .eligibility-button:not(.disabled):hover { background: #a00f26 !important; box-shadow: 0 4px 12px rgba(196, 18, 46, 0.35) !important; }
-.bank-app-page-wrapper.yes-bank-theme .country-code { background: #f1f5f9 !important; color: #132744 !important; border-right: 2px solid #C4122E !important; }
-.bank-app-page-wrapper.yes-bank-theme .mobile-input-wrapper:focus-within { border-color: #C4122E !important; }
-.bank-app-page-wrapper.yes-bank-theme .dob-input:focus { border-color: #C4122E !important; }
-.bank-app-page-wrapper.yes-bank-theme .file-upload-label:hover { border-color: #C4122E !important; background: #fef2f2 !important; }
-.bank-app-page-wrapper.yes-bank-theme .consent-checkbox-label input[type="checkbox"] { accent-color: #C4122E !important; }
-.bank-app-page-wrapper.yes-bank-theme .form-alternative-link, .bank-app-page-wrapper.yes-bank-theme .consent-link-text, .bank-app-page-wrapper.yes-bank-theme .footer-link { color: #C4122E !important; }
+
+.bank-app-page-wrapper.yes-bank-theme .form-welcome-title {
+    color: #132744 !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .form-field-label {
+    color: #132744 !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .radio-option-bank.selected {
+    border-color: #C4122E !important;
+    background: #fef2f2 !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .radio-option-bank:hover {
+    border-color: #C4122E !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .eligibility-button:not(.disabled) {
+    background: #C4122E !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .eligibility-button:not(.disabled):hover {
+    background: #a00f26 !important;
+    box-shadow: 0 4px 12px rgba(196, 18, 46, 0.35) !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .country-code {
+    background: #f1f5f9 !important;
+    color: #132744 !important;
+    border-right: 2px solid #C4122E !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #C4122E !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .dob-input:focus {
+    border-color: #C4122E !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .file-upload-label:hover {
+    border-color: #C4122E !important;
+    background: #fef2f2 !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #C4122E !important;
+}
+
+.bank-app-page-wrapper.yes-bank-theme .form-alternative-link,
+.bank-app-page-wrapper.yes-bank-theme .consent-link-text,
+.bank-app-page-wrapper.yes-bank-theme .footer-link {
+    color: #C4122E !important;
+}
 
 /* ============================================
    IDFC BANK THEME
    ============================================ */
-.bank-app-page-wrapper.idfc-bank-theme { background: #fef2f2 !important; min-height: 100vh; }
-body:has(.bank-app-page-wrapper.idfc-bank-theme) { background: #fef2f2 !important; }
-.bank-app-page-wrapper.idfc-bank-theme .bank-app-form-container { background: transparent !important; }
+.bank-app-page-wrapper.idfc-bank-theme {
+    background: #fef2f2 !important;
+    min-height: 100vh;
+}
+
+body:has(.bank-app-page-wrapper.idfc-bank-theme) {
+    background: #fef2f2 !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
 .bank-app-page-wrapper.idfc-bank-theme .bank-app-form-card {
     border: 2px solid #E31837 !important;
     border-radius: 14px !important;
     box-shadow: 0 8px 28px rgba(227, 24, 55, 0.14) !important;
     background: #fff !important;
 }
-.bank-app-page-wrapper.idfc-bank-theme .form-welcome-title { color: #E31837 !important; }
-.bank-app-page-wrapper.idfc-bank-theme .form-field-label { color: #1e293b !important; }
-.bank-app-page-wrapper.idfc-bank-theme .radio-option-bank.selected { border-color: #E31837 !important; background: #fff5f6 !important; }
-.bank-app-page-wrapper.idfc-bank-theme .radio-option-bank:hover { border-color: #E31837 !important; }
-.bank-app-page-wrapper.idfc-bank-theme .eligibility-button:not(.disabled) { background: #E31837 !important; border: none !important; }
-.bank-app-page-wrapper.idfc-bank-theme .eligibility-button:not(.disabled):hover { background: #c91430 !important; box-shadow: 0 4px 12px rgba(227, 24, 55, 0.4) !important; }
-.bank-app-page-wrapper.idfc-bank-theme .country-code { background: #fff5f6 !important; color: #E31837 !important; border-right: 2px solid #E31837 !important; }
-.bank-app-page-wrapper.idfc-bank-theme .mobile-input-wrapper:focus-within { border-color: #E31837 !important; box-shadow: 0 0 0 3px rgba(227, 24, 55, 0.15) !important; }
-.bank-app-page-wrapper.idfc-bank-theme .dob-input:focus { border-color: #E31837 !important; }
-.bank-app-page-wrapper.idfc-bank-theme .file-upload-label:hover { border-color: #E31837 !important; background: #fff5f6 !important; }
-.bank-app-page-wrapper.idfc-bank-theme .consent-checkbox-label input[type="checkbox"] { accent-color: #E31837 !important; }
-.bank-app-page-wrapper.idfc-bank-theme .form-alternative-link, .bank-app-page-wrapper.idfc-bank-theme .consent-link-text, .bank-app-page-wrapper.idfc-bank-theme .footer-link { color: #E31837 !important; }
+
+.bank-app-page-wrapper.idfc-bank-theme .form-welcome-title {
+    color: #E31837 !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .form-field-label {
+    color: #1e293b !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .radio-option-bank.selected {
+    border-color: #E31837 !important;
+    background: #fff5f6 !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .radio-option-bank:hover {
+    border-color: #E31837 !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .eligibility-button:not(.disabled) {
+    background: #E31837 !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .eligibility-button:not(.disabled):hover {
+    background: #c91430 !important;
+    box-shadow: 0 4px 12px rgba(227, 24, 55, 0.4) !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .country-code {
+    background: #fff5f6 !important;
+    color: #E31837 !important;
+    border-right: 2px solid #E31837 !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #E31837 !important;
+    box-shadow: 0 0 0 3px rgba(227, 24, 55, 0.15) !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .dob-input:focus {
+    border-color: #E31837 !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .file-upload-label:hover {
+    border-color: #E31837 !important;
+    background: #fff5f6 !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #E31837 !important;
+}
+
+.bank-app-page-wrapper.idfc-bank-theme .form-alternative-link,
+.bank-app-page-wrapper.idfc-bank-theme .consent-link-text,
+.bank-app-page-wrapper.idfc-bank-theme .footer-link {
+    color: #E31837 !important;
+}
 
 /* ============================================
    KOTAK BANK THEME
    ============================================ */
-.bank-app-page-wrapper.kotak-bank-theme { background: #ecfdff !important; min-height: 100vh; }
-body:has(.bank-app-page-wrapper.kotak-bank-theme) { background: #ecfdff !important; }
-.bank-app-page-wrapper.kotak-bank-theme .bank-app-form-container { background: transparent !important; }
+.bank-app-page-wrapper.kotak-bank-theme {
+    background: #ecfdff !important;
+    min-height: 100vh;
+}
+
+body:has(.bank-app-page-wrapper.kotak-bank-theme) {
+    background: #ecfdff !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
 .bank-app-page-wrapper.kotak-bank-theme .bank-app-form-card {
     border: 2px solid #00AEEF !important;
     border-radius: 20px !important;
     box-shadow: 0 8px 32px rgba(0, 174, 239, 0.18) !important;
     background: #fff !important;
 }
-.bank-app-page-wrapper.kotak-bank-theme .form-welcome-title { color: #0369a1 !important; }
-.bank-app-page-wrapper.kotak-bank-theme .form-field-label { color: #0c4a6e !important; }
-.bank-app-page-wrapper.kotak-bank-theme .radio-option-bank.selected { border-color: #00AEEF !important; background: #ecfdff !important; }
-.bank-app-page-wrapper.kotak-bank-theme .radio-option-bank:hover { border-color: #00AEEF !important; }
-.bank-app-page-wrapper.kotak-bank-theme .eligibility-button:not(.disabled) { background: #00AEEF !important; border: none !important; }
-.bank-app-page-wrapper.kotak-bank-theme .eligibility-button:not(.disabled):hover { background: #0090c9 !important; box-shadow: 0 4px 12px rgba(0, 174, 239, 0.4) !important; }
-.bank-app-page-wrapper.kotak-bank-theme .country-code { background: #ecfdff !important; color: #0369a1 !important; border-right: 2px solid #00AEEF !important; }
-.bank-app-page-wrapper.kotak-bank-theme .mobile-input-wrapper:focus-within { border-color: #00AEEF !important; box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.2) !important; }
-.bank-app-page-wrapper.kotak-bank-theme .dob-input:focus { border-color: #00AEEF !important; }
-.bank-app-page-wrapper.kotak-bank-theme .file-upload-label:hover { border-color: #00AEEF !important; background: #ecfdff !important; }
-.bank-app-page-wrapper.kotak-bank-theme .consent-checkbox-label input[type="checkbox"] { accent-color: #00AEEF !important; }
-.bank-app-page-wrapper.kotak-bank-theme .form-alternative-link, .bank-app-page-wrapper.kotak-bank-theme .consent-link-text, .bank-app-page-wrapper.kotak-bank-theme .footer-link { color: #00AEEF !important; }
+
+.bank-app-page-wrapper.kotak-bank-theme .form-welcome-title {
+    color: #0369a1 !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .form-field-label {
+    color: #0c4a6e !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .radio-option-bank.selected {
+    border-color: #00AEEF !important;
+    background: #ecfdff !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .radio-option-bank:hover {
+    border-color: #00AEEF !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .eligibility-button:not(.disabled) {
+    background: #00AEEF !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .eligibility-button:not(.disabled):hover {
+    background: #0090c9 !important;
+    box-shadow: 0 4px 12px rgba(0, 174, 239, 0.4) !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .country-code {
+    background: #ecfdff !important;
+    color: #0369a1 !important;
+    border-right: 2px solid #00AEEF !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #00AEEF !important;
+    box-shadow: 0 0 0 3px rgba(0, 174, 239, 0.2) !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .dob-input:focus {
+    border-color: #00AEEF !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .file-upload-label:hover {
+    border-color: #00AEEF !important;
+    background: #ecfdff !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #00AEEF !important;
+}
+
+.bank-app-page-wrapper.kotak-bank-theme .form-alternative-link,
+.bank-app-page-wrapper.kotak-bank-theme .consent-link-text,
+.bank-app-page-wrapper.kotak-bank-theme .footer-link {
+    color: #00AEEF !important;
+}
 
 /* ============================================
    HDFC BANK THEME (default hero + form styling)
@@ -504,127 +874,410 @@ body:has(.bank-app-page-wrapper.kotak-bank-theme) { background: #ecfdff !importa
     border-radius: 12px !important;
     box-shadow: 0 6px 24px rgba(0, 76, 138, 0.12) !important;
 }
-.bank-app-page-wrapper.hdfc-bank-theme .form-welcome-title { color: #004C8A !important; }
-.bank-app-page-wrapper.hdfc-bank-theme .form-field-label { color: #004C8A !important; }
-.bank-app-page-wrapper.hdfc-bank-theme .radio-option-bank.selected { border-color: #004C8A !important; background: #eff6ff !important; }
-.bank-app-page-wrapper.hdfc-bank-theme .eligibility-button:not(.disabled):hover { box-shadow: 0 4px 12px rgba(227, 24, 55, 0.35) !important; }
-.bank-app-page-wrapper.hdfc-bank-theme .country-code { background: #eff6ff !important; color: #004C8A !important; border-right: 2px solid #004C8A !important; }
+
+.bank-app-page-wrapper.hdfc-bank-theme .form-welcome-title {
+    color: #004C8A !important;
+}
+
+.bank-app-page-wrapper.hdfc-bank-theme .form-field-label {
+    color: #004C8A !important;
+}
+
+.bank-app-page-wrapper.hdfc-bank-theme .radio-option-bank.selected {
+    border-color: #004C8A !important;
+    background: #eff6ff !important;
+}
+
+.bank-app-page-wrapper.hdfc-bank-theme .eligibility-button:not(.disabled):hover {
+    box-shadow: 0 4px 12px rgba(227, 24, 55, 0.35) !important;
+}
+
+.bank-app-page-wrapper.hdfc-bank-theme .country-code {
+    background: #eff6ff !important;
+    color: #004C8A !important;
+    border-right: 2px solid #004C8A !important;
+}
 
 /* ============================================
    PNB BANK THEME
    ============================================ */
-.bank-app-page-wrapper.pnb-bank-theme { background: #f0f4ff !important; min-height: 100vh; }
-body:has(.bank-app-page-wrapper.pnb-bank-theme) { background: #f0f4ff !important; }
-.bank-app-page-wrapper.pnb-bank-theme .bank-app-form-container { background: transparent !important; }
+.bank-app-page-wrapper.pnb-bank-theme {
+    background: #f0f4ff !important;
+    min-height: 100vh;
+}
+
+body:has(.bank-app-page-wrapper.pnb-bank-theme) {
+    background: #f0f4ff !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
 .bank-app-page-wrapper.pnb-bank-theme .bank-app-form-card {
     border: 2px solid #0b3d91 !important;
     border-radius: 14px !important;
     box-shadow: 0 6px 24px rgba(11, 61, 145, 0.12) !important;
     background: #fff !important;
 }
-.bank-app-page-wrapper.pnb-bank-theme .form-welcome-title { color: #0b3d91 !important; }
-.bank-app-page-wrapper.pnb-bank-theme .form-welcome-subtitle { color: #64748b !important; }
-.bank-app-page-wrapper.pnb-bank-theme .form-card-header { border-bottom-color: #d0dcf0 !important; }
-.bank-app-page-wrapper.pnb-bank-theme .form-section + .form-section { border-top-color: #d0dcf0 !important; }
-.bank-app-page-wrapper.pnb-bank-theme .form-field-label { color: #0b3d91 !important; }
-.bank-app-page-wrapper.pnb-bank-theme .form-section-number { background: #f0f4ff !important; color: #0b3d91 !important; }
-.bank-app-page-wrapper.pnb-bank-theme .radio-option-bank.selected { border-color: #d4272e !important; background: #fef2f2 !important; }
-.bank-app-page-wrapper.pnb-bank-theme .radio-option-bank:hover { border-color: #d4272e !important; }
-.bank-app-page-wrapper.pnb-bank-theme .eligibility-button:not(.disabled) { background: linear-gradient(135deg, #0b3d91, #d4272e) !important; border: none !important; }
-.bank-app-page-wrapper.pnb-bank-theme .eligibility-button:not(.disabled):hover { box-shadow: 0 4px 12px rgba(212, 39, 46, 0.35) !important; }
-.bank-app-page-wrapper.pnb-bank-theme .country-code { background: #f0f4ff !important; color: #0b3d91 !important; border-right: 2px solid #0b3d91 !important; }
-.bank-app-page-wrapper.pnb-bank-theme .mobile-input-wrapper:focus-within { border-color: #0b3d91 !important; box-shadow: 0 0 0 3px rgba(11, 61, 145, 0.15) !important; }
-.bank-app-page-wrapper.pnb-bank-theme .dob-input:focus { border-color: #0b3d91 !important; }
-.bank-app-page-wrapper.pnb-bank-theme .file-upload-label:hover { border-color: #0b3d91 !important; background: #f0f4ff !important; }
-.bank-app-page-wrapper.pnb-bank-theme .consent-checkbox-label input[type="checkbox"] { accent-color: #d4272e !important; }
-.bank-app-page-wrapper.pnb-bank-theme .form-alternative-link, .bank-app-page-wrapper.pnb-bank-theme .footer-link { color: #0b3d91 !important; }
+
+.bank-app-page-wrapper.pnb-bank-theme .form-welcome-title {
+    color: #0b3d91 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .form-welcome-subtitle {
+    color: #64748b !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .form-card-header {
+    border-bottom-color: #d0dcf0 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .form-section+.form-section {
+    border-top-color: #d0dcf0 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .form-field-label {
+    color: #0b3d91 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .form-section-number {
+    background: #f0f4ff !important;
+    color: #0b3d91 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .radio-option-bank.selected {
+    border-color: #d4272e !important;
+    background: #fef2f2 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .radio-option-bank:hover {
+    border-color: #d4272e !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .eligibility-button:not(.disabled) {
+    background: linear-gradient(135deg, #0b3d91, #d4272e) !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .eligibility-button:not(.disabled):hover {
+    box-shadow: 0 4px 12px rgba(212, 39, 46, 0.35) !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .country-code {
+    background: #f0f4ff !important;
+    color: #0b3d91 !important;
+    border-right: 2px solid #0b3d91 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #0b3d91 !important;
+    box-shadow: 0 0 0 3px rgba(11, 61, 145, 0.15) !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .dob-input:focus {
+    border-color: #0b3d91 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .file-upload-label:hover {
+    border-color: #0b3d91 !important;
+    background: #f0f4ff !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #d4272e !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .form-alternative-link,
+.bank-app-page-wrapper.pnb-bank-theme .footer-link {
+    color: #0b3d91 !important;
+}
 
 /* ============================================
    SBI BANK THEME
    ============================================ */
-.bank-app-page-wrapper.sbi-bank-theme { background: #f0f4ff !important; min-height: 100vh; }
-body:has(.bank-app-page-wrapper.sbi-bank-theme) { background: #f0f4ff !important; }
-.bank-app-page-wrapper.sbi-bank-theme .bank-app-form-container { background: transparent !important; }
+.bank-app-page-wrapper.sbi-bank-theme {
+    background: #f0f4ff !important;
+    min-height: 100vh;
+}
+
+body:has(.bank-app-page-wrapper.sbi-bank-theme) {
+    background: #f0f4ff !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
 .bank-app-page-wrapper.sbi-bank-theme .bank-app-form-card {
     border: 2px solid #22409a !important;
     border-radius: 14px !important;
     box-shadow: 0 6px 24px rgba(34, 64, 154, 0.12) !important;
     background: #fff !important;
 }
-.bank-app-page-wrapper.sbi-bank-theme .form-welcome-title { color: #22409a !important; }
-.bank-app-page-wrapper.sbi-bank-theme .form-welcome-subtitle { color: #64748b !important; }
-.bank-app-page-wrapper.sbi-bank-theme .form-card-header { border-bottom-color: #d0dcf0 !important; }
-.bank-app-page-wrapper.sbi-bank-theme .form-section + .form-section { border-top-color: #d0dcf0 !important; }
-.bank-app-page-wrapper.sbi-bank-theme .form-field-label { color: #22409a !important; }
-.bank-app-page-wrapper.sbi-bank-theme .form-section-number { background: #f0f4ff !important; color: #22409a !important; }
-.bank-app-page-wrapper.sbi-bank-theme .radio-option-bank.selected { border-color: #22409a !important; background: #eff3ff !important; }
-.bank-app-page-wrapper.sbi-bank-theme .radio-option-bank:hover { border-color: #22409a !important; }
-.bank-app-page-wrapper.sbi-bank-theme .eligibility-button:not(.disabled) { background: #22409a !important; border: none !important; }
-.bank-app-page-wrapper.sbi-bank-theme .eligibility-button:not(.disabled):hover { background: #1a3380 !important; box-shadow: 0 4px 12px rgba(34, 64, 154, 0.4) !important; }
-.bank-app-page-wrapper.sbi-bank-theme .country-code { background: #f0f4ff !important; color: #22409a !important; border-right: 2px solid #22409a !important; }
-.bank-app-page-wrapper.sbi-bank-theme .mobile-input-wrapper:focus-within { border-color: #22409a !important; box-shadow: 0 0 0 3px rgba(34, 64, 154, 0.15) !important; }
-.bank-app-page-wrapper.sbi-bank-theme .dob-input:focus { border-color: #22409a !important; }
-.bank-app-page-wrapper.sbi-bank-theme .file-upload-label:hover { border-color: #22409a !important; background: #f0f4ff !important; }
-.bank-app-page-wrapper.sbi-bank-theme .consent-checkbox-label input[type="checkbox"] { accent-color: #22409a !important; }
-.bank-app-page-wrapper.sbi-bank-theme .form-alternative-link, .bank-app-page-wrapper.sbi-bank-theme .footer-link { color: #22409a !important; }
+
+.bank-app-page-wrapper.sbi-bank-theme .form-welcome-title {
+    color: #22409a !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .form-welcome-subtitle {
+    color: #64748b !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .form-card-header {
+    border-bottom-color: #d0dcf0 !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .form-section+.form-section {
+    border-top-color: #d0dcf0 !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .form-field-label {
+    color: #22409a !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .form-section-number {
+    background: #f0f4ff !important;
+    color: #22409a !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .radio-option-bank.selected {
+    border-color: #22409a !important;
+    background: #eff3ff !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .radio-option-bank:hover {
+    border-color: #22409a !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .eligibility-button:not(.disabled) {
+    background: #22409a !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .eligibility-button:not(.disabled):hover {
+    background: #1a3380 !important;
+    box-shadow: 0 4px 12px rgba(34, 64, 154, 0.4) !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .country-code {
+    background: #f0f4ff !important;
+    color: #22409a !important;
+    border-right: 2px solid #22409a !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #22409a !important;
+    box-shadow: 0 0 0 3px rgba(34, 64, 154, 0.15) !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .dob-input:focus {
+    border-color: #22409a !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .file-upload-label:hover {
+    border-color: #22409a !important;
+    background: #f0f4ff !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #22409a !important;
+}
+
+.bank-app-page-wrapper.sbi-bank-theme .form-alternative-link,
+.bank-app-page-wrapper.sbi-bank-theme .footer-link {
+    color: #22409a !important;
+}
 
 /* ============================================
    CANARA BANK THEME
    ============================================ */
-.bank-app-page-wrapper.canara-bank-theme { background: #fffbf0 !important; min-height: 100vh; }
-body:has(.bank-app-page-wrapper.canara-bank-theme) { background: #fffbf0 !important; }
-.bank-app-page-wrapper.canara-bank-theme .bank-app-form-container { background: transparent !important; }
+.bank-app-page-wrapper.canara-bank-theme {
+    background: #fffbf0 !important;
+    min-height: 100vh;
+}
+
+body:has(.bank-app-page-wrapper.canara-bank-theme) {
+    background: #fffbf0 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
 .bank-app-page-wrapper.canara-bank-theme .bank-app-form-card {
     border: 2px solid #0066b3 !important;
     border-radius: 14px !important;
     box-shadow: 0 6px 24px rgba(0, 102, 179, 0.12) !important;
     background: #fff !important;
 }
-.bank-app-page-wrapper.canara-bank-theme .form-welcome-title { color: #0066b3 !important; }
-.bank-app-page-wrapper.canara-bank-theme .form-welcome-subtitle { color: #64748b !important; }
-.bank-app-page-wrapper.canara-bank-theme .form-card-header { border-bottom-color: #fde8b0 !important; }
-.bank-app-page-wrapper.canara-bank-theme .form-section + .form-section { border-top-color: #fde8b0 !important; }
-.bank-app-page-wrapper.canara-bank-theme .form-field-label { color: #0066b3 !important; }
-.bank-app-page-wrapper.canara-bank-theme .form-section-number { background: #fffbf0 !important; color: #0066b3 !important; }
-.bank-app-page-wrapper.canara-bank-theme .radio-option-bank.selected { border-color: #fbb034 !important; background: #fffbf0 !important; }
-.bank-app-page-wrapper.canara-bank-theme .radio-option-bank:hover { border-color: #fbb034 !important; }
-.bank-app-page-wrapper.canara-bank-theme .eligibility-button:not(.disabled) { background: linear-gradient(135deg, #0066b3, #fbb034) !important; border: none !important; }
-.bank-app-page-wrapper.canara-bank-theme .eligibility-button:not(.disabled):hover { box-shadow: 0 4px 12px rgba(251, 176, 52, 0.4) !important; }
-.bank-app-page-wrapper.canara-bank-theme .country-code { background: #fffbf0 !important; color: #0066b3 !important; border-right: 2px solid #0066b3 !important; }
-.bank-app-page-wrapper.canara-bank-theme .mobile-input-wrapper:focus-within { border-color: #0066b3 !important; box-shadow: 0 0 0 3px rgba(0, 102, 179, 0.15) !important; }
-.bank-app-page-wrapper.canara-bank-theme .dob-input:focus { border-color: #0066b3 !important; }
-.bank-app-page-wrapper.canara-bank-theme .file-upload-label:hover { border-color: #0066b3 !important; background: #fffbf0 !important; }
-.bank-app-page-wrapper.canara-bank-theme .consent-checkbox-label input[type="checkbox"] { accent-color: #0066b3 !important; }
-.bank-app-page-wrapper.canara-bank-theme .form-alternative-link, .bank-app-page-wrapper.canara-bank-theme .footer-link { color: #0066b3 !important; }
+
+.bank-app-page-wrapper.canara-bank-theme .form-welcome-title {
+    color: #0066b3 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .form-welcome-subtitle {
+    color: #64748b !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .form-card-header {
+    border-bottom-color: #fde8b0 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .form-section+.form-section {
+    border-top-color: #fde8b0 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .form-field-label {
+    color: #0066b3 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .form-section-number {
+    background: #fffbf0 !important;
+    color: #0066b3 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .radio-option-bank.selected {
+    border-color: #fbb034 !important;
+    background: #fffbf0 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .radio-option-bank:hover {
+    border-color: #fbb034 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .eligibility-button:not(.disabled) {
+    background: linear-gradient(135deg, #0066b3, #fbb034) !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .eligibility-button:not(.disabled):hover {
+    box-shadow: 0 4px 12px rgba(251, 176, 52, 0.4) !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .country-code {
+    background: #fffbf0 !important;
+    color: #0066b3 !important;
+    border-right: 2px solid #0066b3 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #0066b3 !important;
+    box-shadow: 0 0 0 3px rgba(0, 102, 179, 0.15) !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .dob-input:focus {
+    border-color: #0066b3 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .file-upload-label:hover {
+    border-color: #0066b3 !important;
+    background: #fffbf0 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #0066b3 !important;
+}
+
+.bank-app-page-wrapper.canara-bank-theme .form-alternative-link,
+.bank-app-page-wrapper.canara-bank-theme .footer-link {
+    color: #0066b3 !important;
+}
 
 /* ============================================
    BANK OF BARODA THEME
    ============================================ */
-.bank-app-page-wrapper.bob-bank-theme { background: #fff5f0 !important; min-height: 100vh; }
-body:has(.bank-app-page-wrapper.bob-bank-theme) { background: #fff5f0 !important; }
-.bank-app-page-wrapper.bob-bank-theme .bank-app-form-container { background: transparent !important; }
+.bank-app-page-wrapper.bob-bank-theme {
+    background: #fff5f0 !important;
+    min-height: 100vh;
+}
+
+body:has(.bank-app-page-wrapper.bob-bank-theme) {
+    background: #fff5f0 !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
 .bank-app-page-wrapper.bob-bank-theme .bank-app-form-card {
     border: 2px solid #f26522 !important;
     border-radius: 14px !important;
     box-shadow: 0 6px 24px rgba(242, 101, 34, 0.12) !important;
     background: #fff !important;
 }
-.bank-app-page-wrapper.bob-bank-theme .form-welcome-title { color: #d4541a !important; }
-.bank-app-page-wrapper.bob-bank-theme .form-welcome-subtitle { color: #64748b !important; }
-.bank-app-page-wrapper.bob-bank-theme .form-card-header { border-bottom-color: #fde0cc !important; }
-.bank-app-page-wrapper.bob-bank-theme .form-section + .form-section { border-top-color: #fde0cc !important; }
-.bank-app-page-wrapper.bob-bank-theme .form-field-label { color: #d4541a !important; }
-.bank-app-page-wrapper.bob-bank-theme .form-section-number { background: #fff5f0 !important; color: #f26522 !important; }
-.bank-app-page-wrapper.bob-bank-theme .radio-option-bank.selected { border-color: #ed1c24 !important; background: #fef2f2 !important; }
-.bank-app-page-wrapper.bob-bank-theme .radio-option-bank:hover { border-color: #ed1c24 !important; }
-.bank-app-page-wrapper.bob-bank-theme .eligibility-button:not(.disabled) { background: linear-gradient(135deg, #f26522, #ed1c24) !important; border: none !important; }
-.bank-app-page-wrapper.bob-bank-theme .eligibility-button:not(.disabled):hover { box-shadow: 0 4px 12px rgba(237, 28, 36, 0.4) !important; }
-.bank-app-page-wrapper.bob-bank-theme .country-code { background: #fff5f0 !important; color: #f26522 !important; border-right: 2px solid #f26522 !important; }
-.bank-app-page-wrapper.bob-bank-theme .mobile-input-wrapper:focus-within { border-color: #f26522 !important; box-shadow: 0 0 0 3px rgba(242, 101, 34, 0.15) !important; }
-.bank-app-page-wrapper.bob-bank-theme .dob-input:focus { border-color: #f26522 !important; }
-.bank-app-page-wrapper.bob-bank-theme .file-upload-label:hover { border-color: #f26522 !important; background: #fff5f0 !important; }
-.bank-app-page-wrapper.bob-bank-theme .consent-checkbox-label input[type="checkbox"] { accent-color: #ed1c24 !important; }
-.bank-app-page-wrapper.bob-bank-theme .form-alternative-link, .bank-app-page-wrapper.bob-bank-theme .footer-link { color: #f26522 !important; }
+
+.bank-app-page-wrapper.bob-bank-theme .form-welcome-title {
+    color: #d4541a !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .form-welcome-subtitle {
+    color: #64748b !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .form-card-header {
+    border-bottom-color: #fde0cc !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .form-section+.form-section {
+    border-top-color: #fde0cc !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .form-field-label {
+    color: #d4541a !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .form-section-number {
+    background: #fff5f0 !important;
+    color: #f26522 !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .radio-option-bank.selected {
+    border-color: #ed1c24 !important;
+    background: #fef2f2 !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .radio-option-bank:hover {
+    border-color: #ed1c24 !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .eligibility-button:not(.disabled) {
+    background: linear-gradient(135deg, #f26522, #ed1c24) !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .eligibility-button:not(.disabled):hover {
+    box-shadow: 0 4px 12px rgba(237, 28, 36, 0.4) !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .country-code {
+    background: #fff5f0 !important;
+    color: #f26522 !important;
+    border-right: 2px solid #f26522 !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #f26522 !important;
+    box-shadow: 0 0 0 3px rgba(242, 101, 34, 0.15) !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .dob-input:focus {
+    border-color: #f26522 !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .file-upload-label:hover {
+    border-color: #f26522 !important;
+    background: #fff5f0 !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #ed1c24 !important;
+}
+
+.bank-app-page-wrapper.bob-bank-theme .form-alternative-link,
+.bank-app-page-wrapper.bob-bank-theme .footer-link {
+    color: #f26522 !important;
+}
 
 /* ============================================
    BANK FORM LAYOUTS – distinct form look per bank (colour theme + structure)
@@ -641,11 +1294,26 @@ body:has(.bank-app-page-wrapper.bob-bank-theme) { background: #fff5f0 !important
     box-shadow: 0 8px 32px rgba(139, 0, 64, 0.12) !important;
     padding: 40px 44px !important;
 }
-.bank-form-layout-axis .form-welcome-title { border-bottom: 2px solid #F5E6F0; padding-bottom: 16px; margin-bottom: 12px !important; }
+
+.bank-form-layout-axis .form-welcome-title {
+    border-bottom: 2px solid #F5E6F0;
+    padding-bottom: 16px;
+    margin-bottom: 12px !important;
+}
+
 .bank-form-layout-axis .mobile-input-wrapper,
-.bank-form-layout-axis .dob-input { border-radius: 6px !important; }
-.bank-form-layout-axis .file-upload-label { border-radius: 6px !important; }
-.bank-form-layout-axis .eligibility-button { border-radius: 8px !important; font-weight: 600 !important; }
+.bank-form-layout-axis .dob-input {
+    border-radius: 6px !important;
+}
+
+.bank-form-layout-axis .file-upload-label {
+    border-radius: 6px !important;
+}
+
+.bank-form-layout-axis .eligibility-button {
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+}
 
 /* HDFC Bank – Blue #004C8A + Red CTA, top stripe, classic card */
 .bank-form-layout-hdfc .bank-app-form-card {
@@ -656,6 +1324,7 @@ body:has(.bank-app-page-wrapper.bob-bank-theme) { background: #fff5f0 !important
     box-shadow: 0 6px 28px rgba(0, 76, 138, 0.15) !important;
     padding: 44px 50px !important;
 }
+
 .bank-form-layout-hdfc .bank-app-form-card::before {
     content: '';
     position: absolute;
@@ -665,12 +1334,28 @@ body:has(.bank-app-page-wrapper.bob-bank-theme) { background: #fff5f0 !important
     height: 6px;
     background: linear-gradient(90deg, #004C8A 0%, #0066b3 100%);
 }
-.bank-form-layout-hdfc .form-welcome-subtitle { color: #475569 !important; }
+
+.bank-form-layout-hdfc .form-welcome-subtitle {
+    color: #475569 !important;
+}
+
 .bank-form-layout-hdfc .mobile-input-wrapper,
-.bank-form-layout-hdfc .dob-input { border-radius: 8px !important; }
-.bank-form-layout-hdfc .file-upload-label { border-radius: 8px !important; }
-.bank-form-layout-hdfc .eligibility-button { border-radius: 8px !important; background: #E31837 !important; }
-.bank-form-layout-hdfc .eligibility-button:not(.disabled):hover { background: #c91430 !important; }
+.bank-form-layout-hdfc .dob-input {
+    border-radius: 8px !important;
+}
+
+.bank-form-layout-hdfc .file-upload-label {
+    border-radius: 8px !important;
+}
+
+.bank-form-layout-hdfc .eligibility-button {
+    border-radius: 8px !important;
+    background: #E31837 !important;
+}
+
+.bank-form-layout-hdfc .eligibility-button:not(.disabled):hover {
+    background: #c91430 !important;
+}
 
 /* Kotak Mahindra Bank – Teal #00AEEF, very rounded, soft form */
 .bank-form-layout-kotak .bank-app-form-card {
@@ -679,12 +1364,28 @@ body:has(.bank-app-page-wrapper.bob-bank-theme) { background: #fff5f0 !important
     box-shadow: 0 12px 40px rgba(0, 174, 239, 0.15) !important;
     padding: 48px 52px !important;
 }
-.bank-form-layout-kotak .form-welcome-title { font-size: 26px !important; }
+
+.bank-form-layout-kotak .form-welcome-title {
+    font-size: 26px !important;
+}
+
 .bank-form-layout-kotak .mobile-input-wrapper,
-.bank-form-layout-kotak .dob-input { border-radius: 14px !important; }
-.bank-form-layout-kotak .file-upload-label { border-radius: 14px !important; }
-.bank-form-layout-kotak .eligibility-button { border-radius: 14px !important; padding: 18px !important; }
-.bank-form-layout-kotak .form-field-group { gap: 12px !important; }
+.bank-form-layout-kotak .dob-input {
+    border-radius: 14px !important;
+}
+
+.bank-form-layout-kotak .file-upload-label {
+    border-radius: 14px !important;
+}
+
+.bank-form-layout-kotak .eligibility-button {
+    border-radius: 14px !important;
+    padding: 18px !important;
+}
+
+.bank-form-layout-kotak .form-field-group {
+    gap: 12px !important;
+}
 
 /* IDFC FIRST Bank – Red #E31837, red top bar, clean white card */
 .bank-form-layout-idfc .bank-app-form-card {
@@ -695,6 +1396,7 @@ body:has(.bank-app-page-wrapper.bob-bank-theme) { background: #fff5f0 !important
     box-shadow: 0 8px 28px rgba(227, 24, 55, 0.12) !important;
     padding: 42px 48px !important;
 }
+
 .bank-form-layout-idfc .bank-app-form-card::before {
     content: '';
     position: absolute;
@@ -704,11 +1406,23 @@ body:has(.bank-app-page-wrapper.bob-bank-theme) { background: #fff5f0 !important
     height: 5px;
     background: #E31837;
 }
-.bank-form-layout-idfc .form-welcome-title { color: #1e293b !important; }
+
+.bank-form-layout-idfc .form-welcome-title {
+    color: #1e293b !important;
+}
+
 .bank-form-layout-idfc .mobile-input-wrapper,
-.bank-form-layout-idfc .dob-input { border-radius: 10px !important; }
-.bank-form-layout-idfc .file-upload-label { border-radius: 10px !important; }
-.bank-form-layout-idfc .eligibility-button { border-radius: 10px !important; }
+.bank-form-layout-idfc .dob-input {
+    border-radius: 10px !important;
+}
+
+.bank-form-layout-idfc .file-upload-label {
+    border-radius: 10px !important;
+}
+
+.bank-form-layout-idfc .eligibility-button {
+    border-radius: 10px !important;
+}
 
 /* YES Bank – Dark blue #132744 + red #C4122E, left accent, professional */
 .bank-form-layout-yes .bank-app-form-card {
@@ -720,14 +1434,36 @@ body:has(.bank-app-page-wrapper.bob-bank-theme) { background: #fff5f0 !important
     box-shadow: 0 8px 28px rgba(19, 39, 68, 0.08) !important;
     padding: 42px 46px !important;
 }
-.bank-form-layout-yes .form-welcome-title { color: #132744 !important; }
-.bank-form-layout-yes .form-welcome-subtitle { color: #64748b !important; }
-.bank-form-layout-yes .form-field-label { color: #132744 !important; }
+
+.bank-form-layout-yes .form-welcome-title {
+    color: #132744 !important;
+}
+
+.bank-form-layout-yes .form-welcome-subtitle {
+    color: #64748b !important;
+}
+
+.bank-form-layout-yes .form-field-label {
+    color: #132744 !important;
+}
+
 .bank-form-layout-yes .mobile-input-wrapper,
-.bank-form-layout-yes .dob-input { border-radius: 8px !important; }
-.bank-form-layout-yes .file-upload-label { border-radius: 8px !important; }
-.bank-form-layout-yes .eligibility-button { border-radius: 8px !important; background: #C4122E !important; }
-.bank-form-layout-yes .eligibility-button:not(.disabled):hover { background: #a00f26 !important; }
+.bank-form-layout-yes .dob-input {
+    border-radius: 8px !important;
+}
+
+.bank-form-layout-yes .file-upload-label {
+    border-radius: 8px !important;
+}
+
+.bank-form-layout-yes .eligibility-button {
+    border-radius: 8px !important;
+    background: #C4122E !important;
+}
+
+.bank-form-layout-yes .eligibility-button:not(.disabled):hover {
+    background: #a00f26 !important;
+}
 
 /* IndusInd Bank – Red #C4122E, rounded card, soft red shadow */
 .bank-form-layout-indusind .bank-app-form-card {
@@ -736,12 +1472,27 @@ body:has(.bank-app-page-wrapper.bob-bank-theme) { background: #fff5f0 !important
     box-shadow: 0 10px 36px rgba(196, 18, 46, 0.14) !important;
     padding: 44px 48px !important;
 }
-.bank-form-layout-indusind .form-welcome-title { font-size: 26px !important; }
+
+.bank-form-layout-indusind .form-welcome-title {
+    font-size: 26px !important;
+}
+
 .bank-form-layout-indusind .mobile-input-wrapper,
-.bank-form-layout-indusind .dob-input { border-radius: 10px !important; }
-.bank-form-layout-indusind .file-upload-label { border-radius: 10px !important; }
-.bank-form-layout-indusind .eligibility-button { border-radius: 10px !important; }
-.bank-form-layout-indusind .consent-group { margin-top: 8px !important; }
+.bank-form-layout-indusind .dob-input {
+    border-radius: 10px !important;
+}
+
+.bank-form-layout-indusind .file-upload-label {
+    border-radius: 10px !important;
+}
+
+.bank-form-layout-indusind .eligibility-button {
+    border-radius: 10px !important;
+}
+
+.bank-form-layout-indusind .consent-group {
+    margin-top: 8px !important;
+}
 
 /* ICICI Bank – Orange #E85D04, clean modern form */
 .bank-form-layout-icici .bank-app-form-card {
@@ -749,10 +1500,22 @@ body:has(.bank-app-page-wrapper.bob-bank-theme) { background: #fff5f0 !important
     border-radius: 18px !important;
     padding: 40px 44px !important;
 }
+
 .bank-form-layout-icici .mobile-input-wrapper,
-.bank-form-layout-icici .dob-input { border-radius: 10px !important; }
-.bank-form-layout-icici .file-upload-label { border-radius: 12px !important; }
-.bank-form-layout-icici .eligibility-button { border-radius: 12px !important; font-size: 16px !important; padding: 16px !important; font-weight: 700 !important; }
+.bank-form-layout-icici .dob-input {
+    border-radius: 10px !important;
+}
+
+.bank-form-layout-icici .file-upload-label {
+    border-radius: 12px !important;
+}
+
+.bank-form-layout-icici .eligibility-button {
+    border-radius: 12px !important;
+    font-size: 16px !important;
+    padding: 16px !important;
+    font-weight: 700 !important;
+}
 
 /* Axis Bank Input Borders */
 .bank-app-page-wrapper.axis-bank-theme .mobile-input-wrapper {
@@ -1070,6 +1833,7 @@ body:has(.bank-app-page-wrapper) {
     margin: 0 0 4px 0;
     line-height: 1.3;
 }
+
 .form-welcome-subtitle {
     font-family: var(--font-poppins), sans-serif;
     font-size: 15px;
@@ -1140,15 +1904,15 @@ body:has(.bank-app-page-wrapper) {
     gap: 8px;
 }
 
-.form-section .form-field-group + .form-field-group {
+.form-section .form-field-group+.form-field-group {
     margin-top: 18px;
 }
 
-.form-uploads-row > .form-field-group + .form-field-group {
+.form-uploads-row>.form-field-group+.form-field-group {
     margin-top: 0;
 }
 
-.form-uploads-row > .form-field-group {
+.form-uploads-row>.form-field-group {
     margin-top: 0 !important;
 }
 
@@ -2704,7 +3468,7 @@ body:has(.bank-app-page-wrapper) {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
     pointer-events: none;
     border-radius: inherit;
 }
@@ -2784,8 +3548,15 @@ body:has(.bank-app-page-wrapper) {
 }
 
 @keyframes emi-compare-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(4px); }
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(4px);
+    }
 }
 
 @media (max-width: 600px) {
@@ -2892,8 +3663,72 @@ body:has(.bank-app-page-wrapper) {
 
 @media (max-width: 767px) {
     .emi-results-col {
-        flex-direction: row;
-        justify-content: space-around;
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .emi-results-col .emi-stat-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+        background: #ffffff;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        text-align: left;
+    }
+
+    .emi-results-col .emi-stat-label {
+        font-size: 11px;
+        margin-bottom: 0;
+    }
+
+    .emi-results-col .emi-stat-value {
+        font-size: 18px;
+    }
+
+    .emi-results-col .emi-stat-value.highlight {
+        font-size: 22px;
+        color: #1e40af;
+    }
+
+    .emi-calc-wrapper {
+        padding: 16px;
+        border-radius: 16px;
+    }
+
+    .emi-input-group {
+        margin-bottom: 12px;
+    }
+
+    .emi-input-header {
+        margin-bottom: 8px;
+    }
+
+    .emi-label {
+        font-size: 14px;
+    }
+
+    .emi-input-control {
+        padding: 8px 12px;
+        max-width: 140px;
+    }
+
+    .emi-input-field {
+        font-size: 16px;
+    }
+
+    .emi-right-col .emi-chart-col {
+        max-width: 240px;
+    }
+
+    .emi-schedule-section {
+        margin-top: 24px;
+    }
+
+    .emi-section-title {
+        font-size: 16px;
     }
 }
 
@@ -3603,7 +4438,7 @@ body:has(.bank-app-page-wrapper) {
     border-radius: 16px;
     overflow: hidden;
     margin-top: 20px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 6px 24px rgba(30,64,175,0.07);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06), 0 6px 24px rgba(30, 64, 175, 0.07);
 }
 
 .compare-bank-table-title {
@@ -3670,7 +4505,7 @@ body:has(.bank-app-page-wrapper) {
 }
 
 .compare-bank-th-bank .compare-bank-th-rate {
-    color: rgba(255,255,255,0.75);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 12px;
     font-weight: 500;
 }
@@ -3680,7 +4515,10 @@ body:has(.bank-app-page-wrapper) {
 }
 
 /* Header — NBFC column */
-.compare-nbfc-slot.selected { border-color: #7c3aed; background: #f5f3ff; }
+.compare-nbfc-slot.selected {
+    border-color: #7c3aed;
+    background: #f5f3ff;
+}
 
 .compare-bank-th-nbfc {
     background: linear-gradient(180deg, #6d28d9, #7c3aed) !important;
@@ -3696,7 +4534,7 @@ body:has(.bank-app-page-wrapper) {
 }
 
 .compare-bank-th-nbfc .compare-bank-th-rate {
-    color: rgba(255,255,255,0.75);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 12px;
     font-weight: 500;
 }
@@ -3707,11 +4545,28 @@ body:has(.bank-app-page-wrapper) {
 }
 
 /* Header shared */
-.compare-bank-th-name { font-weight: 700; color: #1e293b; font-size: 15px; }
-.compare-bank-th-rate { font-size: 12px; font-weight: 600; color: #3b82f6; margin-top: 2px; }
-.compare-bank-th .compare-bank-th-logo { justify-content: center; display: flex !important; }
+.compare-bank-th-name {
+    font-weight: 700;
+    color: #1e293b;
+    font-size: 15px;
+}
+
+.compare-bank-th-rate {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3b82f6;
+    margin-top: 2px;
+}
+
+.compare-bank-th .compare-bank-th-logo {
+    justify-content: center;
+    display: flex !important;
+}
+
 .compare-bank-th .compare-bank-th-name,
-.compare-bank-th .compare-bank-th-rate { text-align: center; }
+.compare-bank-th .compare-bank-th-rate {
+    text-align: center;
+}
 
 .compare-bank-th-logo {
     display: flex !important;
@@ -3730,7 +4585,7 @@ body:has(.bank-app-page-wrapper) {
     border-radius: 12px !important;
     overflow: hidden;
     background: #eff6ff !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
 }
 
 .compare-bank-table .compare-bank-logo-img {
@@ -3835,21 +4690,21 @@ body:has(.bank-app-page-wrapper) {
     text-decoration: none !important;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
-    box-shadow: 0 2px 8px rgba(37,99,235,0.25) !important;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25) !important;
 }
 
 .compare-bank-apply-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(37,99,235,0.35) !important;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35) !important;
 }
 
 .compare-apply-nbfc {
     background: linear-gradient(135deg, #7c3aed, #6d28d9) !important;
-    box-shadow: 0 2px 8px rgba(124,58,237,0.25) !important;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.25) !important;
 }
 
 .compare-apply-nbfc:hover {
-    box-shadow: 0 6px 16px rgba(124,58,237,0.35) !important;
+    box-shadow: 0 6px 16px rgba(124, 58, 237, 0.35) !important;
 }
 
 /* Business Loans compare theme */
@@ -3885,17 +4740,17 @@ body:has(.bank-app-page-wrapper) {
 }
 
 .compare-bank-th-business .compare-bank-th-rate {
-    color: rgba(255,255,255,0.75);
+    color: rgba(255, 255, 255, 0.75);
     font-size: 12px;
 }
 
 .compare-apply-business {
     background: linear-gradient(135deg, #059669, #065f46) !important;
-    box-shadow: 0 2px 8px rgba(5,150,105,0.25) !important;
+    box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25) !important;
 }
 
 .compare-apply-business:hover {
-    box-shadow: 0 6px 16px rgba(5,150,105,0.35) !important;
+    box-shadow: 0 6px 16px rgba(5, 150, 105, 0.35) !important;
 }
 
 
@@ -4104,444 +4959,1093 @@ body:has(.bank-app-page-wrapper) {
    ============================================ */
 /* HDFC: light blue theme (brand #004C8A / #E31837) */
 .hdfc-single-page {
-  background: #eff6ff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+    background: #eff6ff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
+
 .hdfc-single-header {
-  padding: 14px 24px;
+    padding: 14px 24px;
 }
+
 .hdfc-single-header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
+
 .hdfc-single-logo {
-  height: 40px;
-  width: auto;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
+
 .hdfc-single-help {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
 }
+
 .hdfc-single-help:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
+
 .hdfc-single-banner {
-  background: linear-gradient(135deg, #E0F2FE 0%, #bae6fd 100%);
-  padding: 28px 24px 32px;
+    background: linear-gradient(135deg, #E0F2FE 0%, #bae6fd 100%);
+    padding: 28px 24px 32px;
 }
+
 .hdfc-single-banner-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
 }
+
 .hdfc-single-banner-title {
-  font-family: var(--font-poppins), sans-serif;
-  font-size: 24px;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 0 0 12px 0;
-  line-height: 1.35;
+    font-family: var(--font-poppins), sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 12px 0;
+    line-height: 1.35;
 }
+
 .hdfc-single-banner-features {
-  font-size: 14px;
-  color: #475569;
-  margin-bottom: 8px;
+    font-size: 14px;
+    color: #475569;
+    margin-bottom: 8px;
 }
+
 .hdfc-single-banner-divider {
-  margin: 0 10px;
-  color: #94a3b8;
+    margin: 0 10px;
+    color: #94a3b8;
 }
+
 .hdfc-single-banner-tc {
-  font-size: 12px;
-  color: #64748b;
-  margin: 0;
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
 }
+
 .hdfc-single-form-wrap {
-  flex: 1;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 32px 24px 24px;
-  width: 100%;
+    flex: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 32px 24px 24px;
+    width: 100%;
 }
+
 .hdfc-single-intro {
-  font-family: var(--font-poppins), sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0 0 24px 0;
+    font-family: var(--font-poppins), sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 24px 0;
 }
+
 .hdfc-single-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
+
 .hdfc-single-section {
-  background: #E0F2FE;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 20px;
+    background: #E0F2FE;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
 }
+
 .hdfc-single-section-title {
-  font-family: var(--font-poppins), sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  color: #004C8A;
-  letter-spacing: 0.5px;
-  margin: 0 0 8px 0;
+    font-family: var(--font-poppins), sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #004C8A;
+    letter-spacing: 0.5px;
+    margin: 0 0 8px 0;
 }
+
 .hdfc-single-section-sub {
-  font-size: 13px;
-  color: #64748b;
-  margin: 0 0 16px 0;
+    font-size: 13px;
+    color: #64748b;
+    margin: 0 0 16px 0;
 }
+
 .hdfc-single-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
+
 .hdfc-single-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
+
 .hdfc-single-field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
 }
+
 @media (max-width: 640px) {
-  .hdfc-single-field-row {
-    grid-template-columns: 1fr;
-  }
+    .hdfc-single-field-row {
+        grid-template-columns: 1fr;
+    }
 }
+
 .hdfc-single-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1e293b;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
 }
+
 .hdfc-single-input {
-  padding: 12px 14px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 15px;
-  background: #f8fafc;
-  color: #1e293b;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #f8fafc;
+    color: #1e293b;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
+
 .hdfc-single-input:focus {
-  border-color: #004C8A;
-  box-shadow: 0 0 0 3px rgba(0, 76, 138, 0.12);
-  background: #fff;
+    border-color: #004C8A;
+    box-shadow: 0 0 0 3px rgba(0, 76, 138, 0.12);
+    background: #fff;
 }
+
 .hdfc-single-input::placeholder {
-  color: #94a3b8;
+    color: #94a3b8;
 }
+
 .hdfc-single-select {
-  padding: 12px 14px;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  font-size: 15px;
-  background: #f8fafc;
-  color: #1e293b;
-  outline: none;
-  cursor: pointer;
-  appearance: auto;
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #f8fafc;
+    color: #1e293b;
+    outline: none;
+    cursor: pointer;
+    appearance: auto;
 }
+
 .hdfc-single-select:focus {
-  border-color: #004C8A;
-  background: #fff;
+    border-color: #004C8A;
+    background: #fff;
 }
+
 .hdfc-single-hint {
-  font-size: 12px;
-  color: #64748b;
-  margin: 0;
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
 }
+
 .hdfc-single-info-box {
-  background: #fef9c3;
-  border: 1px solid #fde047;
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 13px;
-  color: #713f12;
-  margin-top: 6px;
+    background: #fef9c3;
+    border: 1px solid #fde047;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: #713f12;
+    margin-top: 6px;
 }
+
 .hdfc-single-name-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
 }
+
 @media (max-width: 640px) {
-  .hdfc-single-name-row {
-    grid-template-columns: 1fr;
-  }
+    .hdfc-single-name-row {
+        grid-template-columns: 1fr;
+    }
 }
+
 .hdfc-single-radio-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
 }
+
 .hdfc-single-radio-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #475569;
-  cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #475569;
+    cursor: pointer;
 }
+
 .hdfc-single-radio-label.selected {
-  color: #004C8A;
-  font-weight: 600;
+    color: #004C8A;
+    font-weight: 600;
 }
+
 .hdfc-single-radio-label input[type="radio"] {
-  width: 18px;
-  height: 18px;
-  accent-color: #004C8A;
-  cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: #004C8A;
+    cursor: pointer;
 }
+
 .hdfc-single-mobile-wrap {
-  display: flex;
-  align-items: center;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  background: #f8fafc;
-  overflow: hidden;
+    display: flex;
+    align-items: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #f8fafc;
+    overflow: hidden;
 }
+
 .hdfc-single-mobile-wrap:focus-within {
-  border-color: #004C8A;
-  box-shadow: 0 0 0 3px rgba(0, 76, 138, 0.12);
-  background: #fff;
+    border-color: #004C8A;
+    box-shadow: 0 0 0 3px rgba(0, 76, 138, 0.12);
+    background: #fff;
 }
+
 .hdfc-single-country-code {
-  padding: 12px 14px;
-  background: #e2e8f0;
-  font-size: 15px;
-  font-weight: 600;
-  color: #475569;
-  border-right: 1px solid #cbd5e1;
+    padding: 12px 14px;
+    background: #e2e8f0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #475569;
+    border-right: 1px solid #cbd5e1;
 }
+
 .hdfc-single-dob-row {
-  display: flex;
-  gap: 12px;
+    display: flex;
+    gap: 12px;
 }
+
 .hdfc-single-dob {
-  flex: 1;
-  text-align: center;
+    flex: 1;
+    text-align: center;
 }
+
 .hdfc-single-link {
-  font-size: 13px;
-  text-decoration: none;
-  font-weight: 500;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: 500;
 }
+
 .hdfc-single-link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
+
 .hdfc-single-rupee-wrap {
-  display: flex;
-  align-items: center;
-  border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  background: #f8fafc;
-  overflow: hidden;
+    display: flex;
+    align-items: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #f8fafc;
+    overflow: hidden;
 }
+
 .hdfc-single-rupee-wrap:focus-within {
-  border-color: #004C8A;
-  box-shadow: 0 0 0 3px rgba(0, 76, 138, 0.12);
-  background: #fff;
+    border-color: #004C8A;
+    box-shadow: 0 0 0 3px rgba(0, 76, 138, 0.12);
+    background: #fff;
 }
+
 .hdfc-single-rupee {
-  padding: 12px 14px;
-  background: #e2e8f0;
-  font-size: 15px;
-  font-weight: 600;
-  color: #475569;
-  border-right: 1px solid #cbd5e1;
+    padding: 12px 14px;
+    background: #e2e8f0;
+    font-size: 15px;
+    font-weight: 600;
+    color: #475569;
+    border-right: 1px solid #cbd5e1;
 }
+
 .hdfc-single-rupee-wrap .hdfc-single-input {
-  border: none;
-  background: transparent;
+    border: none;
+    background: transparent;
 }
+
 .hdfc-single-rupee-wrap:focus-within .hdfc-single-input {
-  background: #fff;
+    background: #fff;
 }
+
 .hdfc-single-checkbox-label {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 13px;
-  color: #475569;
-  cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #475569;
+    cursor: pointer;
 }
+
 .hdfc-single-checkbox-label input[type="checkbox"] {
-  margin-top: 3px;
-  width: 18px;
-  height: 18px;
-  accent-color: #004C8A;
-  cursor: pointer;
-  flex-shrink: 0;
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    accent-color: #004C8A;
+    cursor: pointer;
+    flex-shrink: 0;
 }
+
 .hdfc-single-consent-section {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
+
 .hdfc-single-submit {
-  padding: 16px 32px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  transition: opacity 0.2s, background-color 0.2s;
-  margin-top: 8px;
+    padding: 16px 32px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s, background-color 0.2s;
+    margin-top: 8px;
 }
+
 .hdfc-single-submit:hover:not(:disabled) {
-  opacity: 0.95;
+    opacity: 0.95;
 }
+
 .hdfc-single-submit:disabled {
-  cursor: not-allowed;
-  opacity: 0.7;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
+
 .hdfc-single-footer {
-  padding: 14px 24px;
-  margin-top: auto;
+    padding: 14px 24px;
+    margin-top: auto;
 }
+
 .hdfc-single-footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #fff;
-  font-size: 13px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    font-size: 13px;
 }
+
 .hdfc-single-save {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
 }
+
 .hdfc-single-save:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 /* ========== YES BANK SINGLE PAGE (Name + PAN only, close on No) ========== */
 /* YES Bank: light blue-gray theme (brand #132744 blue / #C4122E red) */
-.yes-single-page { min-height: 100vh; display: flex; flex-direction: column; background: #e8eef5; }
-.yes-single-header { padding: 14px 24px; }
-.yes-single-header-inner { max-width: 800px; margin: 0 auto; }
-.yes-single-logo { height: 36px; width: auto; object-fit: contain; filter: brightness(0) invert(1); }
-.yes-single-form-wrap { flex: 1; max-width: 480px; margin: 0 auto; padding: 40px 24px; width: 100%; }
-.yes-single-question { font-size: 22px; font-weight: 700; color: #1e293b; text-align: center; margin: 0 0 24px; border-bottom: 2px solid #C4122E; padding-bottom: 16px; display: inline-block; width: 100%; }
-.yes-single-options { display: flex; gap: 16px; justify-content: center; margin-bottom: 12px; }
-.yes-single-option { padding: 14px 28px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; border: 2px solid #e2e8f0; background: #fff; }
-.yes-single-option-yes:hover { background: #fef2f2; }
-.yes-single-option-no { color: #64748b; }
-.yes-single-option-no:hover { background: #f1f5f9; }
-.yes-single-note { font-size: 13px; color: #64748b; text-align: center; margin: 0; }
-.yes-single-form { display: flex; flex-direction: column; gap: 20px; }
-.yes-single-title { font-size: 20px; font-weight: 700; color: #132744; margin: 0 0 4px; }
-.yes-single-subtitle { font-size: 14px; color: #64748b; margin: 0 0 20px; }
-.yes-single-field { display: flex; flex-direction: column; gap: 6px; }
-.yes-single-label { font-size: 14px; font-weight: 600; color: #1e293b; }
-.yes-single-input { padding: 12px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; background: #fff; }
-.yes-single-input:focus { outline: none; border-color: #C4122E; box-shadow: 0 0 0 3px rgba(196,18,46,0.12); }
-.yes-single-submit { padding: 16px 24px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; color: #fff; cursor: pointer; }
-.yes-single-submit:disabled { cursor: not-allowed; opacity: 0.7; }
-.yes-single-footer { padding: 14px 24px; text-align: center; font-size: 12px; color: #64748b; border-top: 1px solid #e2e8f0; }
-.yes-single-close-message { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; }
-.yes-single-close-hint { font-size: 13px; color: #64748b; margin-top: 8px; }
-.yes-single-close-btn { margin-top: 20px; padding: 12px 24px; border: none; border-radius: 8px; color: #fff; font-weight: 600; cursor: pointer; }
+.yes-single-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #e8eef5;
+}
+
+.yes-single-header {
+    padding: 14px 24px;
+}
+
+.yes-single-header-inner {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.yes-single-logo {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.yes-single-form-wrap {
+    flex: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    width: 100%;
+}
+
+.yes-single-question {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: center;
+    margin: 0 0 24px;
+    border-bottom: 2px solid #C4122E;
+    padding-bottom: 16px;
+    display: inline-block;
+    width: 100%;
+}
+
+.yes-single-options {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.yes-single-option {
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid #e2e8f0;
+    background: #fff;
+}
+
+.yes-single-option-yes:hover {
+    background: #fef2f2;
+}
+
+.yes-single-option-no {
+    color: #64748b;
+}
+
+.yes-single-option-no:hover {
+    background: #f1f5f9;
+}
+
+.yes-single-note {
+    font-size: 13px;
+    color: #64748b;
+    text-align: center;
+    margin: 0;
+}
+
+.yes-single-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.yes-single-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #132744;
+    margin: 0 0 4px;
+}
+
+.yes-single-subtitle {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 20px;
+}
+
+.yes-single-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.yes-single-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.yes-single-input {
+    padding: 12px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #fff;
+}
+
+.yes-single-input:focus {
+    outline: none;
+    border-color: #C4122E;
+    box-shadow: 0 0 0 3px rgba(196, 18, 46, 0.12);
+}
+
+.yes-single-submit {
+    padding: 16px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+
+.yes-single-submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.yes-single-footer {
+    padding: 14px 24px;
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+}
+
+.yes-single-close-message {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    text-align: center;
+}
+
+.yes-single-close-hint {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 8px;
+}
+
+.yes-single-close-btn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
 
 /* ========== AXIS BANK SINGLE PAGE (3rd + 4.0/4.1 as two sections) ========== */
 /* Axis Bank: light maroon/pink theme (brand #8B0040) */
-.axis-single-page { min-height: 100vh; display: flex; flex-direction: column; background: #fdf2f8; }
-.axis-single-header { padding: 12px 24px; }
-.axis-single-header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.axis-single-logo { height: 36px; width: auto; object-fit: contain; filter: brightness(0) invert(1); }
-.axis-single-tagline { color: #fff; font-size: 14px; font-weight: 600; }
-.axis-single-header-links { margin-left: auto; display: flex; gap: 16px; }
-.axis-single-header-links a { color: #fff; font-size: 14px; text-decoration: none; }
-.axis-single-body { flex: 1; max-width: 1200px; margin: 0 auto; padding: 32px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
-@media (max-width: 900px) { .axis-single-body { grid-template-columns: 1fr; } }
-.axis-single-left { background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); padding: 32px; border-radius: 16px; }
-.axis-single-dream { font-size: 24px; font-weight: 700; color: #831843; margin: 0 0 20px; }
-.axis-single-benefits { list-style: none; padding: 0; margin: 0; font-size: 15px; color: #4a044e; }
-.axis-single-benefits li { margin-bottom: 10px; padding-left: 24px; position: relative; }
-.axis-single-benefits li::before { content: '✓'; position: absolute; left: 0; font-weight: 700; color: #8B0040; }
-.axis-single-right { background: #fff; padding: 32px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
-.axis-single-form { display: flex; flex-direction: column; gap: 18px; }
-.axis-single-section-title { font-size: 16px; font-weight: 700; color: #8B0040; margin: 0 0 8px; }
-.axis-single-field { display: flex; flex-direction: column; gap: 6px; }
-.axis-single-field label { font-size: 14px; font-weight: 600; color: #1e293b; }
-.axis-single-field input[type="text"] { padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 15px; }
-.axis-single-field input:focus { outline: none; border-color: #8B0040; box-shadow: 0 0 0 2px rgba(139,0,64,0.15); }
-.axis-single-hint { font-size: 12px; color: #64748b; margin: 0; }
-.axis-single-gender { display: flex; gap: 16px; flex-wrap: wrap; }
-.axis-single-gender label { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; padding: 8px 14px; border: 2px solid #e2e8f0; border-radius: 8px; }
-.axis-single-gender label.selected { border-color: #8B0040; background: #fdf2f8; color: #8B0040; font-weight: 600; }
-.axis-single-bank-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.axis-single-bank-chips button { padding: 8px 14px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 13px; background: #fff; cursor: pointer; }
-.axis-single-bank-chips button.selected { background: #8B0040; color: #fff; border-color: #8B0040; }
-.axis-single-address-label { margin-bottom: 4px; }
-.axis-single-address-fields { display: flex; flex-direction: column; gap: 10px; }
-.axis-single-consents { display: flex; flex-direction: column; gap: 12px; font-size: 13px; color: #475569; }
-.axis-single-consents label { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; }
-.axis-single-consents input[type="checkbox"] { margin-top: 3px; accent-color: #8B0040; }
-.axis-single-consents a { color: #8B0040; }
-.axis-single-submit { padding: 16px 24px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; color: #fff; cursor: pointer; margin-top: 8px; }
-.axis-single-submit:disabled { cursor: not-allowed; opacity: 0.7; }
+.axis-single-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #fdf2f8;
+}
+
+.axis-single-header {
+    padding: 12px 24px;
+}
+
+.axis-single-header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.axis-single-logo {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.axis-single-tagline {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.axis-single-header-links {
+    margin-left: auto;
+    display: flex;
+    gap: 16px;
+}
+
+.axis-single-header-links a {
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.axis-single-body {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .axis-single-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+.axis-single-left {
+    background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+    padding: 32px;
+    border-radius: 16px;
+}
+
+.axis-single-dream {
+    font-size: 24px;
+    font-weight: 700;
+    color: #831843;
+    margin: 0 0 20px;
+}
+
+.axis-single-benefits {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 15px;
+    color: #4a044e;
+}
+
+.axis-single-benefits li {
+    margin-bottom: 10px;
+    padding-left: 24px;
+    position: relative;
+}
+
+.axis-single-benefits li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    color: #8B0040;
+}
+
+.axis-single-right {
+    background: #fff;
+    padding: 32px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.axis-single-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.axis-single-section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #8B0040;
+    margin: 0 0 8px;
+}
+
+.axis-single-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.axis-single-field label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.axis-single-field input[type="text"] {
+    padding: 12px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.axis-single-field input:focus {
+    outline: none;
+    border-color: #8B0040;
+    box-shadow: 0 0 0 2px rgba(139, 0, 64, 0.15);
+}
+
+.axis-single-hint {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
+}
+
+.axis-single-gender {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.axis-single-gender label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.axis-single-gender label.selected {
+    border-color: #8B0040;
+    background: #fdf2f8;
+    color: #8B0040;
+    font-weight: 600;
+}
+
+.axis-single-bank-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.axis-single-bank-chips button {
+    padding: 8px 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 13px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.axis-single-bank-chips button.selected {
+    background: #8B0040;
+    color: #fff;
+    border-color: #8B0040;
+}
+
+.axis-single-address-label {
+    margin-bottom: 4px;
+}
+
+.axis-single-address-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.axis-single-consents {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 13px;
+    color: #475569;
+}
+
+.axis-single-consents label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.axis-single-consents input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: #8B0040;
+}
+
+.axis-single-consents a {
+    color: #8B0040;
+}
+
+.axis-single-submit {
+    padding: 16px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+.axis-single-submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
 
 /* ========== KOTAK SINGLE PAGE (Existing/New option then form) ========== */
 /* Kotak Bank: light cyan theme (brand #00AEEF) */
-.kotak-single-page { min-height: 100vh; display: flex; flex-direction: column; background: #ecfdff; }
-.kotak-single-header { padding: 20px 24px; border-bottom: 1px solid #bae6fd; background: #fff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
-.kotak-single-logo { height: 40px; width: auto; object-fit: contain; }
-.kotak-single-steps { display: flex; gap: 24px; font-size: 14px; color: #64748b; }
-.kotak-single-steps .active { color: #00AEEF; font-weight: 700; }
-.kotak-single-choice-wrap { flex: 1; max-width: 480px; margin: 0 auto; padding: 60px 24px; text-align: center; }
-.kotak-single-choice-title { font-size: 22px; font-weight: 700; color: #1e293b; margin: 0 0 12px; }
-.kotak-single-choice-hint { font-size: 14px; color: #64748b; margin: 0 0 28px; }
-.kotak-single-choice-btns { display: flex; flex-direction: column; gap: 12px; }
-.kotak-single-choice-btn { padding: 16px 24px; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; color: #fff; }
-.kotak-single-choice-yes { }
-.kotak-single-choice-no { background: #e2e8f0; color: #475569; }
-.kotak-single-choice-no:hover { background: #cbd5e1; }
-.kotak-single-form-wrap { flex: 1; max-width: 560px; margin: 0 auto; padding: 32px 24px; }
-.kotak-single-title { font-size: 22px; font-weight: 700; color: #1e293b; margin: 0 0 8px; }
-.kotak-single-subtitle { font-size: 14px; color: #64748b; margin: 0 0 16px; }
-.kotak-single-features { list-style: none; padding: 0; margin: 0 0 24px; font-size: 14px; color: #475569; }
-.kotak-single-features li { margin-bottom: 6px; padding-left: 20px; position: relative; }
-.kotak-single-features li::before { content: '•'; position: absolute; left: 0; color: #00AEEF; font-weight: 700; }
-.kotak-single-form { display: flex; flex-direction: column; gap: 18px; }
-.kotak-single-field { display: flex; flex-direction: column; gap: 6px; }
-.kotak-single-field label { font-size: 14px; font-weight: 600; color: #1e293b; }
-.kotak-single-field input[type="text"], .kotak-single-field input[type="email"], .kotak-single-field input[type="tel"] { padding: 12px 14px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 15px; }
-.kotak-single-field input:focus { outline: none; border-color: #00AEEF; box-shadow: 0 0 0 2px rgba(0,174,239,0.2); }
-.kotak-single-mobile { display: flex; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-.kotak-single-mobile:focus-within { border-color: #00AEEF; box-shadow: 0 0 0 2px rgba(0,174,239,0.2); }
-.kotak-single-country { padding: 12px 14px; background: #f1f5f9; font-weight: 600; color: #475569; border-right: 1px solid #e2e8f0; }
-.kotak-single-mobile input { flex: 1; border: none; padding: 12px 14px; }
-.kotak-single-rupee { display: flex; align-items: center; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-.kotak-single-rupee span { padding: 12px 14px; background: #f1f5f9; font-weight: 600; color: #475569; border-right: 1px solid #e2e8f0; }
-.kotak-single-rupee input { flex: 1; border: none; padding: 12px 14px; }
-.kotak-single-hint { font-size: 12px; color: #64748b; margin: 0; }
-.kotak-single-employment { display: flex; gap: 16px; flex-wrap: wrap; }
-.kotak-single-employment label { display: flex; align-items: center; gap: 8px; font-size: 14px; cursor: pointer; padding: 10px 16px; border: 2px solid #e2e8f0; border-radius: 8px; }
-.kotak-single-employment label.selected { border-color: #00AEEF; background: #ecfdff; color: #0369a1; font-weight: 600; }
-.kotak-single-cities { display: flex; flex-wrap: wrap; gap: 8px; }
-.kotak-single-cities button { padding: 10px 16px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 14px; background: #fff; color: #475569; cursor: pointer; }
-.kotak-single-cities button.selected { color: #fff; border-color: transparent; }
-.kotak-single-submit { padding: 16px 24px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; color: #fff; cursor: pointer; }
-.kotak-single-submit:disabled { cursor: not-allowed; opacity: 0.7; }
-.kotak-single-docs { font-size: 13px; color: #64748b; margin-top: 24px; padding-top: 16px; border-top: 1px solid #e2e8f0; }
+.kotak-single-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ecfdff;
+}
 
+.kotak-single-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #bae6fd;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.kotak-single-logo {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.kotak-single-steps {
+    display: flex;
+    gap: 24px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.kotak-single-steps .active {
+    color: #00AEEF;
+    font-weight: 700;
+}
+
+.kotak-single-choice-wrap {
+    flex: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 60px 24px;
+    text-align: center;
+}
+
+.kotak-single-choice-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 12px;
+}
+
+.kotak-single-choice-hint {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 28px;
+}
+
+.kotak-single-choice-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.kotak-single-choice-btn {
+    padding: 16px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #fff;
+}
+
+.kotak-single-choice-yes {}
+
+.kotak-single-choice-no {
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.kotak-single-choice-no:hover {
+    background: #cbd5e1;
+}
+
+.kotak-single-form-wrap {
+    flex: 1;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+.kotak-single-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 8px;
+}
+
+.kotak-single-subtitle {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0 0 16px;
+}
+
+.kotak-single-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    font-size: 14px;
+    color: #475569;
+}
+
+.kotak-single-features li {
+    margin-bottom: 6px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.kotak-single-features li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #00AEEF;
+    font-weight: 700;
+}
+
+.kotak-single-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.kotak-single-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.kotak-single-field label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.kotak-single-field input[type="text"],
+.kotak-single-field input[type="email"],
+.kotak-single-field input[type="tel"] {
+    padding: 12px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.kotak-single-field input:focus {
+    outline: none;
+    border-color: #00AEEF;
+    box-shadow: 0 0 0 2px rgba(0, 174, 239, 0.2);
+}
+
+.kotak-single-mobile {
+    display: flex;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.kotak-single-mobile:focus-within {
+    border-color: #00AEEF;
+    box-shadow: 0 0 0 2px rgba(0, 174, 239, 0.2);
+}
+
+.kotak-single-country {
+    padding: 12px 14px;
+    background: #f1f5f9;
+    font-weight: 600;
+    color: #475569;
+    border-right: 1px solid #e2e8f0;
+}
+
+.kotak-single-mobile input {
+    flex: 1;
+    border: none;
+    padding: 12px 14px;
+}
+
+.kotak-single-rupee {
+    display: flex;
+    align-items: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.kotak-single-rupee span {
+    padding: 12px 14px;
+    background: #f1f5f9;
+    font-weight: 600;
+    color: #475569;
+    border-right: 1px solid #e2e8f0;
+}
+
+.kotak-single-rupee input {
+    flex: 1;
+    border: none;
+    padding: 12px 14px;
+}
+
+.kotak-single-hint {
+    font-size: 12px;
+    color: #64748b;
+    margin: 0;
+}
+
+.kotak-single-employment {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.kotak-single-employment label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 10px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.kotak-single-employment label.selected {
+    border-color: #00AEEF;
+    background: #ecfdff;
+    color: #0369a1;
+    font-weight: 600;
+}
+
+.kotak-single-cities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.kotak-single-cities button {
+    padding: 10px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    background: #fff;
+    color: #475569;
+    cursor: pointer;
+}
+
+.kotak-single-cities button.selected {
+    color: #fff;
+    border-color: transparent;
+}
+
+.kotak-single-submit {
+    padding: 16px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+}
+
+.kotak-single-submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.kotak-single-docs {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+}

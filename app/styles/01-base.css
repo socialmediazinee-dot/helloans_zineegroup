@@ -90,8 +90,17 @@ html {
 .main-body,
 main,
 section,
-h1, h2, h3, h4, h5, h6,
-p, li, td, th, label,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+td,
+th,
+label,
 .section-title,
 .testimonials-title,
 .loan-tiles-title,
@@ -275,7 +284,7 @@ p, li, td, th, label,
 /* Main Header - Second Fixed Header (stays on top when scrolling) */
 .main-header {
     position: fixed;
-    top: 40px;
+    top: calc(40px + env(safe-area-inset-top, 0px));
     /* Bottom of Stock Ticker */
     left: 0;
     right: 0;
@@ -332,6 +341,7 @@ p, li, td, th, label,
     border-radius: 12px;
     overflow: visible;
 }
+
 .logo-glass-inner {
     position: relative;
     display: inline-block;
@@ -348,6 +358,7 @@ p, li, td, th, label,
         inset 0 -1px 0 rgba(0, 0, 0, 0.04);
     overflow: hidden;
 }
+
 .logo-glass-inner::after {
     content: '';
     position: absolute;
@@ -355,18 +366,27 @@ p, li, td, th, label,
     left: -100%;
     width: 60%;
     height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.4),
-        transparent
-    );
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent);
     animation: logo-shimmer 3.5s ease-in-out infinite;
 }
+
 @keyframes logo-shimmer {
-    0%, 100% { left: -100%; opacity: 0.6; }
-    50% { left: 120%; opacity: 0.8; }
+
+    0%,
+    100% {
+        left: -100%;
+        opacity: 0.6;
+    }
+
+    50% {
+        left: 120%;
+        opacity: 0.8;
+    }
 }
+
 .logo-glass-wrap:hover .logo-glass-inner {
     background: rgba(255, 255, 255, 0.35);
     box-shadow:
@@ -375,6 +395,7 @@ p, li, td, th, label,
         inset 0 1px 0 rgba(255, 255, 255, 0.95),
         inset 0 -1px 0 rgba(0, 0, 0, 0.05);
 }
+
 .logo-glass-inner img {
     position: relative;
     z-index: 1;
@@ -415,7 +436,7 @@ html[lang="hi"] .logo {
 }
 
 .hamburger-line.open:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
+    transform: rotate(45deg) translate(6px, 6px);
 }
 
 .hamburger-line.open:nth-child(2) {
@@ -423,7 +444,7 @@ html[lang="hi"] .logo {
 }
 
 .hamburger-line.open:nth-child(3) {
-    transform: rotate(-45deg) translate(7px, -7px);
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 .main-nav {
@@ -582,6 +603,66 @@ html[lang="hi"] .logo {
     .header-actions .chatbot-toggle svg {
         width: 18px;
         height: 18px;
+    }
+}
+
+/* Extra-compact header controls on small mobile */
+@media (max-width: 768px) {
+    .header-actions {
+        gap: 4px;
+    }
+
+    .login-dropdown-button,
+    .language-switcher-button {
+        height: 32px;
+        padding: 0 6px;
+        min-width: auto;
+        gap: 2px;
+        font-size: 10px;
+    }
+
+    .login-dropdown-text,
+    .language-switcher-text {
+        display: none;
+    }
+
+    .login-dropdown-icon,
+    .language-switcher-icon {
+        width: 12px;
+        height: 12px;
+    }
+
+    .login-dropdown-chevron,
+    .language-switcher-chevron {
+        width: 9px;
+        height: 9px;
+    }
+
+    /* Make chat icon match login/language height and be compact */
+    .main-header .header-actions .lc-toggle {
+        height: 32px;
+        width: 32px;
+        min-width: 32px;
+        padding: 0;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .main-header .header-actions .lc-toggle svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .main-header .header-actions .lc-toggle .lc-toggle-label {
+        display: none;
+    }
+
+    /* Reduce extra space after hamburger on small mobile */
+    .main-header .container {
+        padding-right: 4px;
+        padding-left: 6px;
     }
 }
 
@@ -823,6 +904,7 @@ html[lang="hi"] .logo {
     align-items: center;
     justify-content: center;
 }
+
 .nav-link-apply-now .nav-link-apply-now-text {
     display: flex;
     flex-direction: column;
@@ -830,12 +912,14 @@ html[lang="hi"] .logo {
     line-height: 1.15;
     text-transform: uppercase;
 }
+
 .nav-link-apply-now .nav-link-apply-now-line1,
 .nav-link-apply-now .nav-link-apply-now-line2 {
     display: block;
     font-weight: 600;
     font-size: 1em;
 }
+
 .nav-link-apply-now {
     font-size: 1.15em;
     padding: 10px 18px;
@@ -843,14 +927,12 @@ html[lang="hi"] .logo {
     overflow: hidden;
     isolation: isolate;
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(249, 115, 22, 0.22) 0%,
             rgba(251, 146, 60, 0.14) 35%,
             rgba(255, 255, 255, 0.18) 55%,
             rgba(250, 204, 21, 0.12) 75%,
-            rgba(249, 115, 22, 0.18) 100%
-        ) !important;
+            rgba(249, 115, 22, 0.18) 100%) !important;
     backdrop-filter: blur(36px) saturate(1.8) brightness(1.12) !important;
     -webkit-backdrop-filter: blur(36px) saturate(1.8) brightness(1.12) !important;
     border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
@@ -879,13 +961,11 @@ html[lang="hi"] .logo {
     left: 0 !important;
     right: 0 !important;
     height: 55% !important;
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.50) 0%,
-        rgba(255, 255, 255, 0.18) 30%,
-        rgba(255, 255, 255, 0.04) 60%,
-        transparent 100%
-    ) !important;
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.50) 0%,
+            rgba(255, 255, 255, 0.18) 30%,
+            rgba(255, 255, 255, 0.04) 60%,
+            transparent 100%) !important;
     border-radius: 18px 18px 0 0 !important;
     inset: unset !important;
     opacity: 1 !important;
@@ -904,22 +984,16 @@ html[lang="hi"] .logo {
     height: 120% !important;
     bottom: unset !important;
     background:
-        radial-gradient(
-            ellipse 55% 40% at 25% 20%,
+        radial-gradient(ellipse 55% 40% at 25% 20%,
             rgba(251, 146, 60, 0.20) 0%,
-            transparent 55%
-        ),
-        radial-gradient(
-            ellipse 50% 35% at 75% 15%,
+            transparent 55%),
+        radial-gradient(ellipse 50% 35% at 75% 15%,
             rgba(250, 204, 21, 0.15) 0%,
-            transparent 50%
-        ),
-        radial-gradient(
-            ellipse 70% 50% at 50% 5%,
+            transparent 50%),
+        radial-gradient(ellipse 70% 50% at 50% 5%,
             rgba(255, 255, 255, 0.28) 0%,
             rgba(255, 220, 180, 0.08) 35%,
-            transparent 60%
-        ) !important;
+            transparent 60%) !important;
     border-radius: 0 !important;
     opacity: 1 !important;
     transform: translateX(0) !important;
@@ -933,10 +1007,12 @@ html[lang="hi"] .logo {
         transform: translateX(0%) translateY(0%) scale(1);
         opacity: 0.75;
     }
+
     50% {
         transform: translateX(4%) translateY(-3%) scale(1.03);
         opacity: 1;
     }
+
     100% {
         transform: translateX(-2%) translateY(1%) scale(0.98);
         opacity: 0.85;
@@ -946,14 +1022,12 @@ html[lang="hi"] .logo {
 .nav-link-apply-now:hover {
     transform: translateY(-2px) !important;
     background:
-        linear-gradient(
-            135deg,
+        linear-gradient(135deg,
             rgba(249, 115, 22, 0.28) 0%,
             rgba(251, 146, 60, 0.18) 35%,
             rgba(255, 255, 255, 0.22) 55%,
             rgba(250, 204, 21, 0.16) 75%,
-            rgba(249, 115, 22, 0.22) 100%
-        ) !important;
+            rgba(249, 115, 22, 0.22) 100%) !important;
     box-shadow:
         0 2px 4px rgba(249, 115, 22, 0.08),
         0 8px 20px rgba(249, 115, 22, 0.14),
@@ -965,11 +1039,13 @@ html[lang="hi"] .logo {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .nav-link-apply-now,
     .nav-link-apply-now:hover {
         transition: none !important;
         transform: none !important;
     }
+
     .nav-link-apply-now::after {
         animation: none;
     }
@@ -1724,6 +1800,7 @@ html[lang="hi"] .btn-call-label {
    preventing system overheat during development.
    ─────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {
@@ -1734,12 +1811,25 @@ html[lang="hi"] .btn-call-label {
     }
 
     .text-amorph,
-    h1, h2, h3, h4, h5, h6,
-    .section-title, .trust-title, .trust-title-text,
-    .footer-heading, .product-card h3, .top-header p,
-    .stock-symbol, .testimonial-footer-name, .offer-highlight,
-    .highlight::before, .highlight-box::before,
-    .vector-background::before, .vector-background::after,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .section-title,
+    .trust-title,
+    .trust-title-text,
+    .footer-heading,
+    .product-card h3,
+    .top-header p,
+    .stock-symbol,
+    .testimonial-footer-name,
+    .offer-highlight,
+    .highlight::before,
+    .highlight-box::before,
+    .vector-background::before,
+    .vector-background::after,
     .trust-section::before {
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
