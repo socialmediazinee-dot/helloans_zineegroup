@@ -853,12 +853,15 @@
    ========================================================================== */
 
 .promo-strip-spacer {
-    height: 0px;
+    /* Small gap on mobile so strip isn’t under fixed header */
+    height: 8px;
 }
 
 @media (min-width: 769px) {
     .promo-strip-spacer {
-        height: 16vh;
+        /* Enough space so the strip sits below the fixed main header */
+        height: 24vh;
+        min-height: 128px;
     }
 }
 
@@ -866,6 +869,8 @@
     width: 100%;
     max-width: 100%;
     margin: 0;
+    /* Extra top margin so strip is not hidden by fixed header */
+    margin-top: 12px;
     background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
