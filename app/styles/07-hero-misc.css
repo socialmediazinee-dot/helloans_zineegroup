@@ -854,14 +854,14 @@
 
 .promo-strip-spacer {
     /* Small gap on mobile so strip isn’t under fixed header */
-    height: 8px;
+    height: 7px;
 }
 
 @media (min-width: 769px) {
     .promo-strip-spacer {
-        /* Enough space so the strip sits below the fixed main header */
-        height: 24vh;
-        min-height: 128px;
+        /* Enough space so the strip sits below the fixed main header (90% of 24vh/128px) */
+        height: 21.6vh;
+        min-height: 115px;
     }
 }
 
@@ -869,8 +869,8 @@
     width: 100%;
     max-width: 100%;
     margin: 0;
-    /* Extra top margin so strip is not hidden by fixed header */
-    margin-top: 12px;
+    /* Extra top margin so strip is not hidden by fixed header (90% of 12px) */
+    margin-top: 11px;
     background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);

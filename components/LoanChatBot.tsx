@@ -813,8 +813,14 @@ function LoanChatBotInner({
   }
 
   function handleClose() {
-    if (embedded && onClose) {
-      onClose()
+    if (embedded) {
+      if (onClose) {
+        onClose()
+      } else {
+        setContactData({ name: '', number: '' })
+        setCurrentFlow('initial')
+        initChat()
+      }
     } else {
       setIsOpen(false)
       setTimeout(() => {
