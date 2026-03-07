@@ -523,10 +523,19 @@ function LoanChatBotInner({
     requestAnimationFrame(() => {
       const container = messagesContainerRef.current
       if (!container) return
-      container.scrollTo({
-        top: container.scrollHeight,
-        behavior: 'smooth',
-      })
+      const userEl = lastUserMsgRef.current
+      if (userEl) {
+        const cr = container.getBoundingClientRect()
+        const ur = userEl.getBoundingClientRect()
+        const userPositionInContent = container.scrollTop + (ur.top - cr.top)
+        const targetScroll = Math.max(0, userPositionInContent - 24)
+        container.scrollTo({ top: targetScroll, behavior: 'smooth' })
+      } else {
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: 'smooth',
+        })
+      }
     })
   }, [messages])
 
