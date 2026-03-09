@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import OtpVerification from '@/components/OtpVerification'
 
+
 const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis', 'bajaj', 'adityabirla', 'tata', 'cholamandalam', 'poonawalla', 'piramal', 'pnb', 'sbi', 'canara', 'bob'] as const
 
 const bankInfo: Record<string, { name: string; logo?: string; color: string; primaryColor: string }> = {
@@ -107,6 +108,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
   const [panPreview, setPanPreview] = useState<string | null>(null)
   const [aadhaarPreview, setAadhaarPreview] = useState<string | null>(null)
   const [filePreviews, setFilePreviews] = useState<Record<string, string | null>>({})
+  const [openLegalModal, setOpenLegalModal] = useState<'privacy' | null>(null)
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isApplied, setIsApplied] = useState(false)
@@ -797,10 +799,36 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
                 </button>
 
                 <p className="form-footer-text">
-                  By applying, you agree to our <a href="#" className="footer-link" style={{ color: bank.primaryColor }}>Terms</a> &amp; <a href="#" className="footer-link" style={{ color: bank.primaryColor }}>Privacy Policy</a>
+                  By applying, you agree to our{' '}
+                  <button
+                    type="button"
+                    className="footer-link footer-link-button"
+                    style={{ color: bank.primaryColor }}
+                    onClick={() => setOpenLegalModal('privacy')}
+                  >
+                    T&amp;C
+                  </button>
                 </p>
               </div>
             </form>
+          </div>
+        </div>
+        
+      )}
+            {openLegalModal === 'privacy' && (
+        <div className="legal-modal-backdrop" onClick={() => setOpenLegalModal(null)}>
+          <div className="legal-modal" onClick={(e) => e.stopPropagation()}>
+            <h2 className="legal-modal-title">Privacy Policy</h2>
+
+            <div className="legal-modal-body">
+              <p><strong>Privacy Policy</strong> explains how the bank collects, uses, stores and shares your personal data.</p>
+              <p>The bank collects personal, financial, device and transaction information when you use its products or services.</p>
+              <p>Data may come from applications, transactions, website or app usage, third parties or public sources.</p>
+              <p>The data is used for account services, credit checks, fraud prevention, security, legal compliance, customer support and improving services.</p>
+              <p>Your data may be shared with partners, service providers, regulators and payment networks when necessary.</p>
+              <p>The bank stores data as long as required by law or business needs and uses security measures to protect it.</p>
+              <p>You can review, correct or withdraw consent for your data by contacting the bank.</p>
+            </div>
           </div>
         </div>
       )}
