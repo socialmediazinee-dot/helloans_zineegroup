@@ -4128,7 +4128,7 @@ body:has(.bank-app-page-wrapper) {
 
 .emi-monthly-th-month,
 .emi-monthly-th-num {
-    text-align: center;
+    text-align: right;
 }
 
 .emi-monthly-th-month {
@@ -4146,7 +4146,7 @@ body:has(.bank-app-page-wrapper) {
 
 .emi-monthly-td-month,
 .emi-monthly-td-num {
-    text-align: center;
+    text-align: right;
     font-variant-numeric: tabular-nums;
 }
 

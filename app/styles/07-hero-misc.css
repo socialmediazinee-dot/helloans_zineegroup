@@ -3,9 +3,9 @@
    ========================================================================== */
 
 .hero-section {
-    width: 100%;
-    max-width: 1600px;
-    margin: 0 auto;
+    width: 110%;
+    max-width: 1760px;
+    margin: 0 -5%;
     padding: 40px 0 !important;
     min-height: auto !important;
     display: flex !important;
@@ -867,8 +867,9 @@
 
 .promo-strip {
     width: 100%;
-    max-width: 100%;
-    margin: 0;
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
     /* Extra top margin so strip is not hidden by fixed header */
     margin-top: 9px;
     background: rgba(255, 255, 255, 0.12);
@@ -876,7 +877,7 @@
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 14px;
-    padding: 20px 120px 20px 32px;
+    padding: 20px 20px 20px 32px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
@@ -948,7 +949,7 @@
 
 .promo-strip-image {
     position: absolute;
-    right: 4px;
+    right: 0px;
     top: 50%;
     width: 100px;
     height: 110px;
@@ -968,7 +969,7 @@
 /* Responsive */
 @media (max-width: 768px) {
     .promo-strip {
-        padding: 12px 60px 12px 12px;
+        padding: 12px 12px 12px 12px;
         border-radius: 0;
     }
 
@@ -980,13 +981,20 @@
         font-size: 12px;
     }
 
+    .promo-strip-inner {
+        gap: 12px;
+    }
+
     .promo-line-3 {
         font-size: 11px;
     }
 
     .promo-strip-image {
-        width: 50px;
-        right: 4px;
+        position: static;          
+        transform: none;
+        width: 94px;
+        height: auto;
+        flex-shrink: 0;
     }
 }
 
@@ -998,7 +1006,7 @@
     }
 
     .promo-strip {
-        padding: 10px 54px 10px 12px;
+        padding: 10px 11px 10px 12px;
     }
 
     .promo-line {
@@ -1018,7 +1026,7 @@
     }
 
     .promo-strip-image {
-        width: 44px;
+        width: 98px;
         right: 4px;
     }
 }
