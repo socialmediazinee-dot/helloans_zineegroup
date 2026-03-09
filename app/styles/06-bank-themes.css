@@ -4128,6 +4128,16 @@ body:has(.bank-app-page-wrapper) {
 
 .emi-monthly-th-month,
 .emi-monthly-th-num {
+    padding: 10px 12px;
+    background: yellow;
+    color: #475569;
+    font-weight: 600;
+               
+    border-right: 1px solid #cbd5e1;
+}
+
+.emi-monthly-table th.emi-monthly-th-month,
+.emi-monthly-table th.emi-monthly-th-num {
     text-align: right;
 }
 
@@ -4147,7 +4157,6 @@ body:has(.bank-app-page-wrapper) {
 .emi-monthly-td-month,
 .emi-monthly-td-num {
     text-align: right;
-    font-variant-numeric: tabular-nums;
 }
 
 .emi-monthly-table tr:nth-child(even) {

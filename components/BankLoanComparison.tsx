@@ -71,7 +71,7 @@ function CompareSection({
 }) {
   const { t } = useLanguage()
 
-  const banks = useMemo(() => allEntries.filter((e) => e.type === 'bank'), [allEntries])
+  const banks = useMemo(() => allEntries, [allEntries])
   const nbfcs = useMemo(() => allEntries.filter((e) => e.type === 'nbfc'), [allEntries])
 
   const [selectedBanks, setSelectedBanks] = useState<(LoanEntry | null)[]>([null, null])

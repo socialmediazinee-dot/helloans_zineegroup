@@ -818,7 +818,14 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
             {openLegalModal === 'privacy' && (
         <div className="legal-modal-backdrop" onClick={() => setOpenLegalModal(null)}>
           <div className="legal-modal" onClick={(e) => e.stopPropagation()}>
-            <h2 className="legal-modal-title">Privacy Policy</h2>
+          <button
+              type="button"
+              className="legal-modal-close"
+              onClick={() => setOpenLegalModal(null)}
+            >
+              ✕
+            </button>
+            <h2 className="legal-modal-title shimmer-text">Privacy Policy</h2>
 
             <div className="legal-modal-body">
               <p><strong>Privacy Policy</strong> explains how the bank collects, uses, stores and shares your personal data.</p>

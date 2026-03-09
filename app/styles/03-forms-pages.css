@@ -2803,6 +2803,16 @@
     flex-direction: column;
     overflow: hidden;
   }
+
+  .legal-modal-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 4px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
   
   .legal-modal-title {
     font-size: 20px;
@@ -2810,13 +2820,11 @@
     margin: 0 0 12px;
   }
   
-  .legal-modal-body {
-    flex: 1;
-    overflow-y: auto;
-    padding-right: 4px;
-    font-size: 13px;
-    line-height: 1.6;
-    
+  .legal-modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 16px;
+    text-align: center;
   }
   
   .legal-modal-close {
@@ -2841,6 +2849,17 @@
     cursor: pointer;
   }
 
+@media (max-width: 480px) {
+  .legal-modal {
+    width: calc(100% - 24px);
+    max-height: 85vh;
+    padding: 20px 16px 16px;
+  }
+
+  .legal-modal-body {
+    padding-top: 4px;
+  }
+}
 
 @media (max-width: 600px) {
     .loan-step-indicator {
