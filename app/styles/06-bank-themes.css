@@ -3268,7 +3268,7 @@ body:has(.bank-app-page-wrapper) {
 }
 
 .requirements-clone {
-    margin-top: 0;
+    padding-top: 10px;
 }
 
 
@@ -3282,7 +3282,7 @@ body:has(.bank-app-page-wrapper) {
 .requirements-list {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;

@@ -22,8 +22,12 @@ export default function BusinessLoansPage() {
             <p>Business loan enables you to expand your business and network. It provides financial stability in your business.</p>
           </div>
 
-          <BankList offers={bankOffers['business-loans']} categoryTitle="Top Business Loan Offers" loanCategory="business-loans" />
-        </div>
+                    <BankList
+            offers={bankOffers['business-loans']}
+            categoryTitle={<>Top <span className="loan-title-shimmer">Business</span> Loan Offers</>}
+            loanCategory="business-loans"
+          />
+ </div>
       </main>
       <Footer />
     </>

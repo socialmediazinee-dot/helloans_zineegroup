@@ -21,10 +21,9 @@ export default function SecureLoansPage() {
           </div>
 
           <BankList
-            offers={bankOffers['secure-loans']}
-            categoryTitle="Banks & NBFCs offering Secure Loans"
-            loanCategory="secure-loans"
-          />
+  offers={bankOffers['secure-loans']}
+  categoryTitle={<>Banks &amp; NBFCs offering <span className="loan-title-shimmer">Secure Loans</span></>}
+/>
         </div>
       </main>
       <Footer />

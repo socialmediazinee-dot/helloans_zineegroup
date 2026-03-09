@@ -21,10 +21,9 @@ export default function ProfessionalLoansPage() {
           </div>
 
           <BankList
-            offers={bankOffers['professional-loans']}
-            categoryTitle="Professional Loan Offers"
-            loanCategory="professional-loans"
-          />
+  offers={bankOffers['professional-loans']}
+  categoryTitle={<>Top <span className="loan-title-shimmer">Professional</span> Loan Offers</>}
+/>
         </div>
       </main>
       <Footer />

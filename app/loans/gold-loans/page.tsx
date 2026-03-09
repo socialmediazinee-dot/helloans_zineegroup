@@ -21,10 +21,10 @@ export default function GoldLoansPage() {
                     </div>
 
                     <BankList
-                        offers={bankOffers['gold-loans']}
-                        categoryTitle="Top Gold Loan Offers"
-                        loanCategory="gold-loans"
-                    />
+  offers={bankOffers['home-loans']}
+  categoryTitle={<><span className="loan-title-shimmer">Home</span> Loan & LAP Offers</>}
+  loanCategory="home-loans"
+/>
                 </div>
             </main>
             <Footer />

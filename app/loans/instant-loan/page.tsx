@@ -21,10 +21,9 @@ export default function InstantLoanPage() {
           </div>
 
           <BankList
-            offers={bankOffers['instant-loan']}
-            categoryTitle="Banks & NBFCs offering Instant Loan"
-            loanCategory="instant-loan"
-          />
+          offers={bankOffers['instant-loan']}
+          categoryTitle={<>Banks &amp; NBFCs offering <span className="loan-title-shimmer">Instant Loan</span></>}
+        />
         </div>
       </main>
       <Footer />

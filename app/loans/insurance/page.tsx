@@ -20,8 +20,11 @@ export default function InsurancePage() {
                         <p>Secure your health and family's future with the best insurance policies available.</p>
                     </div>
 
-                    <BankList offers={bankOffers['insurance']} categoryTitle="Top Insurance Offers" loanCategory="insurance" />
-                </div>
+                    <BankList
+  offers={bankOffers['insurance']}
+  categoryTitle={<>Top <span className="loan-title-shimmer">Insurance</span> Offers</>}
+  loanCategory="insurance"
+/>                </div>
             </main>
             <Footer />
         </>

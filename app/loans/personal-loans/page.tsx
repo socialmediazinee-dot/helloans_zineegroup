@@ -22,8 +22,11 @@ export default function PersonalLoansPage() {
             <p>Whether it's for debt repayment or big life ambitions, a personal loan can be an excellent financial instrument.</p>
           </div>
 
-          <BankList offers={bankOffers['personal-loans']} categoryTitle="Top Personal Loan Offers" loanCategory="personal-loans" />
-        </div>
+          <BankList
+  offers={bankOffers['personal-loans']}
+  categoryTitle={<>Top <span className="loan-title-shimmer">Personal</span> Loan Offers</>}
+  loanCategory="personal-loans"
+/>        </div>
       </main>
       <Footer />
     </>

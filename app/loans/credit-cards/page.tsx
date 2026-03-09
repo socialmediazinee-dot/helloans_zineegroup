@@ -22,9 +22,9 @@ export default function CreditCardsPage() {
 
                     <BankList
                         offers={bankOffers['credit-cards']}
-                        categoryTitle="Top Credit Card Offers"
+                        categoryTitle={<>Top <span className="loan-title-shimmer">Credit</span> Card Offers</>}
                         loanCategory="credit-cards"
-                    />
+                        />
                 </div>
             </main>
             <Footer />

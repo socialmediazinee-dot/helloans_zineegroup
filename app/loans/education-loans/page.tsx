@@ -20,8 +20,11 @@ export default function EducationLoansPage() {
                         <p>Invest in your future with flexible education loans for studies in India and abroad.</p>
                     </div>
 
-                    <BankList offers={bankOffers['education-loans']} categoryTitle="Top Education Loan Offers" loanCategory="education-loans" />
-                </div>
+                    <BankList
+                        offers={bankOffers['education-loans']}
+                        categoryTitle={<>Top <span className="loan-title-shimmer">Education</span> Loan Offers</>}
+                        loanCategory="education-loans"
+                        />                </div>
             </main>
             <Footer />
         </>

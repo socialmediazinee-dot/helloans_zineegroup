@@ -20,8 +20,11 @@ export default function HomeLoansPage() {
                         <p>Turn your dream home into reality or leverage your property for funds with our home loan solutions.</p>
                     </div>
 
-                    <BankList offers={bankOffers['home-loans']} categoryTitle="Home Loan & LAP Offers" loanCategory="home-loans" />
-                </div>
+                    <BankList
+                    offers={bankOffers['home-loans']}
+                    categoryTitle={<><span className="loan-title-shimmer">Home</span> Loan & LAP Offers</>}
+                    loanCategory="home-loans"
+                    />                </div>
             </main>
             <Footer />
         </>
