@@ -3406,7 +3406,7 @@ body:has(.bank-app-page-wrapper) {
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(147, 197, 253, 0.2)) !important;
     border: 1px solid rgba(59, 130, 246, 0.35) !important;
     box-shadow: 0 4px 24px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
-    color: #1e40af !important;
+    color: #0f172a !important;
 }
 
 /* Ensure no background on headers unless specified */

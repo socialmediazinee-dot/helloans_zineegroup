@@ -10,7 +10,7 @@ const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis',
 
 const bankInfo: Record<string, { name: string; logo?: string; color: string; primaryColor: string }> = {
   icici: { name: 'ICICI Bank', logo: '/assets/images/partners/icici.svg', color: '#E85D04', primaryColor: '#E85D04' },
-  indusind: { name: 'IndusInd Bank', logo: '/assets/images/partners/indusind.jpeg', color: '#C4122E', primaryColor: '#C4122E' },
+  indusind: { name: 'IndusInd Bank', logo: '/assets/images/partners/indus.png', color: '#C4122E', primaryColor: '#C4122E' },
   yes: { name: 'YES Bank', logo: '/assets/images/partners/yes.svg', color: '#132744', primaryColor: '#C4122E' },
   idfc: { name: 'IDFC FIRST Bank', logo: '/assets/images/partners/idfc.webp', color: '#E31837', primaryColor: '#E31837' },
   kotak: { name: 'Kotak Mahindra Bank', logo: '/assets/images/Kotak-1.png', color: '#00AEEF', primaryColor: '#00AEEF' },
