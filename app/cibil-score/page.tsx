@@ -480,7 +480,9 @@ export default function CibilScorePage() {
         <section className={styles.section}>
           <div className={styles.accordionContainer}>
             <div className={styles.sectionHeader}>
-              <div className={`${styles.expertAdvice} ${styles.textShimmer}`}>Benefits of a High CIBIL Score</div>
+              <div className={styles.expertAdvice}>
+                <span className={styles.textShimmer}>Benefits</span> of a High <span className={styles.textShimmer}>CIBIL</span> Score
+              </div>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
