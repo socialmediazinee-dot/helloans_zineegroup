@@ -15,7 +15,8 @@ interface LoanCompareEntry {
   maxTenureYrs: number
   description: string
   eligibility: string
-  features: string[]
+  features: string
+  additional: string[]
 }
 
 const CACHE_DURATION = 60 * 1000
@@ -66,7 +67,8 @@ function slugify(name: string): string {
  *   Bank Name, ID (slug), Logo Path, Type (bank|nbfc),
  *   Interest Rate, Processing Fee,
  *   Min Amount, Max Amount, Min Tenure Yrs, Max Tenure Yrs,
- *   Description, Eligibility, Features (pipe-separated)
+ *   Description, Eligibility, Features (pipe-separated),
+ *   Additional
  */
 function parseCompareCSV(csv: string): LoanCompareEntry[] {
   const lines = csv
@@ -94,10 +96,12 @@ function parseCompareCSV(csv: string): LoanCompareEntry[] {
         maxTenureYrs: parseInt(cols[9]) || 0,
         description: cols[10] || '',
         eligibility: cols[11] || '',
-        features: (cols[12] || '')
+        features: (cols[12] || ''),
+        additional: cols[13] || '',
           .split('|')
           .map((f) => f.trim())
           .filter(Boolean),
+        
       }
     })
     .filter((e) => e.bank)
