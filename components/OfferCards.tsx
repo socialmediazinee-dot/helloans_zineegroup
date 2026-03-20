@@ -18,7 +18,7 @@ export default function OfferCards() {
       {
         id: '1',
         icon: '💰',
-        mainLine1: <><RupeeIcon size={22} />1100</>,
+        mainLine1: <><RupeeIcon size={22} />2100</>,
         mainLine2: 'CASHBACK',
         accent: 'gold',
         reveal: {
