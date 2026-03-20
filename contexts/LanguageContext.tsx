@@ -80,11 +80,11 @@ const translations = {
     // Features
     'features.offer1Title': '₹2100 Cashback',
     'features.offer1Desc': 'Get Cashback of ₹2100 Above 20 lakh loan Amount',
-    'features.offer1BackLine1': '..',
+    'features.offer1BackLine1': '20th to 22nd MARCH',
     'features.offer1BackLine2': 'T&C*',
     'features.offer2Title': '₹3100 Cashback',
     'features.offer2Desc': '₹3100 – On loans above ₹25 Lakh (Bajaj PL/OD)',
-    'features.offer2BackLine1': '..',
+    'features.offer2BackLine1': '20th to 22nd MARCH',
     'features.offer2BackLine2': 'T&C*',
     'features.promiseTitle': 'Helloans Promise',
     'features.promiseDesc': '(To Provide the Cashback on time) Quick disbursal & Low Roi',
