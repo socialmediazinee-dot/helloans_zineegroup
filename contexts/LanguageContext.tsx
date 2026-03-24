@@ -80,11 +80,11 @@ const translations = {
     // Features
     'features.offer1Title': '₹2100 Cashback',
     'features.offer1Desc': 'Get Cashback of ₹2100 Above 20 lakh loan Amount',
-    'features.offer1BackLine1': '20th to 22nd MARCH',
+    'features.offer1BackLine1': '29th to 31st MARCH',
     'features.offer1BackLine2': 'Instant Incentive T&C*',
     'features.offer2Title': '₹3100 Cashback',
     'features.offer2Desc': '₹3100 – On loans above ₹25 Lakh (Bajaj PL/OD)',
-    'features.offer2BackLine1': '20th to 22nd MARCH',
+    'features.offer2BackLine1': '29th to 31st MARCH',
     'features.offer2BackLine2': 'Instant Incentive T&C*',
     'features.promiseTitle': 'Helloans Promise',
     'features.promiseDesc': '(To Provide Cashback on time) Quick disbursal & LOW Roi',
@@ -414,7 +414,7 @@ const translations = {
     // Features
     'features.offer1Title': '₹2100 कैशबैक',
     'features.offer1Desc': '20 लाख से अधिक के ऋण पर प्रोसेसिंग फीस पर ₹2100 कैशबैक प्राप्त करें नियम और शर्तें लागू*',
-    'features.offer1BackLine1': '10 लाख से अधिक ऋण राशि पर ₹2100 कैशबैक प्राप्त करें',
+    'features.offer1BackLine1': '20 लाख से अधिक ऋण राशि पर ₹2100 कैशबैक प्राप्त करें',
     'features.offer1BackLine2': 'प्रोसेसिंग फीस पर T&C*',
     'features.offer2Title': '₹3100 कैशबैक',
     'features.offer2Desc': '25 लाख से अधिक के ऋण पर प्रोसेसिंग फीस पर ₹3100 कैशबैक प्राप्त करें नियम और शर्तें लागू*',
