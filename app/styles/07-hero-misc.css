@@ -325,14 +325,11 @@
 /* Modern Carousel Design (Fresh - Moved to End) */
 .modern-carousel {
     display: flex;
-    flex-direction: row;
     width: 100%;
     max-width: 900px;
-    height: 440px;
     background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
-    border-radius: 32px;
-    padding: 20px 30px;
-    gap: 30px;
+    border-radius: 28px;
+    padding: 38px 36px;
     border: 1px solid rgba(255, 255, 255, 0.8);
     box-shadow: 0 20px 40px -5px rgba(59, 130, 246, 0.15);
     position: relative;
@@ -408,32 +405,9 @@
 /* Mobile: stack hero carousel left and right vertically, justify content */
 @media (max-width: 768px) {
     .modern-carousel {
-        flex-direction: column;
-        height: auto;
-        min-height: 440px;
-        justify-content: flex-start;
-        align-items: stretch;
         padding: 24px 20px;
-        gap: 24px;
-    }
-
-    .modern-carousel-left {
-        flex: 0 0 auto;
-        width: 100%;
-        align-items: center;
-        text-align: center;
-    }
-
-    .modern-carousel-right {
-        flex: 1 1 auto;
-        width: 100%;
-        min-height: 280px;
-    }
-
-    .modern-grid {
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        min-height: 260px;
+        max-width: 100%;
+        border-radius: 24px;
     }
 }
 
@@ -730,6 +704,229 @@
     display: inline-block;
     margin-bottom: 12px;
     color: rgba(231, 234, 238, 1);
+}
+
+/* ====== Instant Loan Card (redesigned hero slide) ====== */
+
+.instant-loan-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    width: 100%;
+    gap: 40px;
+}
+
+.instant-loan-left {
+    flex: 1 1 48%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+}
+
+.instant-loan-right {
+    flex: 1 1 48%;
+    display: flex;
+    align-items: stretch;
+}
+
+.instant-loan-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.instant-loan-header .modern-title {
+    font-size: 34px;
+    line-height: 1.05;
+}
+
+.instant-loan-tagline {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
+    margin: 4px 0 0;
+}
+
+/* Right column: highlights fill full height, evenly spaced */
+.instant-loan-highlights {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 5px;
+}
+
+.instant-loan-highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 9px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.5);
+    font-size: 13.5px;
+    color: #334155;
+}
+
+.instant-loan-highlight-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #1d4ed8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+    border: 1px solid #dbeafe;
+}
+
+.instant-loan-highlight-text {
+    font-size: 14.5px;
+    color: #475569;
+    white-space: nowrap;
+}
+
+.instant-loan-highlight-text strong {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+/* Middle group: social proof + button side by side */
+.instant-loan-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.instant-loan-social-proof {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #f0fdf4;
+    color: #166534;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #bbf7d0;
+    white-space: nowrap;
+}
+
+.instant-loan-social-emoji {
+    font-size: 14px;
+}
+
+.instant-loan-apply-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 32px;
+    background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 10px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.instant-loan-apply-btn:hover {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+}
+
+.instant-loan-nav-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.instant-loan-nav-row .carousel-nav-container {
+    margin-top: 0;
+    gap: 6px;
+}
+
+.instant-loan-nav-row .carousel-nav-btn {
+    width: 32px;
+    height: 32px;
+}
+
+.instant-loan-dots {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.instant-loan-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    background: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.instant-loan-dot.active {
+    background: #1e40af;
+    width: 20px;
+    border-radius: 4px;
+}
+
+/* Mobile: stack to portrait */
+@media (max-width: 640px) {
+    .instant-loan-card {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .instant-loan-left {
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .instant-loan-header {
+        align-items: center;
+    }
+
+    .instant-loan-header .modern-title {
+        font-size: 28px;
+    }
+
+    .instant-loan-actions {
+        justify-content: center;
+    }
+
+    .instant-loan-nav-row {
+        justify-content: center;
+    }
+
+    .instant-loan-highlights {
+        gap: 8px;
+    }
+
+    .instant-loan-highlight-item {
+        padding: 10px 14px;
+    }
+
+    .instant-loan-highlight-text {
+        white-space: normal;
+    }
 }
 
 /* Modern Modal */

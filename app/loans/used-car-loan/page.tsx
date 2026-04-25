@@ -21,9 +21,10 @@ export default function UsedCarLoanPage() {
           </div>
 
           <BankList
-  offers={bankOffers['used-car-loan']}
-  categoryTitle={<>Banks &amp; NBFCs offering <span className="loan-title-shimmer">Used Car Loan</span></>}
-/>
+            offers={bankOffers['used-car-loan']}
+            categoryTitle={<>Banks &amp; NBFCs offering <span className="loan-title-shimmer">Used Car Loan</span></>}
+            loanCategory="used-car-loan"
+          />
         </div>
       </main>
       <Footer />

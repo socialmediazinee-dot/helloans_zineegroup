@@ -13,11 +13,11 @@ const LOAN_TYPES = [
   'Gold Loan',
   'Education Loan',
   'Professional Loan',
-  'Instant Loan',
+  'Used Car Loan',
   'Credit Card',
   'Balance Transfer',
   'Overdraft',
-  'Secured Loan',
+  'Loan against Property',
   'Insurance',
   'Used Car Loan',
 ] as const

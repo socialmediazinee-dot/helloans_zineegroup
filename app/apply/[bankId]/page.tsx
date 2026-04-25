@@ -4,9 +4,10 @@ import { useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import OtpVerification from '@/components/OtpVerification'
+import QuickApplyForm from '@/components/QuickApplyForm'
 
 
-const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis', 'bajaj', 'adityabirla', 'tata', 'cholamandalam', 'poonawalla', 'piramal', 'pnb', 'sbi', 'canara', 'bob'] as const
+const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis', 'bajaj', 'adityabirla', 'tata', 'cholamandalam', 'poonawalla', 'piramal', 'pnb', 'sbi', 'canara', 'bob', 'popcard', 'federal', 'kiwi', 'tataneu', 'sbicard', 'scapia', 'magnifi', 'licaxis', 'magnet', 'unity', 'hero', 'creditvidya', 'incred', 'dmi', 'fimoney'] as const
 
 const bankInfo: Record<string, { name: string; logo?: string; color: string; primaryColor: string }> = {
   icici: { name: 'ICICI Bank', logo: '/assets/images/partners/icici.svg', color: '#E85D04', primaryColor: '#E85D04' },
@@ -26,7 +27,24 @@ const bankInfo: Record<string, { name: string; logo?: string; color: string; pri
   sbi: { name: 'State Bank of India', logo: '/assets/images/SBI.png', color: '#22409a', primaryColor: '#22409a' },
   canara: { name: 'Canara Bank', logo: '/assets/images/CB.png', color: '#fbb034', primaryColor: '#0066b3' },
   bob: { name: 'Bank of Baroda', logo: '/assets/images/BOB.png', color: '#f26522', primaryColor: '#ed1c24' },
+  popcard: { name: 'Popcard', logo: '/assets/images/partners/popcard.jpg', color: '#1a237e', primaryColor: '#1a237e' },
+  federal: { name: 'Federal Bank', logo: '/assets/images/partners/federal.jpeg', color: '#003087', primaryColor: '#003087' },
+  kiwi: { name: 'Kiwi', logo: '/assets/images/partners/kiwi.jpg', color: '#00c853', primaryColor: '#00c853' },
+  tataneu: { name: 'Tata Neu', logo: '/assets/images/partners/tataneu.webp', color: '#5f259f', primaryColor: '#5f259f' },
+  sbicard: { name: 'SBI Card', logo: '/assets/images/SBI.png', color: '#22409a', primaryColor: '#22409a' },
+  scapia: { name: 'Scapia', logo: '/assets/images/partners/scapia.jpg', color: '#000000', primaryColor: '#333333' },
+  magnifi: { name: 'Magnifi', logo: '/assets/images/partners/magnifi.png', color: '#6200ea', primaryColor: '#6200ea' },
+  licaxis: { name: 'LIC Axis', logo: '/assets/images/licaxis-bank.jpg', color: '#7b0046', primaryColor: '#7b0046' },
+  magnet: { name: 'Magnet', color: '#ff6d00', primaryColor: '#ff6d00' },
+  unity: { name: 'Unity Bank', logo: '/assets/images/partners/unity.png', color: '#1a237e', primaryColor: '#1a237e' },
+  hero: { name: 'Hero FinCorp', logo: '/assets/images/partners/hero.png', color: '#e53935', primaryColor: '#e53935' },
+  creditvidya: { name: 'CreditVidya', logo: '/assets/images/partners/prefer.jpeg', color: '#1565c0', primaryColor: '#1565c0' },
+  incred: { name: 'InCred', logo: '/assets/images/partners/incred.png', color: '#ff6f00', primaryColor: '#ff6f00' },
+  dmi: { name: 'DMI Finance', logo: '/assets/images/partners/dmi.png', color: '#0d47a1', primaryColor: '#0d47a1' },
+  fimoney: { name: 'Fi Money', logo: '/assets/images/partners/fi.svg', color: '#6200ea', primaryColor: '#6200ea' },
 }
+
+const QUICK_FORM_LOAN_TYPES = new Set(['instant-loan', 'used-car-loan'])
 
 const LOAN_TYPE_LABELS: Record<string, string> = {
   'personal-loans': 'Personal Loan',
@@ -40,6 +58,7 @@ const LOAN_TYPE_LABELS: Record<string, string> = {
   'overdraft-salaried': 'Salaried Overdraft',
   'overdraft-self-employed': 'Self-Employed Overdraft',
   'secure-loans': 'Secure Loan',
+  'instant-loan': 'Used Car Loan',
   'used-car-loan': 'Used Car Loan',
   'balance-transfer': 'Balance Transfer',
   'professional-loans': 'Professional Loan',
@@ -64,6 +83,21 @@ function getBankThemeClass(bankId: string): string {
     sbi: 'sbi-bank-theme',
     canara: 'canara-bank-theme',
     bob: 'bob-bank-theme',
+    popcard: 'hdfc-bank-theme',
+    federal: 'hdfc-bank-theme',
+    kiwi: 'hdfc-bank-theme',
+    tataneu: 'hdfc-bank-theme',
+    sbicard: 'sbi-bank-theme',
+    scapia: 'hdfc-bank-theme',
+    magnifi: 'hdfc-bank-theme',
+    licaxis: 'hdfc-bank-theme',
+    magnet: 'hdfc-bank-theme',
+    unity: 'hdfc-bank-theme',
+    hero: 'hdfc-bank-theme',
+    creditvidya: 'hdfc-bank-theme',
+    incred: 'hdfc-bank-theme',
+    dmi: 'hdfc-bank-theme',
+    fimoney: 'hdfc-bank-theme',
   }
   return map[bankId] || 'hdfc-bank-theme'
 }
@@ -337,6 +371,17 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
   }, [bankId, bank.primaryColor])
 
   const themeClass = getBankThemeClass(bankId)
+
+  if (QUICK_FORM_LOAN_TYPES.has(loanTypeSlug)) {
+    return (
+      <QuickApplyForm
+        bankId={bankId}
+        bank={bank}
+        loanTypeSlug={loanTypeSlug}
+        loanLabel={loanLabel}
+      />
+    )
+  }
 
   return (
     <div
