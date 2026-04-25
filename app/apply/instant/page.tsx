@@ -1,7 +1,7 @@
 'use client'
 
 import { useSearchParams } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import Image from 'next/image'
 import OtpVerification from '@/components/OtpVerification'
 
@@ -14,6 +14,14 @@ const BRAND_COLOR = '#1d4ed8'
 const BRAND_GRADIENT = `linear-gradient(135deg, #1d4ed8, #2563eb)`
 
 export default function InstantApplyPage() {
+  return (
+    <Suspense fallback={<div style={{ minHeight: '100vh' }} />}>
+      <InstantApplyContent />
+    </Suspense>
+  )
+}
+
+function InstantApplyContent() {
   const searchParams = useSearchParams()
 
   const loanTypeSlug = searchParams.get('loanType') || 'personal-loans'
